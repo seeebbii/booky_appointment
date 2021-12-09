@@ -2,6 +2,7 @@ import 'package:booky/screens/customer/home_customer.dart';
 import 'package:booky/screens/service_provider/sign_up_sp.dart';
 import 'package:booky/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'business_hours_one.dart';
 
@@ -20,7 +21,7 @@ class _LocationSp extends State<LocationSp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       backgroundColor: kWhiteColor,
       body: ListView(
         children: [
@@ -414,9 +415,7 @@ class _LocationSp extends State<LocationSp> {
                                 ),
                               ),
                             ),
-                            onPressed: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => SignUpSp())),
+                            onPressed: () => Get.back(),
                           ),
                         ),
                         Container(
