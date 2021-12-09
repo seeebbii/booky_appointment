@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "355920657839",
+    "project_id": "booky-cc035",
+    "storage_bucket": "booky-cc035.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355920657839:android:c8f22c444023f6576d035a",
+        "android_client_info": {
+          "package_name": "com.geeklone.booky"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "355920657839-dh0oqopgg971p58crdqgetseagltb89b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.geeklone.booky",
+            "certificate_hash": "e43bb9337d27cc433eb306ea4dc8bcc86df38549"
+          }
+        },
+        {
+          "client_id": "355920657839-tnge3gs0g0mkermetbj72j9dftccoceq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqDZGo9SWEsgM8IYbkHm1sjTIDmS1Txvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "355920657839-tnge3gs0g0mkermetbj72j9dftccoceq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
