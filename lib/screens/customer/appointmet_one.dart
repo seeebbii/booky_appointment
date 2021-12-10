@@ -120,7 +120,7 @@ class AppointmentOne extends StatelessWidget {
                         color: Color(0xffFFC300),
                       ),
                       Text(
-                        '4.8',
+                        requestModelAdmin.user!.rating.toString(),
                         style: TextStyle(fontSize: 16),
                       ),
                     ],
