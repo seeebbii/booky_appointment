@@ -1,3 +1,5 @@
+
+
 import 'package:booky/model/authentication/auth_model.dart';
 import 'package:booky/utils/colors.dart';
 import 'package:booky/utils/custom_snackbar.dart';
@@ -21,9 +23,10 @@ class AuthDatabaseService {
         'role': user.role,
         'businessName': user.businessName,
         'rating': user.rating,
-        'phoneNumber': user.phoneNumber,
-        'isActiveted': user.isActiveted,
-        'imageUrl': user.imageUrl,
+         'phoneNumber': user.phoneNumber,
+         'isActiveted':   user.isActiveted,
+         'imageUrl': user.imageUrl,
+
       });
       return true;
     } catch (e) {
@@ -32,6 +35,10 @@ class AuthDatabaseService {
     }
   }
 
+           
+         
+           
+         
   // Future<bool> createAppoitmentInDatabase(Schedule schedule) async {
   //   try {
   //     Timestamp currentTime = Timestamp.now();
@@ -77,7 +84,8 @@ class AuthDatabaseService {
 
   Future<AuthModel> getUser(String uid) async {
     try {
-      DocumentSnapshot doc = await _firestore.collection("auth").doc(uid).get();
+      DocumentSnapshot doc =
+      await _firestore.collection("auth").doc(uid).get();
       if (!doc.exists) {
         CustomSnackBar.showSnackBar(
             title: "Not Authorized",
