@@ -5,6 +5,7 @@ import 'package:booky/utils/colors.dart';
 import 'package:booky/utils/custom_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,6 +41,16 @@ class AuthController extends GetxController {
     currentUser.value = await AuthDatabaseService().getUser(uid);
   }
 
+  Future<String> firebaseToken() async {
+    FirebaseMessaging fcm = FirebaseMessaging.instance;
+    String? token = await fcm.getToken();
+    if (token != '') {
+      return token ?? "Failed";
+    } else {
+      return "Failed";
+    }
+  }
+
   //  CREATE USER WITH EMAIL AND PASSWORD
   Future<AuthResultStatus> createUser(
       String email,
@@ -50,6 +61,9 @@ class AuthController extends GetxController {
       String bName,
       int rating) async {
     try {
+
+      String fcmToken = await firebaseToken();
+
       UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password);
 
@@ -62,7 +76,7 @@ class AuthController extends GetxController {
             status: "online",
             userCreatedDate: Timestamp.now(),
             role: role,
-            
+            fcmToken: fcmToken,
             businessName: bName,
             rating: rating,
             phoneNumber: phone,
@@ -87,6 +101,7 @@ class AuthController extends GetxController {
   // Login with email and password
   Future<AuthResultStatus> loginUser(String email, String password) async {
     try {
+      String fcmToken = await firebaseToken();
       UserCredential _authResult = await _auth.signInWithEmailAndPassword(
           email: email.trim(), password: password);
 
@@ -98,7 +113,11 @@ class AuthController extends GetxController {
           email: email.trim(),
         );
 
+        // UPDATE FCM TOKEN
+        AuthDatabaseService().updateFcmToken(fcmToken, _user.uid!);
+
         // TODO :: LOAD USER INFO FROM FIRESTORE COLLECTION
+
         currentUser.value =
             await AuthDatabaseService().getUser(_authResult.user!.uid);
 

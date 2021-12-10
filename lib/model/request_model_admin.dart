@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class RequestModelAdmin{
   String? docid;
  ProviderBusinessModel ?shop;
- String ? uid;
+ AuthModel ? uid;
 Timestamp ? createdAt;
 
   
@@ -23,7 +23,7 @@ Timestamp ? createdAt;
     try {
     docid=doc['docId'];
   // shop=doc['shop'];
-   uid=doc['uid'];
+   uid=AuthModel.fromDocumentSnapshot(doc['uid']);
    createdAt=doc['createdAt'];
 
       
