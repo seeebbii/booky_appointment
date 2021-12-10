@@ -52,6 +52,7 @@ dependencies:
   progress_indicators: ^1.0.0
   fdottedline: ^1.0.1
   dotted_border: ^2.0.0
+  flutter_local_notifications: ^9.1.5
   sleek_circular_slider: ^2.0.1
   circular_menu: ^1.2.3
   flutter_native_splash: ^1.2.1

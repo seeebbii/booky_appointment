@@ -11,7 +11,8 @@ import 'login_page.dart';
 
 class AuthDecider extends StatelessWidget {
   AuthDecider({Key? key}) : super(key: key);
-  final authController = Get.find<AuthController>();
+
+  final authController =   Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {

@@ -26,7 +26,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController signupPhoneController = TextEditingController();
 
   late String _email, _password, _username, _phone;
-  final authController = Get.find<AuthController>();
+  final authController = Get.put(AuthController());
   final _formKey = GlobalKey<FormState>();
 
   void trySignup() async {

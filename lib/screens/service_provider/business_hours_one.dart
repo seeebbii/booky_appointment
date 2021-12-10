@@ -1,6 +1,7 @@
 import 'package:booky/controller/authentication/auth_controller.dart';
 import 'package:booky/controller/service_provider/service_provider_controller.dart';
 import 'package:booky/model/provider_business_model.dart';
+
 import 'package:booky/screens/alerts.dart';
 import 'package:booky/screens/customer/home_customer.dart';
 import 'package:booky/screens/service_provider/conformation_sp.dart';
@@ -34,6 +35,28 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
     super.initState();
   }
 
+  // Future<bool> createAppoitmentInDatabase(Schedule schedule) async {
+  //   try {
+  //     Timestamp currentTime = Timestamp.now();
+  //     DocumentReference document = _firestore.collection('available-appointments').doc();
+  //     await document.set({
+  //       "nurseId": authController.currentUser.value.uid,
+  //       "schedule": schedule.toJson(),
+  //       "createdAt": Timestamp.now(),
+  //       "docId" : document.id
+  //     });
+  //     createAppointmentInNurseCollection(schedule, currentTime, document);
+  //     CustomSnackBar.showSnackBar(
+  //         title: "Appoitment successfully created",
+  //         message: '',
+  //         backgroundColor: snackBarSuccess);
+  //     return true;
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //     return false;
+  //   }
+  // }
+
   bool isSwitched = false;
   bool isSwitchedTwo = false;
   bool isSwitchedThree = false;
@@ -50,7 +73,9 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
   String msg7 = "Select";
 
   velidateAndSubmit() async {
+    //spcontroller
     spController.businessModel = new ProviderBusinessModel(
+      shopName: spController.signupBusinessNameController.text,
         businessCategory: spController.categoryChoice.values
             .elementAt(spController.choise.value),
         businesscreateddate: Timestamp.fromDate(DateTime.now()),

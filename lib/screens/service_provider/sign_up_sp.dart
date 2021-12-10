@@ -98,6 +98,7 @@ class _SignUpSp extends State<SignUpSp> {
                                             left: 25.0,
                                             right: 25.0),
                                         child: TextFormField(
+                                        
                                           validator: (str) {
                                             if (str == '') {
                                               return "Required*";
@@ -189,10 +190,9 @@ class _SignUpSp extends State<SignUpSp> {
                                             right: 25.0),
                                         child: TextFormField(
                                           validator: (str) {
-                                            if (str == '') {
-                                              return "Required*";
-                                            }
-                                            return null;
+                                            return _validateEmail(str!);
+                                          
+                                        
                                           },
                                           // onChanged: (str) {
                                           //   _email = str;
@@ -233,8 +233,8 @@ class _SignUpSp extends State<SignUpSp> {
                                             right: 25.0),
                                         child: TextFormField(
                                           validator: (str) {
-                                            if (str == '') {
-                                              return "Required*";
+                                            if (str!.length<6) {
+                                              return "Password should be atleast 6 characters";
                                             }
                                             return null;
                                           },
@@ -400,4 +400,18 @@ class _SignUpSp extends State<SignUpSp> {
       _obscureTextConfirmPassword = !_obscureTextConfirmPassword;
     });
   }
+}
+
+String? _validateEmail(String value) {
+
+    String pattern =
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = RegExp(pattern);
+    if (value == null || value.isEmpty || !regex.hasMatch(value))
+      return 'Enter a valid email address';
+    else
+      return null;
+  
 }

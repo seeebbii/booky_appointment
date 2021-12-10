@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ProviderBusinessModel {
+  String ? shopName;
   String? businessCategory;
   String? shoplocation;
   String? status;
@@ -10,6 +11,7 @@ class ProviderBusinessModel {
   List<Availableday>? availabledays;
 
   ProviderBusinessModel({
+    this.shopName,
     this.businessCategory,
     this.shoplocation,
     this.status,
@@ -20,25 +22,29 @@ class ProviderBusinessModel {
 
   ProviderBusinessModel.fromDocumentSnapshot(Map<String, dynamic> doc) {
     try {
-      businessCategory = doc['businesscateogry'];
+      shopName=doc['shopName'];
+      businessCategory = doc['businessCategory'];
       shoplocation = doc['shoplocation'];
       status = doc['status'];
       businesscreateddate = doc['businesscreateddate'];
-      dummytemp = doc['dummytemp'];
-      Iterable daysArray = doc['days'];
+     // dummytemp = doc['dummytemp'];
+      Iterable daysArray = doc['availabledays'];
       availabledays =
-          daysArray.map((e) => Availableday.fromDocumentSnapshot(e)).toList();
+          daysArray.map((e) => Availableday.fromDocumentSnapshot(e )).toList();
     } catch (e) {
       debugPrint(e.toString());
     }
   }
   Map<String, dynamic> toJson() => {
         "businessCategory": businessCategory,
+        "shopName":shopName,
         "shoplocation": shoplocation,
         "status": status,
         "businesscreateddate": businesscreateddate,
         "availabledays": availabledays?.map((e) => e.toJson()).toList()
       };
+
+  static fromMap(e) {}
 }
 
 class Availableday {
@@ -50,11 +56,11 @@ class Availableday {
     this.fromTime,
     this.toTIme,
   });
-  Availableday.fromDocumentSnapshot(DocumentSnapshot doc) {
+  Availableday.fromDocumentSnapshot(Map<String,dynamic> doc) {
     //= doc.id;
-    dayName = doc['dayname'];
-    fromTime = doc['fromtime'];
-    toTIme = doc['totime'];
+    dayName = doc['dayName'];
+    fromTime = doc['fromTime'];
+    toTIme = doc['toTIme'];
 
     // status = doc['status'];
   }
