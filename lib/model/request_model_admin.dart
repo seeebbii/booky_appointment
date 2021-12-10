@@ -10,7 +10,12 @@ class RequestModelAdmin {
   Timestamp? createdAt;
   AuthModel? user;
 
-  RequestModelAdmin({this.docid, this.shop, this.createdAt, this.user});
+  RequestModelAdmin({
+    this.docid,
+    this.shop,
+    this.user,
+    this.createdAt,
+  });
 
   RequestModelAdmin.fromDocumentSnapshot(Map<String, dynamic> doc) {
     try {
