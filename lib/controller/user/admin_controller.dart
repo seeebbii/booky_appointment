@@ -9,16 +9,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AdminController extends GetxController {
+class UserController extends GetxController {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final authController = Get.find<AuthController>();
-  late ProviderBusinessModel businessModel;
-
- var requests=<RequestModelAdmin> [].obs;
-    getAppointments() async {
-requests.value =await ShopServices.getAllShops();
-
-update();
+  // late ProviderBusinessModel businessModel;
+  RxBool isLoading = false.obs;
+  var requests = <RequestModelAdmin>[].obs;
+  getShops() async {
+    requests.value = await ShopServices.getAllShops();
+    isLoading.value = true;
+    update();
   }
   // Future<AuthModel> getUser(String uid) async {
   //   try {

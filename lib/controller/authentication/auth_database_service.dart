@@ -100,6 +100,7 @@ class AuthDatabaseService {
             message: '',
             backgroundColor: snackBarError);
       }
+      
       return AuthModel.fromDocumentSnapshot(doc);
     } catch (e) {
       debugPrint(e.toString());

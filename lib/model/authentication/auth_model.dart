@@ -58,6 +58,20 @@ class AuthModel {
     phoneNumber = doc['phoneNumber'];
     fcmToken = doc['fcmToken'];
   }
+  AuthModel.fromMapSnapshot(Map<String, dynamic> doc) {
+    uid = doc['uid'];
+    username = doc['username'];
+    email = doc['email'];
+    userCreatedDate = doc['userCreatedDate'];
+    role = doc['role'];
+    businessName = doc['businessName'];
+    rating = doc['rating'];
+    status = doc['status'];
+    imageUrl = doc['imageUrl'];
+    isActiveted = doc['isActiveted'];
+    phoneNumber = doc['phoneNumber'];
+    fcmToken = doc['fcmToken'];
+  }
 
   Map<String, dynamic> toJson() => {
         'uid': uid,
@@ -65,12 +79,12 @@ class AuthModel {
         'email': email,
         'userCreatedDate': userCreatedDate,
         'role': role,
-    'businessName': businessName,
-    'rating' : rating,
-    'status' : status,
-    'imageUrl' : imageUrl,
-    'isActiveted' : isActiveted,
-    'phoneNumber' : phoneNumber,
-    'fcmToken' : fcmToken
+        'businessName': businessName,
+        'rating': rating,
+        'status': status,
+        'imageUrl': imageUrl,
+        'isActiveted': isActiveted,
+        'phoneNumber': phoneNumber,
+        'fcmToken': fcmToken
       };
 }

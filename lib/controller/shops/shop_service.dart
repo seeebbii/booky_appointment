@@ -11,12 +11,13 @@ class ShopServices {
   RequestModelAdmin? request;
 
   static Future acceptRequest(
-      String docId, ProviderBusinessModel shop,) async {
+    String docId,
+    ProviderBusinessModel shop,
+  ) async {
     shop.status = "Accepted";
-    await _firestore
-        .collection('serviceProvider-shop')
-        .doc(docId)
-        .update({'shop': shop.toJson(),});
+    await _firestore.collection('serviceProvider-shop').doc(docId).update({
+      'shop': shop.toJson(),
+    });
     await _firestore.collection('serviceProvider-shop').doc(docId).update({});
   }
 
@@ -43,7 +44,6 @@ class ShopServices {
     allData.forEach((element) {
       collection.add(RequestModelAdmin.fromDocumentSnapshot(
           element as Map<String, dynamic>));
-      print(element['uid']);
     });
     return collection;
     // try {

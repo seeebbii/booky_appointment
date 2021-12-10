@@ -1,20 +1,33 @@
+import 'package:booky/model/request_model_admin.dart';
 import 'package:booky/theme.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import 'appointment_three.dart';
 
 class AppointmentCustomerTwo extends StatefulWidget {
   static String id = "AppointmentCustomerTwo";
-  const AppointmentCustomerTwo({Key? key}) : super(key: key);
+   final RequestModelAdmin ? requestModelAdmin;
+  const AppointmentCustomerTwo({Key? key,  this.requestModelAdmin}) : super(key: key);
 
   @override
   _AppointmentCustomerTwoState createState() => _AppointmentCustomerTwoState();
+
 }
 
 class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
+  List months=[
+    'Jan','Feb','March','April','May','June','July','August','Sepetember','October','Nov','December'
+  ];
+ var dateparse;
+ late String weekday;
+void initState() {
+  getdatetime();
+  
+}
   int choise = 0;
   @override
   Widget build(BuildContext context) {
+    getdatetime();
     return Scaffold(
       body: Stack(children: [
         SizedBox(
@@ -87,7 +100,7 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
                           color: kPrimaryTextColor),
                     ),
                     Text(
-                      'October 2021',
+                     "${months[dateparse.month-1]},${dateparse.year}",
                       style: TextStyle(
                         color: Color(0xff363636),
                         fontSize: 20,
@@ -99,8 +112,8 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: [
-                          demoDate1("Mon", "11", true),
-                          demoDate2("Tue", "12", false),
+                         demoDate1("${weekday}", "${dateparse.day}", true),
+                          demoDate2(widget.requestModelAdmin!.shop!.availabledays![0].toString(), "12", false),
                           demoDate3("Wed", "13", false),
                           demoDate4("Thur", "14", false),
                           demoDate5("Fri", "15", false),
@@ -645,5 +658,15 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
               ],
             ),
           );
+  }
+
+  void getdatetime() {
+    DateTime now=DateTime.now();
+  var date = now.toString();
+ 
+     dateparse = DateTime.parse(date);
+ weekday= DateFormat('EEEE').format(now);
+ 
+  
   }
 }
