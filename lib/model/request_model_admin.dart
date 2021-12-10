@@ -5,25 +5,39 @@ import 'package:flutter/material.dart';
 
 class RequestModelAdmin {
   String? docid;
-  ProviderBusinessModel? shop;
-  AuthModel? user;
+ ProviderBusinessModel ?shop;
+ String ? uid;
+Timestamp ? createdAt;
+
+  
 
   RequestModelAdmin({
     this.docid,
     this.shop,
-    this.user,
+    this.uid,
+    this.createdAt,
+    
   });
 
   RequestModelAdmin.fromDocumentSnapshot(Map<String, dynamic> doc) {
     try {
-      docid = doc['docid'];
-      shop = doc['shop'];
-      user = doc['detail'];
-    } catch (e) {}
-    Map<String, dynamic> toJson() => {
-          'docid': doc,
-          'shop': shop,
-          'providerdetail': user,
-        };
+    docid=doc['docId'];
+  // shop=doc['shop'];
+   uid=doc['uid'];
+   createdAt=doc['createdAt'];
+
+      
   }
+  catch (e)
+  {
+
+  }
+ 
 }
+//  Map<String, dynamic> toJson() => {
+//     'docid':docid,
+//       'shop': shop,
+      
+//       };
+}
+
