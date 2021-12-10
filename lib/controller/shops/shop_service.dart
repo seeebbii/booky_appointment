@@ -8,8 +8,10 @@ import 'package:get/get.dart';
 
 class ShopServices {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-List<RequestModelAdmin> ? collection;
-  static getAllShops() async {
+  RequestModelAdmin ? request;
+
+ static  getAllShops() async {
+     List<RequestModelAdmin> ? collection;
     CollectionReference _collectionRef =
         FirebaseFirestore.instance.collection('serviceProvider-shop');
 
@@ -18,9 +20,13 @@ List<RequestModelAdmin> ? collection;
 
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-  // collection.add(new RequestModelAdmin(docid:alldata[] ,shop: ,user: ));
+    var collect=[];
+     // RequestModelAdmin.fromDocumentSnapshot(allData);
     print(allData);
-
+allData.forEach((element) {
+  collect.add(RequestModelAdmin.fromDocumentSnapshot(element as Map<String,dynamic>));
+ 
+});
     // try {
     //   CollectionReference <Map<String, dynamic>> doc =  _firestore.collection("serviceProvider-shop");
 

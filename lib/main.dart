@@ -1,4 +1,5 @@
 // import 'package:booky/screens/customer/appointment.dart';
+import 'package:booky/screens/Admin/admin.dart';
 import 'package:booky/screens/Login/auth_decider.dart';
 import 'package:booky/screens/Login/login_page.dart';
 import 'package:booky/screens/service_provider/home_sp.dart';
@@ -37,7 +38,7 @@ void main() async {
       // ],
       // locale: const Locale(
       //     "ar", "AE"), // OR Locale('ar', 'AE') OR Other RTL locales,
-      home: HomeServiceProvider(),
+      home: AdminHome(),
     ),
   );
 }
