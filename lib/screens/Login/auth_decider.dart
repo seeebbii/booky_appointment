@@ -1,6 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks
 
 import 'package:booky/controller/authentication/auth_controller.dart';
+import 'package:booky/controller/authentication/auth_database_service.dart';
 import 'package:booky/screens/Admin/admin.dart';
 import 'package:booky/screens/customer/home_customer.dart';
 import 'package:booky/screens/service_provider/home_sp.dart';
@@ -21,6 +22,7 @@ class AuthDecider extends StatelessWidget {
         builder: (ctx, AsyncSnapshot auth) {
           if (auth.hasData && auth.data != null) {
             authController.getUserById(auth.data);
+            AuthDatabaseService().updateFcmToken(authController.currentUser.value.fcmToken!, authController.currentUser.value.uid!);
             debugPrint("Role Save in DB is : ${authController.role}");
             if (authController.role.value == "admin") {
               return AdminHome();
