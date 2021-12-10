@@ -1,4 +1,4 @@
-import 'package:booky/screens/alerts.dart';
+import 'package:booky/screens/Alerts.dart';
 import 'package:booky/screens/customer/home_customer.dart';
 import 'package:booky/screens/service_provider/conformation_sp.dart';
 import 'package:booky/screens/service_provider/location_sp.dart';
