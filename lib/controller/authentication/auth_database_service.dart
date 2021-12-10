@@ -13,6 +13,12 @@ class AuthDatabaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final authController = Get.find<AuthController>();
 
+  void updateFcmToken(String token, String uid)async{
+    await _firestore.collection("auth").doc(uid).update({
+      "fcmToken": token
+    });
+  }
+
   Future<bool> createUserInDatabase(AuthModel user) async {
     try {
       await _firestore.collection('auth').doc(user.uid).set({
@@ -27,7 +33,7 @@ class AuthDatabaseService {
          'phoneNumber': user.phoneNumber,
          'isActiveted':   user.isActiveted,
          'imageUrl': user.imageUrl,
-
+        'fcmToken' : user.fcmToken
       });
       return true;
     } catch (e) {
