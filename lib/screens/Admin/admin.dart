@@ -1,3 +1,4 @@
+import 'package:booky/controller/shops/shop_service.dart';
 import 'package:booky/screens/customer/notification.dart';
 import 'package:booky/theme.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,11 @@ class AdminHome extends StatefulWidget {
 
 
 class _AdminHome extends State<AdminHome> {
+@override
+  void initState() {
+    ShopServices.getAllShops();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

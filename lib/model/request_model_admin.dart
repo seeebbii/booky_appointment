@@ -3,36 +3,41 @@ import 'package:booky/model/provider_business_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class RequestModelAdmin{
+class RequestModelAdmin {
   String? docid;
  ProviderBusinessModel ?shop;
- AuthModel ?user;
-
+ String ? uid;
+Timestamp ? createdAt;
 
   
 
   RequestModelAdmin({
     this.docid,
     this.shop,
-    this.user,
+    this.uid,
+    this.createdAt,
     
   });
 
   RequestModelAdmin.fromDocumentSnapshot(Map<String, dynamic> doc) {
     try {
-    docid=doc['docid'];
-    shop=doc['shop'];
-    user=doc['detail'];
+    docid=doc['docId'];
+  // shop=doc['shop'];
+   uid=doc['uid'];
+   createdAt=doc['createdAt'];
+
       
   }
   catch (e)
   {
 
   }
-  Map<String, dynamic> toJson() => {
-    'docid':doc,
-      'shop': shop,
-      'providerdetail':user,
-      };
+ 
 }
+//  Map<String, dynamic> toJson() => {
+//     'docid':docid,
+//       'shop': shop,
+      
+//       };
 }
+
