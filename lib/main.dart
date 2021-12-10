@@ -15,10 +15,6 @@ import 'core/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-<<<<<<< HEAD
-
-=======
->>>>>>> main
   await Firebase.initializeApp();
   NotificationInitilization.initilaizedPushNotifications();
   // InitializeControllers.init();
@@ -44,11 +40,7 @@ void main() async {
       // ],
       // locale: const Locale(
       //     "ar", "AE"), // OR Locale('ar', 'AE') OR Other RTL locales,
-<<<<<<< HEAD
       home: AuthDecider(),
-=======
-      home: LoginPage(),
->>>>>>> main
     ),
   );
 }
