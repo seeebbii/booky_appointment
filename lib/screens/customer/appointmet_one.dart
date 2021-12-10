@@ -1,25 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:booky/model/request_model_admin.dart';
 import 'package:booky/screens/about_app.dart';
 import 'package:booky/screens/customer/services_%20appointment.dart';
 import 'package:booky/screens/customer/upcomings.dart';
-
 import 'package:booky/theme.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'Previous.dart';
 import 'about_sp.dart';
 import 'appointment_two.dart';
 
-List serviceList = [
-  {'title': 'Men Hair Cut', 'duration': 45, 'price': 30},
-  {'title': 'Women Hair Cut', 'duration': 60, 'price': 50},
-  {'title': 'Color & Blow Dry', 'duration': 90, 'price': 75},
-  {'title': 'Oil Treatment', 'duration': 30, 'price': 20},
-];
+// List serviceList = [
+//   {'title': 'Men Hair Cut', 'duration': 45, 'price': 30},
+//   {'title': 'Women Hair Cut', 'duration': 60, 'price': 50},
+//   {'title': 'Color & Blow Dry', 'duration': 90, 'price': 75},
+//   {'title': 'Oil Treatment', 'duration': 30, 'price': 20},
+// ];
 
 class AppointmentOne extends StatelessWidget {
   static String id = "AppointmentOne";
-  const AppointmentOne({Key? key}) : super(key: key);
+  final RequestModelAdmin requestModelAdmin;
+  const AppointmentOne({
+    Key? key,
+    required this.requestModelAdmin,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

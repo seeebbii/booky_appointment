@@ -16,12 +16,12 @@ class UserHome extends StatefulWidget {
 }
 
 class _UserHome extends State<UserHome> {
-  UserController userController=Get.put(UserController());
+  UserController userController = Get.put(UserController());
   int choise = 0;
   bool Boolean = true;
   @override
   void initState() {
-  userController.getShops();
+    userController.getShops();
     super.initState();
   }
 
@@ -107,12 +107,14 @@ class _UserHome extends State<UserHome> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      List<RequestModelAdmin> carwashlist=[];
-                                      userController.requests.forEach((element) {
-                                        
-                                        if(element.shop!.businessCategory.toString().toLowerCase()=='car wash')
-                                        carwashlist.add(element);
-
+                                      List<RequestModelAdmin> carwashlist = [];
+                                      userController.requests
+                                          .forEach((element) {
+                                        if (element.shop!.businessCategory
+                                                .toString()
+                                                .toLowerCase() ==
+                                            'car wash')
+                                          carwashlist.add(element);
                                       });
                                       setState(() {
                                         choise = 0;
@@ -120,8 +122,9 @@ class _UserHome extends State<UserHome> {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    CardScreen(categorylist: carwashlist,))
-                                                    );
+                                                    CardScreen(
+                                                      categorylist: carwashlist,
+                                                    )));
                                       });
                                     },
                                     child: Column(
@@ -173,17 +176,20 @@ class _UserHome extends State<UserHome> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                              List<RequestModelAdmin> womensSalons=[];
-                                      userController.requests.forEach((element) {
-                                        
-                                        if(element.shop!.businessCategory.toString().toLowerCase()=="women's salons")
-                                        womensSalons.add(element);
-
+                                      List<RequestModelAdmin> womensSalons = [];
+                                      userController.requests
+                                          .forEach((element) {
+                                        if (element.shop!.businessCategory
+                                                .toString()
+                                                .toLowerCase() ==
+                                            "women's salons")
+                                          womensSalons.add(element);
                                       });
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CardScreen(categorylist: womensSalons,)));
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (context) => CardScreen(
+                                                    categorylist: womensSalons,
+                                                  )));
                                       setState(() {
                                         choise = 1;
                                       });
@@ -237,17 +243,21 @@ class _UserHome extends State<UserHome> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                              List<RequestModelAdmin> barbershoplist=[];
-                                      userController.requests.forEach((element) {
-                                        
-                                        if(element.shop!.businessCategory.toString().toLowerCase()=='barber shop')
-                                        barbershoplist.add(element);
-
+                                      List<RequestModelAdmin> barbershoplist =
+                                          [];
+                                      userController.requests
+                                          .forEach((element) {
+                                        if (element.shop!.businessCategory
+                                                .toString()
+                                                .toLowerCase() ==
+                                            'barber shop')
+                                          barbershoplist.add(element);
                                       });
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CardScreen(categorylist:barbershoplist)));
+                                              builder: (context) => CardScreen(
+                                                  categorylist:
+                                                      barbershoplist)));
                                       setState(() {
                                         choise = 2;
                                       });
@@ -302,17 +312,19 @@ class _UserHome extends State<UserHome> {
 
                                   InkWell(
                                     onTap: () {
-                                              List<RequestModelAdmin> trainerlist=[];
-                                      userController.requests.forEach((element) {
-                                        
-                                        if(element.shop!.businessCategory.toString().toLowerCase()=='trainer')
-                                        trainerlist.add(element);
-
+                                      List<RequestModelAdmin> trainerlist = [];
+                                      userController.requests
+                                          .forEach((element) {
+                                        if (element.shop!.businessCategory
+                                                .toString()
+                                                .toLowerCase() ==
+                                            'trainer') trainerlist.add(element);
                                       });
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CardScreen(categorylist: trainerlist,)));
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (context) => CardScreen(
+                                                    categorylist: trainerlist,
+                                                  )));
                                       setState(() {
                                         choise = 3;
                                       });
@@ -368,17 +380,19 @@ class _UserHome extends State<UserHome> {
 
                                   InkWell(
                                     onTap: () {
-                                              List<RequestModelAdmin> otherlist=[];
-                                      userController.requests.forEach((element) {
-                                        
-                                        if(element.shop!.businessCategory.toString().toLowerCase()=='other')
-                                        otherlist.add(element);
-
+                                      List<RequestModelAdmin> otherlist = [];
+                                      userController.requests
+                                          .forEach((element) {
+                                        if (element.shop!.businessCategory
+                                                .toString()
+                                                .toLowerCase() ==
+                                            'other') otherlist.add(element);
                                       });
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CardScreen(categorylist: otherlist,)));
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (context) => CardScreen(
+                                                    categorylist: otherlist,
+                                                  )));
                                       setState(() {
                                         choise = 4;
                                       });
@@ -526,476 +540,337 @@ class _UserHome extends State<UserHome> {
                         fontFamily: "Raleway")),
               ),
               SizedBox(
-                height: 25,
+                height: 220,
+                width: double.infinity,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: userController.requests.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: topRatedCard(
+                            context, userController.requests[index]),
+                      );
+                    }),
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 25,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AppointmentOne()));
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              height: MediaQuery.of(context).size.height *
-                                  0.162439146800501882,
-                              width: MediaQuery.of(context).size.width *
-                                  0.6162439146800501882,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/pic_one.jpg"),
-                                    fit: BoxFit.cover),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25.0)),
-                              ),
-                              child: Image(
-                                image: AssetImage("assets/images/pic_one.jpg"),
-                              )),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.017526162439146800501882,
-                                ),
-                                child: Text("Fahad's Salon",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Raleway")),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.2007526162439146800501882,
-                                ),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      size: 16,
-                                      color: Color(0xffFFC300),
-                                    ),
-                                    Text(
-                                      '5.0',
-                                      style: TextStyle(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 25,
-                    ),
-                    //pushing user home
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AppointmentOne()));
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              height: MediaQuery.of(context).size.height *
-                                  0.162439146800501882,
-                              width: MediaQuery.of(context).size.width *
-                                  0.6162439146800501882,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/pic_one.jpg"),
-                                    fit: BoxFit.cover),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25.0)),
-                              ),
-                              child: Image(
-                                image: AssetImage("assets/images/pic_one.jpg"),
-                              )),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.017526162439146800501882,
-                                ),
-                                child: Text("ALatif Salon",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Raleway")),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.2007526162439146800501882,
-                                ),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      size: 16,
-                                      color: Color(0xffFFC300),
-                                    ),
-                                    Text(
-                                      '4.8',
-                                      style: TextStyle(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 25,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AppointmentOne()));
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              height: MediaQuery.of(context).size.height *
-                                  0.162439146800501882,
-                              width: MediaQuery.of(context).size.width *
-                                  0.6162439146800501882,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/pic_one.jpg"),
-                                    fit: BoxFit.cover),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25.0)),
-                              ),
-                              child: Image(
-                                image: AssetImage("assets/images/pic_one.jpg"),
-                              )),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.017526162439146800501882,
-                                ),
-                                child: Text("Nail Spa",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Raleway")),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.2007526162439146800501882,
-                                ),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      size: 16,
-                                      color: Color(0xffFFC300),
-                                    ),
-                                    Text(
-                                      '4.7',
-                                      style: TextStyle(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 25,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
-                child: SizedBox(
-                  height: 0.8,
-                  width: double.infinity,
-                  child: Container(
-                    color: Color(0xffD1D1D1),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Text("Recommended",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Raleway")),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 25,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AppointmentOne()));
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              height: MediaQuery.of(context).size.height *
-                                  0.162439146800501882,
-                              width: MediaQuery.of(context).size.width *
-                                  0.6162439146800501882,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/pic_one.jpg"),
-                                    fit: BoxFit.cover),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25.0)),
-                              ),
-                              child: Image(
-                                image: AssetImage("assets/images/pic_one.jpg"),
-                              )),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.017526162439146800501882,
-                                ),
-                                child: Text("Fahad's Salon",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Raleway")),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.2007526162439146800501882,
-                                ),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      size: 16,
-                                      color: Color(0xffFFC300),
-                                    ),
-                                    Text(
-                                      '5.0',
-                                      style: TextStyle(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 25,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AppointmentOne()));
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              height: MediaQuery.of(context).size.height *
-                                  0.162439146800501882,
-                              width: MediaQuery.of(context).size.width *
-                                  0.6162439146800501882,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/pic_one.jpg"),
-                                    fit: BoxFit.cover),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25.0)),
-                              ),
-                              child: Image(
-                                image: AssetImage("assets/images/pic_one.jpg"),
-                              )),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.017526162439146800501882,
-                                ),
-                                child: Text("ALatif Salon",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Raleway")),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.2007526162439146800501882,
-                                ),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      size: 16,
-                                      color: Color(0xffFFC300),
-                                    ),
-                                    Text(
-                                      '4.8',
-                                      style: TextStyle(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 25,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AppointmentOne()));
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              height: MediaQuery.of(context).size.height *
-                                  0.162439146800501882,
-                              width: MediaQuery.of(context).size.width *
-                                  0.6162439146800501882,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/pic_one.jpg"),
-                                    fit: BoxFit.cover),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25.0)),
-                              ),
-                              child: Image(
-                                image: AssetImage("assets/images/pic_one.jpg"),
-                              )),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.017526162439146800501882,
-                                ),
-                                child: Text("Nail Spa",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Raleway")),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.2007526162439146800501882,
-                                ),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      size: 16,
-                                      color: Color(0xffFFC300),
-                                    ),
-                                    Text(
-                                      '4.7',
-                                      style: TextStyle(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 25,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
+              // SizedBox(
+              //   height: 25,
+              // ),
+              // Padding(
+              //   padding: EdgeInsets.only(left: 20, right: 20),
+              //   child: SizedBox(
+              //     height: 0.8,
+              //     width: double.infinity,
+              //     child: Container(
+              //       color: Color(0xffD1D1D1),
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 25,
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 20.0),
+              //   child: Text("Recommended",
+              //       style: TextStyle(
+              //           color: Colors.black,
+              //           fontSize: 20,
+              //           fontWeight: FontWeight.w600,
+              //           fontFamily: "Raleway")),
+              // ),
+              // SizedBox(
+              //   height: 25,
+              // ),
+              // SingleChildScrollView(
+              //   scrollDirection: Axis.horizontal,
+              //   child: Row(
+              //     children: [
+              //       SizedBox(
+              //         width: 25,
+              //       ),
+              //       InkWell(
+              //         onTap: () {
+              //           Navigator.of(context).push(MaterialPageRoute(
+              //               builder: (context) => AppointmentOne()));
+              //         },
+              //         child: Column(
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             Container(
+              //                 height: MediaQuery.of(context).size.height *
+              //                     0.162439146800501882,
+              //                 width: MediaQuery.of(context).size.width *
+              //                     0.6162439146800501882,
+              //                 decoration: BoxDecoration(
+              //                   image: DecorationImage(
+              //                       image:
+              //                           AssetImage("assets/images/pic_one.jpg"),
+              //                       fit: BoxFit.cover),
+              //                   borderRadius:
+              //                       BorderRadius.all(Radius.circular(25.0)),
+              //                 ),
+              //                 child: Image(
+              //                   image: AssetImage("assets/images/pic_one.jpg"),
+              //                 )),
+              //             SizedBox(
+              //               height: 10,
+              //             ),
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //               children: [
+              //                 Padding(
+              //                   padding: EdgeInsets.only(
+              //                     left: MediaQuery.of(context).size.width *
+              //                         0.017526162439146800501882,
+              //                   ),
+              //                   child: Text("Fahad's Salon",
+              //                       style: TextStyle(
+              //                           color: Colors.black,
+              //                           fontSize: 16,
+              //                           fontWeight: FontWeight.w600,
+              //                           fontFamily: "Raleway")),
+              //                 ),
+              //                 Padding(
+              //                   padding: EdgeInsets.only(
+              //                     left: MediaQuery.of(context).size.width *
+              //                         0.2007526162439146800501882,
+              //                   ),
+              //                   child: Row(
+              //                     children: <Widget>[
+              //                       Icon(
+              //                         Icons.star,
+              //                         size: 16,
+              //                         color: Color(0xffFFC300),
+              //                       ),
+              //                       Text(
+              //                         '5.0',
+              //                         style: TextStyle(),
+              //                       ),
+              //                     ],
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         width: 25,
+              //       ),
+              //       InkWell(
+              //         onTap: () {
+              //           Navigator.of(context).push(MaterialPageRoute(
+              //               builder: (context) => AppointmentOne()));
+              //         },
+              //         child: Column(
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             Container(
+              //                 height: MediaQuery.of(context).size.height *
+              //                     0.162439146800501882,
+              //                 width: MediaQuery.of(context).size.width *
+              //                     0.6162439146800501882,
+              //                 decoration: BoxDecoration(
+              //                   image: DecorationImage(
+              //                       image:
+              //                           AssetImage("assets/images/pic_one.jpg"),
+              //                       fit: BoxFit.cover),
+              //                   borderRadius:
+              //                       BorderRadius.all(Radius.circular(25.0)),
+              //                 ),
+              //                 child: Image(
+              //                   image: AssetImage("assets/images/pic_one.jpg"),
+              //                 )),
+              //             SizedBox(
+              //               height: 10,
+              //             ),
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //               children: [
+              //                 Padding(
+              //                   padding: EdgeInsets.only(
+              //                     left: MediaQuery.of(context).size.width *
+              //                         0.017526162439146800501882,
+              //                   ),
+              //                   child: Text("ALatif Salon",
+              //                       style: TextStyle(
+              //                           color: Colors.black,
+              //                           fontSize: 16,
+              //                           fontWeight: FontWeight.w600,
+              //                           fontFamily: "Raleway")),
+              //                 ),
+              //                 Padding(
+              //                   padding: EdgeInsets.only(
+              //                     left: MediaQuery.of(context).size.width *
+              //                         0.2007526162439146800501882,
+              //                   ),
+              //                   child: Row(
+              //                     children: <Widget>[
+              //                       Icon(
+              //                         Icons.star,
+              //                         size: 16,
+              //                         color: Color(0xffFFC300),
+              //                       ),
+              //                       Text(
+              //                         '4.8',
+              //                         style: TextStyle(),
+              //                       ),
+              //                     ],
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         width: 25,
+              //       ),
+              //       InkWell(
+              //         onTap: () {
+              //           Navigator.of(context).push(MaterialPageRoute(
+              //               builder: (context) => AppointmentOne()));
+              //         },
+              //         child: Column(
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             Container(
+              //                 height: MediaQuery.of(context).size.height *
+              //                     0.162439146800501882,
+              //                 width: MediaQuery.of(context).size.width *
+              //                     0.6162439146800501882,
+              //                 decoration: BoxDecoration(
+              //                   image: DecorationImage(
+              //                       image:
+              //                           AssetImage("assets/images/pic_one.jpg"),
+              //                       fit: BoxFit.cover),
+              //                   borderRadius:
+              //                       BorderRadius.all(Radius.circular(25.0)),
+              //                 ),
+              //                 child: Image(
+              //                   image: AssetImage("assets/images/pic_one.jpg"),
+              //                 )),
+              //             SizedBox(
+              //               height: 10,
+              //             ),
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //               children: [
+              //                 Padding(
+              //                   padding: EdgeInsets.only(
+              //                     left: MediaQuery.of(context).size.width *
+              //                         0.017526162439146800501882,
+              //                   ),
+              //                   child: Text("Nail Spa",
+              //                       style: TextStyle(
+              //                           color: Colors.black,
+              //                           fontSize: 16,
+              //                           fontWeight: FontWeight.w600,
+              //                           fontFamily: "Raleway")),
+              //                 ),
+              //                 Padding(
+              //                   padding: EdgeInsets.only(
+              //                     left: MediaQuery.of(context).size.width *
+              //                         0.2007526162439146800501882,
+              //                   ),
+              //                   child: Row(
+              //                     children: <Widget>[
+              //                       Icon(
+              //                         Icons.star,
+              //                         size: 16,
+              //                         color: Color(0xffFFC300),
+              //                       ),
+              //                       Text(
+              //                         '4.7',
+              //                         style: TextStyle(),
+              //                       ),
+              //                     ],
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         width: 25,
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 25,
+              // ),
             ],
           ),
         ]));
+  }
+
+  InkWell topRatedCard(
+      BuildContext context, RequestModelAdmin requestModelAdmin) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) =>
+                AppointmentOne(requestModelAdmin: requestModelAdmin)));
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.162439146800501882,
+            width: MediaQuery.of(context).size.width * 0.6162439146800501882,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/pic_one.jpg"),
+                  fit: BoxFit.cover),
+              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+            ),
+            // child: Image(
+            //   image: AssetImage("assets/images/pic_one.jpg"),
+            // )
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width *
+                      0.017526162439146800501882,
+                ),
+                child: Text(requestModelAdmin.shop!.shopName.toString(),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Raleway")),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width *
+                      0.2007526162439146800501882,
+                ),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.star,
+                      size: 16,
+                      color: Color(0xffFFC300),
+                    ),
+                    Text(
+                      0.toString(),
+                      style: TextStyle(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
