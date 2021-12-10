@@ -483,219 +483,267 @@ class _UserHome extends State<UserHome> {
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 25,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AppointmentOne()));
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              height: MediaQuery.of(context).size.height *
-                                  0.162439146800501882,
-                              width: MediaQuery.of(context).size.width *
-                                  0.6162439146800501882,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/pic_one.jpg"),
-                                    fit: BoxFit.cover),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25.0)),
-                              ),
-                              child: Image(
-                                image: AssetImage("assets/images/pic_one.jpg"),
-                              )),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                child:
+                FutureBuilder(
+
+                  builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  return  Row(
+                      children: [
+                        SizedBox(
+                          width: 25,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => AppointmentOne()));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.017526162439146800501882,
-                                ),
-                                child: Text("Fahad's Salon",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Raleway")),
+                              Container(
+                                  height: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height *
+                                      0.162439146800501882,
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width *
+                                      0.6162439146800501882,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image:
+                                        AssetImage("assets/images/pic_one.jpg"),
+                                        fit: BoxFit.cover),
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(25.0)),
+                                  ),
+                                  child: Image(
+                                    image: AssetImage(
+                                        "assets/images/pic_one.jpg"),
+                                  )),
+                              SizedBox(
+                                height: 10,
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.2007526162439146800501882,
-                                ),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      size: 16,
-                                      color: Color(0xffFFC300),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceAround,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width *
+                                          0.017526162439146800501882,
                                     ),
-                                    Text(
-                                      '5.0',
-                                      style: TextStyle(),
+                                    child: Text("Fahad's Salon",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "Raleway")),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width *
+                                          0.2007526162439146800501882,
                                     ),
-                                  ],
-                                ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.star,
+                                          size: 16,
+                                          color: Color(0xffFFC300),
+                                        ),
+                                        Text(
+                                          '5.0',
+                                          style: TextStyle(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 25,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AppointmentOne()));
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              height: MediaQuery.of(context).size.height *
-                                  0.162439146800501882,
-                              width: MediaQuery.of(context).size.width *
-                                  0.6162439146800501882,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/pic_one.jpg"),
-                                    fit: BoxFit.cover),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25.0)),
-                              ),
-                              child: Image(
-                                image: AssetImage("assets/images/pic_one.jpg"),
-                              )),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        ),
+                        SizedBox(
+                          width: 25,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => AppointmentOne()));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.017526162439146800501882,
-                                ),
-                                child: Text("ALatif Salon",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Raleway")),
+                              Container(
+                                  height: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height *
+                                      0.162439146800501882,
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width *
+                                      0.6162439146800501882,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image:
+                                        AssetImage("assets/images/pic_one.jpg"),
+                                        fit: BoxFit.cover),
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(25.0)),
+                                  ),
+                                  child: Image(
+                                    image: AssetImage(
+                                        "assets/images/pic_one.jpg"),
+                                  )),
+                              SizedBox(
+                                height: 10,
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.2007526162439146800501882,
-                                ),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      size: 16,
-                                      color: Color(0xffFFC300),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceAround,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width *
+                                          0.017526162439146800501882,
                                     ),
-                                    Text(
-                                      '4.8',
-                                      style: TextStyle(),
+                                    child: Text("ALatif Salon",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "Raleway")),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width *
+                                          0.2007526162439146800501882,
                                     ),
-                                  ],
-                                ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.star,
+                                          size: 16,
+                                          color: Color(0xffFFC300),
+                                        ),
+                                        Text(
+                                          '4.8',
+                                          style: TextStyle(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 25,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AppointmentOne()));
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              height: MediaQuery.of(context).size.height *
-                                  0.162439146800501882,
-                              width: MediaQuery.of(context).size.width *
-                                  0.6162439146800501882,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/pic_one.jpg"),
-                                    fit: BoxFit.cover),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25.0)),
-                              ),
-                              child: Image(
-                                image: AssetImage("assets/images/pic_one.jpg"),
-                              )),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        ),
+                        SizedBox(
+                          width: 25,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => AppointmentOne()));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.017526162439146800501882,
-                                ),
-                                child: Text("Nail Spa",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Raleway")),
+                              Container(
+                                  height: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height *
+                                      0.162439146800501882,
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width *
+                                      0.6162439146800501882,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image:
+                                        AssetImage("assets/images/pic_one.jpg"),
+                                        fit: BoxFit.cover),
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(25.0)),
+                                  ),
+                                  child: Image(
+                                    image: AssetImage(
+                                        "assets/images/pic_one.jpg"),
+                                  )),
+                              SizedBox(
+                                height: 10,
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.2007526162439146800501882,
-                                ),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      size: 16,
-                                      color: Color(0xffFFC300),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceAround,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width *
+                                          0.017526162439146800501882,
                                     ),
-                                    Text(
-                                      '4.7',
-                                      style: TextStyle(),
+                                    child: Text("Nail Spa",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "Raleway")),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width *
+                                          0.2007526162439146800501882,
                                     ),
-                                  ],
-                                ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.star,
+                                          size: 16,
+                                          color: Color(0xffFFC300),
+                                        ),
+                                        Text(
+                                          '4.7',
+                                          style: TextStyle(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 25,
-                    ),
-                  ],
+                        ),
+                        SizedBox(
+                          width: 25,
+                        ),
+                      ],
+                    );
+                  }
                 ),
               ),
               SizedBox(

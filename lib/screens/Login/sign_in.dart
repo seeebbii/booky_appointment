@@ -108,7 +108,7 @@ class _SignInState extends State<SignIn> {
                                     fontSize: 16.0),
                               ),
                               validator: (str) {
-                                if (str == '') {
+                                if (str== '') {
                                   return "Required*";
                                 }
                                 return null;
