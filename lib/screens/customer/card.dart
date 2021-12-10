@@ -96,6 +96,7 @@ class CardScreen extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
+                    
                       StylistCard(stylistData[0]),
                       StylistCard(stylistData[1]),
                       StylistCard(stylistData[2]),
