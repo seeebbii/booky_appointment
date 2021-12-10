@@ -22,8 +22,10 @@ Timestamp ? createdAt;
   RequestModelAdmin.fromDocumentSnapshot(Map<String, dynamic> doc) {
     try {
     docid=doc['docId'];
+
   // shop=doc['shop'];
    uid=AuthModel.fromDocumentSnapshot(doc['uid']);
+   shop=ProviderBusinessModel.fromDocumentSnapshot(doc['shop']);
    createdAt=doc['createdAt'];
 
       
