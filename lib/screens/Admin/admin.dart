@@ -54,15 +54,17 @@ class _AdminHome extends State<AdminHome> {
                       topLeft: Radius.circular(30),
                     ),
                   ),
-                  child: ListView.builder(
+                  child: Obx(
+                    
+                    ()=>ListView.builder(
                     padding: const EdgeInsets.symmetric(vertical: 20),
-                    itemCount: serviceProviderList.length,
+                    itemCount: adminController.requests.length,
                     itemBuilder: (context, index) {
                       return Column(
                         children: <Widget>[
                           ListTile(
                             title: Text(
-                              serviceProviderList[index],
+                              adminController.requests[index].shop!.shopName!,
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w600),
                             ),
@@ -102,7 +104,7 @@ class _AdminHome extends State<AdminHome> {
                         ],
                       );
                     },
-                  ),
+                  ),)
                 ),
               )
             ],
