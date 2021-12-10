@@ -1,5 +1,5 @@
 import 'package:booky/controller/authentication/auth_controller.dart';
-import 'package:booky/screens/Alerts.dart';
+import 'package:booky/screens/alerts.dart';
 import 'package:booky/screens/contactUs.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

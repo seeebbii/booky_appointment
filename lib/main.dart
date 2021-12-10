@@ -23,13 +23,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controller/authentication/auth_controller.dart';
+import 'controller/service_provider/service_provider_controller.dart';
 import 'screens/Splash.dart';
 // import 'screens/customer/test.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Get.put(AuthController());
+  Get.put(ServiceProvider());
   runApp(
     GetMaterialApp(
       title: 'Booky',

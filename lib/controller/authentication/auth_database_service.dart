@@ -21,6 +21,12 @@ class AuthDatabaseService {
         'email': user.email,
         'userCreatedDate': user.userCreatedDate,
         'role': user.role,
+        'businessName': user.businessName,
+        'rating': user.rating,
+         'phoneNumber': user.phoneNumber,
+         'isActiveted':   user.isActiveted,
+         'imageUrl': user.imageUrl,
+
       });
       return true;
     } catch (e) {
@@ -29,6 +35,10 @@ class AuthDatabaseService {
     }
   }
 
+           
+         
+           
+         
   // Future<bool> createAppoitmentInDatabase(Schedule schedule) async {
   //   try {
   //     Timestamp currentTime = Timestamp.now();
