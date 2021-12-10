@@ -14,7 +14,7 @@ import 'auth_database_service.dart';
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final firebaseUser = FirebaseAuth.instance.currentUser.obs;
-   final spController =Get.put(ServiceProvider());
+  // final spController =Get.put(ServiceProvider());
 
   var currentUser = AuthModel().obs;
   AuthResultStatus? _status;

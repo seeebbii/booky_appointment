@@ -98,6 +98,7 @@ class _SignUpSp extends State<SignUpSp> {
                                             left: 25.0,
                                             right: 25.0),
                                         child: TextFormField(
+                                        
                                           validator: (str) {
                                             if (str == '') {
                                               return "Required*";
@@ -232,8 +233,8 @@ class _SignUpSp extends State<SignUpSp> {
                                             right: 25.0),
                                         child: TextFormField(
                                           validator: (str) {
-                                            if (str == '') {
-                                              return "Required*";
+                                            if (str!.length<6) {
+                                              return "Password should be atleast 6 characters";
                                             }
                                             return null;
                                           },
