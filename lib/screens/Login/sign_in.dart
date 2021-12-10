@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../theme.dart';
+import 'auth_decider.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -18,7 +19,6 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   TextEditingController loginEmailController = TextEditingController();
   TextEditingController loginPasswordController = TextEditingController();
-
 
   bool _obscureTextPassword = true;
   final _formKey = GlobalKey<FormState>();
@@ -34,13 +34,12 @@ class _SignInState extends State<SignIn> {
     FocusScope.of(context).unfocus();
 
     if (isValid) {
-      final status = await authController.loginUser(
-          _email, _password);
+      final status = await authController.loginUser(_email, _password);
 
       print(status);
 
       if (status == AuthResultStatus.successful) {
-        Get.offAll(HomeCustomer());
+        Get.offAll(AuthDecider());
         // _updatestate(true);
         CustomSnackBar.showSnackBar(
             title: "Login Successful",
@@ -80,11 +79,14 @@ class _SignInState extends State<SignIn> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                                top: 20.0,
+                                bottom: 20.0,
+                                left: 25.0,
+                                right: 25.0),
                             child: TextFormField(
                               controller: loginEmailController,
                               keyboardType: TextInputType.emailAddress,
-                              onChanged: (str){
+                              onChanged: (str) {
                                 setState(() {
                                   _email = str;
                                 });
@@ -122,11 +124,14 @@ class _SignInState extends State<SignIn> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                                top: 20.0,
+                                bottom: 20.0,
+                                left: 25.0,
+                                right: 25.0),
                             child: TextFormField(
                               controller: loginPasswordController,
                               obscureText: _obscureTextPassword,
-                              onChanged: (str){
+                              onChanged: (str) {
                                 setState(() {
                                   _password = str;
                                 });
