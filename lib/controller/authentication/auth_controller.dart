@@ -37,7 +37,7 @@ class AuthController extends GetxController {
     }
   }
 
-  void getUserById(String uid) async {
+  Future getUserById(String uid) async {
     currentUser.value = await AuthDatabaseService().getUser(uid);
   }
 
