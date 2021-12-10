@@ -12,6 +12,7 @@ class AuthModel {
   String? imageUrl;
   bool? isActiveted;
   String? phoneNumber;
+  String? fcmToken;
 
   AuthModel(
       {this.uid,
@@ -24,7 +25,8 @@ class AuthModel {
       this.rating,
       this.imageUrl,
       this.isActiveted,
-      this.phoneNumber});
+      this.phoneNumber,
+      this.fcmToken});
 
   AuthModel.fromDocumentSnapshot(DocumentSnapshot doc) {
     uid = doc.id;
@@ -38,5 +40,21 @@ class AuthModel {
     imageUrl = doc['imageUrl'];
     isActiveted = doc['isActiveted'];
     phoneNumber = doc['phoneNumber'];
+    fcmToken = doc['fcmToken'];
   }
+
+  Map<String, dynamic> toJson() => {
+        'uid': uid,
+        'username': username,
+        'email': email,
+        'userCreatedDate': userCreatedDate,
+        'role': role,
+    'businessName': businessName,
+    'rating' : rating,
+    'status' : status,
+    'imageUrl' : imageUrl,
+    'isActiveted' : isActiveted,
+    'phoneNumber' : phoneNumber,
+    'fcmToken' : fcmToken
+      };
 }

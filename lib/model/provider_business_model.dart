@@ -43,6 +43,8 @@ class ProviderBusinessModel {
         "businesscreateddate": businesscreateddate,
         "availabledays": availabledays?.map((e) => e.toJson()).toList()
       };
+
+  static fromMap(e) {}
 }
 
 class Availableday {
