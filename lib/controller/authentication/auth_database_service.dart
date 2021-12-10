@@ -22,6 +22,7 @@ class AuthDatabaseService {
         'userCreatedDate': user.userCreatedDate,
         'role': user.role,
         'businessName': user.businessName,
+        'status': user.status,
         'rating': user.rating,
          'phoneNumber': user.phoneNumber,
          'isActiveted':   user.isActiveted,
