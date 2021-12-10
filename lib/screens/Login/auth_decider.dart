@@ -1,11 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks
 
 import 'package:booky/controller/authentication/auth_controller.dart';
-<<<<<<< HEAD
-import 'package:booky/controller/service_provider/service_provider_controller.dart';
-=======
 import 'package:booky/screens/Admin/admin.dart';
->>>>>>> dev
 import 'package:booky/screens/customer/home_customer.dart';
 import 'package:booky/screens/service_provider/home_sp.dart';
 import 'package:flutter/material.dart';
