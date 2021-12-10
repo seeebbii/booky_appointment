@@ -1,11 +1,16 @@
+import 'package:booky/controller/authentication/auth_controller.dart';
 import 'package:booky/controller/service_provider/service_provider_controller.dart';
 import 'package:booky/model/provider_business_model.dart';
+
 import 'package:booky/screens/alerts.dart';
 import 'package:booky/screens/customer/home_customer.dart';
 import 'package:booky/screens/service_provider/conformation_sp.dart';
 import 'package:booky/screens/service_provider/location_sp.dart';
 import 'package:booky/screens/service_provider/sign_up_sp.dart';
 import 'package:booky/theme.dart';
+import 'package:booky/utils/auth_exception_handler.dart';
+import 'package:booky/utils/colors.dart';
+import 'package:booky/utils/custom_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_time_range/flutter_time_range.dart';
@@ -25,11 +30,34 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
   Availableday ?availableday;
 
     final spController = Get.find<ServiceProvider>();
+  final authController = Get.find<AuthController>();
 
   @override
   void initState() {
     super.initState();
   }
+
+  // Future<bool> createAppoitmentInDatabase(Schedule schedule) async {
+  //   try {
+  //     Timestamp currentTime = Timestamp.now();
+  //     DocumentReference document = _firestore.collection('available-appointments').doc();
+  //     await document.set({
+  //       "nurseId": authController.currentUser.value.uid,
+  //       "schedule": schedule.toJson(),
+  //       "createdAt": Timestamp.now(),
+  //       "docId" : document.id
+  //     });
+  //     createAppointmentInNurseCollection(schedule, currentTime, document);
+  //     CustomSnackBar.showSnackBar(
+  //         title: "Appoitment successfully created",
+  //         message: '',
+  //         backgroundColor: snackBarSuccess);
+  //     return true;
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //     return false;
+  //   }
+  // }
 
   bool isSwitched = false;
   bool isSwitchedTwo = false;
@@ -46,8 +74,32 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
   String msg6 = "Select";
   String msg7 = "Select";
 
-  final _messangerKey = GlobalKey<ScaffoldMessengerState>();
-  final _navigatorKey = GlobalKey<NavigatorState>();
+  velidateAndSubmit() async {
+    final status = await authController.createUser(
+        spController.signupEmailController.text,
+        spController.signupPasswordController.text,
+        spController.signupNameController.text,
+        spController.signupPhoneController.text,
+        "serviceProvider",
+        spController.signupBusinessNameController.text,
+        0);
+
+    if (status == AuthResultStatus.successful) {
+//changed code
+
+      // CustomSnackBar.showSnackBar(
+      //     title: "Account created Successfully",
+      //     message: '',
+      //     backgroundColor: snackBarSuccess);
+    } else {
+      final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
+      CustomSnackBar.showSnackBar(
+          title: errorMsg, message: '', backgroundColor: snackBarError);
+    }
+
+    // Navigator.of(context)
+    //     .push(MaterialPageRoute(builder: (context) => ConformationSpScreen()));
+  }
 
   ChoosingHours(context, String day) {
     return showDialog(
