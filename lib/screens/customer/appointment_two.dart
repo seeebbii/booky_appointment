@@ -664,6 +664,7 @@ void initState() {
  
      dateparse = DateTime.parse(date);
  weekday= DateFormat('EEEE').format(now);
+ 
   
   }
 }

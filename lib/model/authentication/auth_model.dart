@@ -49,12 +49,12 @@ class AuthModel {
         'email': email,
         'userCreatedDate': userCreatedDate,
         'role': role,
-    'businessName': businessName,
-    'rating' : rating,
-    'status' : status,
-    'imageUrl' : imageUrl,
-    'isActiveted' : isActiveted,
-    'phoneNumber' : phoneNumber,
-    'fcmToken' : fcmToken
+        'businessName': businessName,
+        'rating': rating,
+        'status': status,
+        'imageUrl': imageUrl,
+        'isActiveted': isActiveted,
+        'phoneNumber': phoneNumber,
+        'fcmToken': fcmToken
       };
 }

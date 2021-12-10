@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class RequestModelAdmin {
   String? docid;
   ProviderBusinessModel? shop;
-
   Timestamp? createdAt;
   AuthModel? user;
 

@@ -19,7 +19,6 @@ class SettingCustomer extends StatefulWidget {
 }
 
 class _SettingCustomer extends State<SettingCustomer> {
-
   final authController = Get.find<AuthController>();
 
   @override
@@ -81,7 +80,8 @@ class _SettingCustomer extends State<SettingCustomer> {
                   SizedBox(
                     height: 10,
                   ),
-                  Obx(() => Text("Welcome ${authController.currentUser.value.username}",
+                  Obx(() => Text(
+                      "Welcome ${authController.currentUser.value.username}",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,

@@ -4,33 +4,33 @@ import 'package:flutter/material.dart';
 
 import 'appointmet_one.dart';
 
-const stylistData = [
-  {
-    'salonName': 'Abdullah',
-    'rating': '4.8',
-    'rateAmount': '56',
-    'imgUrl': 'assets/images/pic_one.jpg',
-    'bgColor': Color(0xffcbdfe2),
-  },
-  {
-    'salonName': 'Fahad',
-    'rating': '4.7',
-    'rateAmount': '80',
-    'imgUrl': 'assets/images/pic_two.jpg',
-    'bgColor': Color(0xffEBF6FF),
-  },
-  {
-    'salonName': 'Abdullah Fahad',
-    'rating': '4.7',
-    'rateAmount': '70',
-    'imgUrl': 'assets/images/pic_one.jpg',
-    'bgColor': Color(0xffcbdfe2),
-  }
-];
+// const stylistData = [
+//   {
+//     'salonName': 'Abdullah',
+//     'rating': '4.8',
+//     'rateAmount': '56',
+//     'imgUrl': 'assets/images/pic_one.jpg',
+//     'bgColor': Color(0xffcbdfe2),
+//   },
+//   {
+//     'salonName': 'Fahad',
+//     'rating': '4.7',
+//     'rateAmount': '80',
+//     'imgUrl': 'assets/images/pic_two.jpg',
+//     'bgColor': Color(0xffEBF6FF),
+//   },
+//   {
+//     'salonName': 'Abdullah Fahad',
+//     'rating': '4.7',
+//     'rateAmount': '70',
+//     'imgUrl': 'assets/images/pic_one.jpg',
+//     'bgColor': Color(0xffcbdfe2),
+//   }
+// ];
 
 class CardScreen extends StatelessWidget {
   static String id = "CardScreen";
- final List<RequestModelAdmin> ? categorylist;
+  final List<RequestModelAdmin>? categorylist;
 
   // late String title;
   static String title = "Car Wash List";
@@ -90,18 +90,22 @@ class CardScreen extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
-                    
-                      StylistCard(stylistData[0]),
-                      StylistCard(stylistData[1]),
-                      StylistCard(stylistData[2]),
-                    ],
-                  ),
+                  child: ListView.builder(
+                      itemCount: categorylist?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        return StylistCard(categorylist![index]);
+                      }),
+                  // child: Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: <Widget>[
+                  //     SizedBox(
+                  //       height: 20,
+                  //     ),
+                  //     StylistCard(stylistData[0]),
+                  //     StylistCard(stylistData[1]),
+                  //     StylistCard(stylistData[2]),
+                  //   ],
+                  // ),
                 ),
               ),
             ],
@@ -113,8 +117,8 @@ class CardScreen extends StatelessWidget {
 }
 
 class StylistCard extends StatelessWidget {
-  final stylist;
-  StylistCard(this.stylist);
+  RequestModelAdmin requestModelAdmin;
+  StylistCard(this.requestModelAdmin);
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +128,7 @@ class StylistCard extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 4 - 10,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: stylist['bgColor'],
+        color: Color(0xffEBF6FF),
       ),
       child: Stack(
         children: <Widget>[
@@ -133,7 +137,7 @@ class StylistCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
-                stylist['imgUrl'],
+                "assets/images/pic_one.jpg",
                 fit: BoxFit.cover,
                 width: MediaQuery.of(context).size.width * 0.45,
               ),
@@ -145,7 +149,7 @@ class StylistCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  stylist['salonName'],
+                  requestModelAdmin.shop!.shopName.toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -165,7 +169,8 @@ class StylistCard extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      stylist['rating'],
+                      "4.0",
+                      //"requestModelAdmin.user!.rating.toString()",
                       style: TextStyle(
                         color: kPrimaryColor,
                       ),
@@ -177,7 +182,8 @@ class StylistCard extends StatelessWidget {
                 ),
                 MaterialButton(
                   onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => AppointmentOne())),
+                      builder: (context) => AppointmentOne(
+                          requestModelAdmin: requestModelAdmin))),
                   color: kPrimaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
