@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import 'package:booky/controller/service_provider/service_provider_controller.dart';
->>>>>>> dev
 import 'package:booky/screens/alerts.dart';
 import 'package:booky/screens/customer/home_customer.dart';
 import 'package:booky/screens/service_provider/conformation_sp.dart';
