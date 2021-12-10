@@ -520,17 +520,7 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
   }
 
   void toggleSwitch(bool value) {
-    if (isSwitched == false) {
-      setState(() {
-        isSwitched = true;
-      });
-      print('Switch Button is ON');
-    } else {
-      setState(() {
-        isSwitched = false;
-      });
-      print('Switch Button is OFF');
-    }
+    setState(() => isSwitched = !isSwitched);
   }
 
   void toggleSwitchTwo(bool value) {

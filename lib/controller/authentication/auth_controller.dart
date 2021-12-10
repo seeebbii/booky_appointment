@@ -18,6 +18,7 @@ class AuthController extends GetxController {
 
   var currentUser = AuthModel().obs;
   AuthResultStatus? _status;
+  RxString role = "".obs;
 
   @override
   void onInit() {
@@ -97,11 +98,12 @@ class AuthController extends GetxController {
           email: email.trim(),
         );
 
-        currentUser.value = _user;
-        saveUserState(_authResult.user!.uid);
         // TODO :: LOAD USER INFO FROM FIRESTORE COLLECTION
         currentUser.value =
             await AuthDatabaseService().getUser(_authResult.user!.uid);
+
+       // currentUser.value = _user;
+        saveUserState(_authResult.user!.uid, currentUser.value.role.toString());
       } else {
         _status = AuthResultStatus.undefined;
       }
@@ -125,13 +127,18 @@ class AuthController extends GetxController {
     }
   }
 
-  void saveUserState(String uid) async {
+  void saveUserState(String uid, String role) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    debugPrint('SAVE IN LOCAL DB : ' + uid);
+    debugPrint('SAVE IN LOCAL DB : ' + role);
     prefs.setString('uid', uid);
+    prefs.setString('role', role);
   }
 
   Future getUserId() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    role.value = prefs.getString('role').toString();
+    print(role.value);
     return prefs.getString('uid');
   }
 }
