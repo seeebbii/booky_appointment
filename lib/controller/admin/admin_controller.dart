@@ -15,7 +15,7 @@ class AdminController extends GetxController {
   late ProviderBusinessModel businessModel;
 
  var requests=<RequestModelAdmin> [].obs;
-  getAppointments() async {
+    getAppointments() async {
 requests.value =await ShopServices.getAllShops();
 
 update();
