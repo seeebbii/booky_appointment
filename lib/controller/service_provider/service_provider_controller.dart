@@ -40,7 +40,6 @@ class ServiceProvider extends GetxController {
         "shop": businessModel.toJson(),
         "createdAt": Timestamp.now(),
         "docId": document.id,
-        "user": authController.currentUser.toJson()
       });
       print(document.id);
       CustomSnackBar.showSnackBar(
