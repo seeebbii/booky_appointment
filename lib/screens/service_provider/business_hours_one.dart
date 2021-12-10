@@ -27,11 +27,7 @@ class BusinessHoursOne extends StatefulWidget {
 class _BusinessHoursOne extends State<BusinessHoursOne> {
   Availableday? availableday;
 
-<<<<<<< HEAD
-    final spController = Get.find<ServiceProvider>();
-=======
   final spController = Get.put(ServiceProvider());
->>>>>>> dev
   final authController = Get.find<AuthController>();
 
   @override
@@ -77,8 +73,6 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
   String msg7 = "Select";
 
   velidateAndSubmit() async {
-<<<<<<< HEAD
-=======
     spController.businessModel = new ProviderBusinessModel(
         businessCategory: spController.categoryChoice.values
             .elementAt(spController.choise.value),
@@ -88,7 +82,6 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
         shoplocation: spController.locationController.text,
         status: 'Requested');
 
->>>>>>> dev
     final status = await authController.createUser(
         spController.signupEmailController.text,
         spController.signupPasswordController.text,
@@ -99,10 +92,6 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
         0);
 
     if (status == AuthResultStatus.successful) {
-<<<<<<< HEAD
-//changed code
-
-=======
       if (await spController.createBusnessShopInDatabase()) {
         print("SHOP CREATE");
 
@@ -113,7 +102,6 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
         CustomSnackBar.showSnackBar(
             title: errorMsg, message: '', backgroundColor: snackBarError);
       }
->>>>>>> dev
       // CustomSnackBar.showSnackBar(
       //     title: "Account created Successfully",
       //     message: '',
@@ -123,12 +111,6 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
       CustomSnackBar.showSnackBar(
           title: errorMsg, message: '', backgroundColor: snackBarError);
     }
-<<<<<<< HEAD
-
-    // Navigator.of(context)
-    //     .push(MaterialPageRoute(builder: (context) => ConformationSpScreen()));
-=======
->>>>>>> dev
   }
 
   ChoosingHours(context, String day) {

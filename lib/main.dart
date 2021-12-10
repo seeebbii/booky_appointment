@@ -9,8 +9,8 @@ import 'controller/service_provider/service_provider_controller.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Get.put(AuthController());
-  Get.put(ServiceProvider());
+  // Get.put(AuthController());
+  // Get.put(ServiceProvider());
   runApp(
     GetMaterialApp(
       title: 'Booky',

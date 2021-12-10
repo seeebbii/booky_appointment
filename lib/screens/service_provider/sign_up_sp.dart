@@ -189,7 +189,7 @@ class _SignUpSp extends State<SignUpSp> {
                                             right: 25.0),
                                         child: TextFormField(
                                           validator: (str) {
-                                            _validateEmail(str!);
+                                            return _validateEmail(str!);
                                           
                                         
                                           },
