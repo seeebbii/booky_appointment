@@ -29,7 +29,7 @@ const stylistData = [
 
 class CardScreen extends StatelessWidget {
   static String id = "CardScreen";
-
+ 
   // late String title;
   static String title = "Car Wash List";
 
