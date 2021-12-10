@@ -30,6 +30,28 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
     super.initState();
   }
 
+  // Future<bool> createAppoitmentInDatabase(Schedule schedule) async {
+  //   try {
+  //     Timestamp currentTime = Timestamp.now();
+  //     DocumentReference document = _firestore.collection('available-appointments').doc();
+  //     await document.set({
+  //       "nurseId": authController.currentUser.value.uid,
+  //       "schedule": schedule.toJson(),
+  //       "createdAt": Timestamp.now(),
+  //       "docId" : document.id
+  //     });
+  //     createAppointmentInNurseCollection(schedule, currentTime, document);
+  //     CustomSnackBar.showSnackBar(
+  //         title: "Appoitment successfully created",
+  //         message: '',
+  //         backgroundColor: snackBarSuccess);
+  //     return true;
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //     return false;
+  //   }
+  // }
+
   bool isSwitched = false;
   bool isSwitchedTwo = false;
   bool isSwitchedThree = false;
@@ -56,20 +78,7 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
         0);
 
     if (status == AuthResultStatus.successful) {
-
-
-
-  
-
-
-
-
-
-
 //changed code
-
-
-
 
       // CustomSnackBar.showSnackBar(
       //     title: "Account created Successfully",
