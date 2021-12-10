@@ -1,4 +1,5 @@
 import 'package:booky/model/authentication/auth_model.dart';
+import 'package:booky/model/request_model_admin.dart';
 import 'package:booky/utils/colors.dart';
 import 'package:booky/utils/custom_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 
 class ShopServices {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+List<RequestModelAdmin> ? collection;
   static getAllShops() async {
     CollectionReference _collectionRef =
         FirebaseFirestore.instance.collection('serviceProvider-shop');
@@ -17,7 +18,7 @@ class ShopServices {
 
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-
+  // collection.add(new RequestModelAdmin(docid:alldata[] ,shop: ,user: ));
     print(allData);
 
     // try {
