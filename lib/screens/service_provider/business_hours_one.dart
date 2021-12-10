@@ -5,6 +5,9 @@ import 'package:booky/screens/service_provider/conformation_sp.dart';
 import 'package:booky/screens/service_provider/location_sp.dart';
 import 'package:booky/screens/service_provider/sign_up_sp.dart';
 import 'package:booky/theme.dart';
+import 'package:booky/utils/auth_exception_handler.dart';
+import 'package:booky/utils/colors.dart';
+import 'package:booky/utils/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_time_range/flutter_time_range.dart';
 import 'package:get/get.dart';
@@ -18,8 +21,7 @@ class BusinessHoursOne extends StatefulWidget {
 }
 
 class _BusinessHoursOne extends State<BusinessHoursOne> {
-
-    final spController = Get.find<ServiceProvider>();
+  final spController = Get.find<ServiceProvider>();
 
   @override
   void initState() {
@@ -41,8 +43,30 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
   String msg6 = "Select";
   String msg7 = "Select";
 
-  final _messangerKey = GlobalKey<ScaffoldMessengerState>();
-  final _navigatorKey = GlobalKey<NavigatorState>();
+  velidateAndSubmit() async {
+    final status = await authController.createUser(
+        spController.signupEmailController.text,
+        spController.signupPasswordController.text,
+        spController.signupNameController.text,
+        spController.signupPhoneController.text,
+        "serviceProvider",
+        spController.signupBusinessNameController.text,
+        0);
+
+    if (status == AuthResultStatus.successful) {
+      CustomSnackBar.showSnackBar(
+          title: "Account created Successfully",
+          message: '',
+          backgroundColor: snackBarSuccess);
+    } else {
+      final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
+      CustomSnackBar.showSnackBar(
+          title: errorMsg, message: '', backgroundColor: snackBarError);
+    }
+
+    // Navigator.of(context)
+    //     .push(MaterialPageRoute(builder: (context) => ConformationSpScreen()));
+  }
 
   ChoosingHours(context, String day) {
     return showDialog(
@@ -1017,10 +1041,7 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
                                 ),
                               ),
                             ),
-                            onPressed: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ConformationSpScreen())),
+                            onPressed: () => velidateAndSubmit(),
                           ),
                         ),
                       ],

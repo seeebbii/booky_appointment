@@ -19,7 +19,9 @@ class SignUpSp extends StatefulWidget {
 class _SignUpSp extends State<SignUpSp> {
   bool _obscureTextPassword = true;
   bool _obscureTextConfirmPassword = false;
-  var spController = Get.put(ServiceProvider());
+ final spController = Get.find<ServiceProvider>();
+
+
 
   //late String _businessName, _username, _email, _password, _phone;
   final _formKey = GlobalKey<FormState>();

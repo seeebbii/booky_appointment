@@ -11,6 +11,7 @@ class AuthModel {
   int? rating;
   String? imageUrl;
   bool? isActiveted;
+  String? phoneNumber;
 
   AuthModel(
       {this.uid,
@@ -22,7 +23,8 @@ class AuthModel {
       this.businessName,
       this.rating,
       this.imageUrl,
-      this.isActiveted});
+      this.isActiveted,
+      this.phoneNumber});
 
   AuthModel.fromDocumentSnapshot(DocumentSnapshot doc) {
     uid = doc.id;
@@ -35,5 +37,6 @@ class AuthModel {
     status = doc['status'];
     imageUrl = doc['imageUrl'];
     isActiveted = doc['isActiveted'];
+    phoneNumber = doc['phoneNumber'];
   }
 }
