@@ -6,13 +6,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class ShopServices {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   RequestModelAdmin? request;
 
   static getAllShops() async {
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-    var currentUser = AuthModel().obs;
-    List<RequestModelAdmin>? collection;
+    List<RequestModelAdmin> collection = [];
     CollectionReference _collectionRef =
         FirebaseFirestore.instance.collection('serviceProvider-shop');
 
@@ -21,18 +19,14 @@ class ShopServices {
 
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    var collect = [];
-    // RequestModelAdmin.fromDocumentSnapshot(allData);
+
     print(allData);
-    allData.forEach((element) async {
-      collect.add(RequestModelAdmin.fromDocumentSnapshot(
+    allData.forEach((element) {
+      collection.add(RequestModelAdmin.fromDocumentSnapshot(
           element as Map<String, dynamic>));
       print(element['uid']);
-      DocumentSnapshot doc =
-          await firestore.collection("auth").doc(element['uid']).get();
-      currentUser.value = AuthModel.fromDocumentSnapshot(doc);
-      print(currentUser.value.username);
     });
+    return collection;
     // try {
     //   CollectionReference <Map<String, dynamic>> doc =  _firestore.collection("serviceProvider-shop");
 

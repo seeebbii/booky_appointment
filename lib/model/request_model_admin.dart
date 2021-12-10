@@ -5,24 +5,29 @@ import 'package:flutter/material.dart';
 
 class RequestModelAdmin {
   String? docid;
- ProviderBusinessModel ?shop;
- String ? uid;
-Timestamp ? createdAt;
-
-  
+  ProviderBusinessModel? shop;
+  String? uid;
+  Timestamp? createdAt;
+  AuthModel? user;
 
   RequestModelAdmin({
     this.docid,
     this.shop,
     this.uid,
     this.createdAt,
-    
   });
 
   RequestModelAdmin.fromDocumentSnapshot(Map<String, dynamic> doc) {
     try {
+<<<<<<< HEAD
+      docid = doc['docId'];
+      shop = ProviderBusinessModel.fromDocumentSnapshot(doc['shop']);
+      uid = doc['uid'];
+      createdAt = doc['createdAt'];
+    } catch (e) {}
+=======
     docid=doc['docId'];
-  // shop=doc['shop'];
+   shop=ProviderBusinessModel.fromDocumentSnapshot(doc['shop']);
    uid=doc['uid'];
    createdAt=doc['createdAt'];
 
@@ -31,13 +36,11 @@ Timestamp ? createdAt;
   catch (e)
   {
 
+>>>>>>> 8423b37a0df73172408fde1059a805571bdb12df
   }
- 
-}
 //  Map<String, dynamic> toJson() => {
 //     'docid':docid,
 //       'shop': shop,
-      
+
 //       };
 }
-

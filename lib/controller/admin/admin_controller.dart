@@ -1,6 +1,8 @@
+import 'package:booky/controller/shops/shop_service.dart';
 import 'package:booky/model/authentication/auth_model.dart';
 import 'package:booky/model/provider_business_model.dart';
 import 'package:booky/controller/authentication/auth_controller.dart';
+import 'package:booky/model/request_model_admin.dart';
 import 'package:booky/utils/colors.dart';
 import 'package:booky/utils/custom_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,8 +14,12 @@ class AdminController extends GetxController {
   final authController = Get.find<AuthController>();
   late ProviderBusinessModel businessModel;
 
-  getAppointments() {}
+ var requests=<RequestModelAdmin> [].obs;
+  getAppointments() async {
+requests.value =await ShopServices.getAllShops();
 
+update();
+  }
   // Future<AuthModel> getUser(String uid) async {
   //   try {
   //     DocumentSnapshot doc = await firestore.collection("auth").doc(uid).get();

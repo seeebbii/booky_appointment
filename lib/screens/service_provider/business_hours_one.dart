@@ -74,6 +74,7 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
 
   velidateAndSubmit() async {
     spController.businessModel = new ProviderBusinessModel(
+      shopName: spController.signupBusinessNameController.text,
         businessCategory: spController.categoryChoice.values
             .elementAt(spController.choise.value),
         businesscreateddate: Timestamp.fromDate(DateTime.now()),
