@@ -2,6 +2,7 @@
 import 'package:booky/screens/Admin/admin.dart';
 import 'package:booky/screens/Login/auth_decider.dart';
 import 'package:booky/screens/Login/login_page.dart';
+import 'package:booky/screens/customer/user_home.dart';
 import 'package:booky/screens/service_provider/home_sp.dart';
 import 'package:booky/screens/service_provider/location_sp.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -39,7 +40,7 @@ void main() async {
       // ],
       // locale: const Locale(
       //     "ar", "AE"), // OR Locale('ar', 'AE') OR Other RTL locales,
-      home: LoginPage(),
+      home: AuthDecider(),
     ),
   );
 }

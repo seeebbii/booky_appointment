@@ -1,3 +1,4 @@
+import 'package:booky/controller/shops/shop_service.dart';
 import 'package:booky/screens/customer/appointmet_one.dart';
 import 'package:booky/screens/customer/card.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,12 @@ class UserHome extends StatefulWidget {
 class _UserHome extends State<UserHome> {
   int choise = 0;
   bool Boolean = true;
+  @override
+  void initState() {
+    ShopServices.getAllShops();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
