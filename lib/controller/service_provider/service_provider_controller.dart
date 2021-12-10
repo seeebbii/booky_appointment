@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 
 class ServiceProvider extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final authController = Get.find<AuthController>();
+  final authController =   Get.put(AuthController());
 
   TextEditingController signupEmailController = TextEditingController();
   TextEditingController signupNameController = TextEditingController();
