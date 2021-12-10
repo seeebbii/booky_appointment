@@ -39,7 +39,7 @@ void main() async {
       // ],
       // locale: const Locale(
       //     "ar", "AE"), // OR Locale('ar', 'AE') OR Other RTL locales,
-      home: UserHome(),
+      home: AuthDecider(),
     ),
   );
 }
