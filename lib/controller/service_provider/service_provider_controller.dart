@@ -30,10 +30,13 @@ class ServiceProvider extends GetxController {
 
   RxInt choise = 0.obs;
 <<<<<<< HEAD
+<<<<<<< HEAD
   
  
 =======
 
+>>>>>>> dev
+=======
 >>>>>>> dev
   late ProviderBusinessModel businessModel;
   List<Availableday> availabledays = [];
