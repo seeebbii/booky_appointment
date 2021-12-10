@@ -1,14 +1,12 @@
-import 'package:booky/controller/authentication/auth_controller.dart';
 import 'package:booky/controller/service_provider/service_provider_controller.dart';
+import 'package:booky/model/provider_business_model.dart';
 import 'package:booky/screens/alerts.dart';
 import 'package:booky/screens/customer/home_customer.dart';
 import 'package:booky/screens/service_provider/conformation_sp.dart';
 import 'package:booky/screens/service_provider/location_sp.dart';
 import 'package:booky/screens/service_provider/sign_up_sp.dart';
 import 'package:booky/theme.dart';
-import 'package:booky/utils/auth_exception_handler.dart';
-import 'package:booky/utils/colors.dart';
-import 'package:booky/utils/custom_snackbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_time_range/flutter_time_range.dart';
 import 'package:get/get.dart';
@@ -22,8 +20,9 @@ class BusinessHoursOne extends StatefulWidget {
 }
 
 class _BusinessHoursOne extends State<BusinessHoursOne> {
-  final spController = Get.find<ServiceProvider>();
-  final authController = Get.find<AuthController>();
+  Availableday ?availableday;
+
+    final spController = Get.find<ServiceProvider>();
 
   @override
   void initState() {
@@ -45,45 +44,8 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
   String msg6 = "Select";
   String msg7 = "Select";
 
-  velidateAndSubmit() async {
-    final status = await authController.createUser(
-        spController.signupEmailController.text,
-        spController.signupPasswordController.text,
-        spController.signupNameController.text,
-        spController.signupPhoneController.text,
-        "serviceProvider",
-        spController.signupBusinessNameController.text,
-        0);
-
-    if (status == AuthResultStatus.successful) {
-
-
-
-
-
-
-
-
-
-
-//changed code
-
-
-
-
-      // CustomSnackBar.showSnackBar(
-      //     title: "Account created Successfully",
-      //     message: '',
-      //     backgroundColor: snackBarSuccess);
-    } else {
-      final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
-      CustomSnackBar.showSnackBar(
-          title: errorMsg, message: '', backgroundColor: snackBarError);
-    }
-
-    // Navigator.of(context)
-    //     .push(MaterialPageRoute(builder: (context) => ConformationSpScreen()));
-  }
+  final _messangerKey = GlobalKey<ScaffoldMessengerState>();
+  final _navigatorKey = GlobalKey<NavigatorState>();
 
   ChoosingHours(context, String day) {
     return showDialog(
@@ -130,6 +92,8 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
                     String t = to.format(context).toString();
                     setState(() {
                       msg = "$f - $t";
+                      spController.availabledays.add(Availableday(dayName:day ,fromTime:from ,toTIme:to ));
+
                     });
                     Navigator.pop(context);
                   },
@@ -186,6 +150,7 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
                     String t = to.format(context).toString();
                     setState(() {
                       msg2 = "$f - $t";
+                        spController.availabledays.add(Availableday(dayName:day ,fromTime:from ,toTIme:to ));
                     });
                     Navigator.pop(context);
                   },
@@ -242,6 +207,7 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
                     String t = to.format(context).toString();
                     setState(() {
                       msg3 = "$f - $t";
+                        spController.availabledays.add(Availableday(dayName:day ,fromTime:from ,toTIme:to ));
                     });
                     Navigator.pop(context);
                   },
@@ -298,6 +264,7 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
                     String t = to.format(context).toString();
                     setState(() {
                       msg4 = "$f - $t";
+                        spController.availabledays.add(Availableday(dayName:day ,fromTime:from ,toTIme:to ));
                     });
                     Navigator.pop(context);
                   },
@@ -354,6 +321,7 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
                     String t = to.format(context).toString();
                     setState(() {
                       msg5 = "$f - $t";
+                        spController.availabledays.add(Availableday(dayName:day ,fromTime:from ,toTIme:to ));
                     });
                     Navigator.pop(context);
                   },
@@ -410,6 +378,7 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
                     String t = to.format(context).toString();
                     setState(() {
                       msg6 = "$f - $t";
+                        spController.availabledays.add(Availableday(dayName:day ,fromTime:from ,toTIme:to ));
                     });
                     Navigator.pop(context);
                   },
@@ -466,6 +435,7 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
                     String t = to.format(context).toString();
                     setState(() {
                       msg7 = "$f - $t";
+                        spController.availabledays.add(Availableday(dayName:day ,fromTime:from ,toTIme:to ));
                     });
                     Navigator.pop(context);
                   },
@@ -1058,7 +1028,24 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
                                 ),
                               ),
                             ),
-                            onPressed: () => velidateAndSubmit(),
+                            onPressed: () {
+                              
+                          
+                           spController.businessModel=new ProviderBusinessModel(businessCategory: spController.categoryChoice.values.elementAt(spController.choise.value),
+                           uid: 'foreign from user ',
+                           businesscreateddate: Timestamp.fromDate(DateTime.now()),
+                           availabledays: spController.availabledays,
+                           dummytemp: 'text for future use',
+                           shoplocation: spController.locationController.text,
+                           status: 'Requested'
+
+                           
+                           );
+                              
+                               Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ConformationSpScreen()));}
                           ),
                         ),
                       ],
