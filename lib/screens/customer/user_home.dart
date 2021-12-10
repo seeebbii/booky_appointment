@@ -17,7 +17,7 @@ class _UserHome extends State<UserHome> {
   bool Boolean = true;
   @override
   void initState() {
-    //ShopServices.getAllPost();
+    ShopServices.getAllShops();
     super.initState();
   }
 

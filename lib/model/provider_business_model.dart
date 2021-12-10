@@ -20,14 +20,14 @@ class ProviderBusinessModel {
 
   ProviderBusinessModel.fromDocumentSnapshot(Map<String, dynamic> doc) {
     try {
-      businessCategory = doc['businesscateogry'];
+      businessCategory = doc['businessCategory'];
       shoplocation = doc['shoplocation'];
       status = doc['status'];
       businesscreateddate = doc['businesscreateddate'];
       dummytemp = doc['dummytemp'];
-      Iterable daysArray = doc['days'];
-      availabledays =
-          daysArray.map((e) => Availableday.fromDocumentSnapshot(e)).toList();
+      availabledays = doc['availabledays']
+          .ma((e) => Availableday.fromDocumentSnapshot(e))
+          .toList();
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -39,6 +39,8 @@ class ProviderBusinessModel {
         "businesscreateddate": businesscreateddate,
         "availabledays": availabledays?.map((e) => e.toJson()).toList()
       };
+
+  static fromMap(e) {}
 }
 
 class Availableday {
@@ -50,11 +52,11 @@ class Availableday {
     this.fromTime,
     this.toTIme,
   });
-  Availableday.fromDocumentSnapshot(DocumentSnapshot doc) {
+  Availableday.fromDocumentSnapshot(Map<String, dynamic> doc) {
     //= doc.id;
     dayName = doc['dayname'];
     fromTime = doc['fromtime'];
-    toTIme = doc['totime'];
+    toTIme = doc['toTIme'];
 
     // status = doc['status'];
   }
