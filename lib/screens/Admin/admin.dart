@@ -55,57 +55,65 @@ class _AdminHome extends State<AdminHome> {
                       ),
                     ),
                     child: Obx(
-                      () => ListView.builder(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        itemCount: adminController.requests.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: <Widget>[
-                              ListTile(
-                                title: Text(
-                                  adminController
-                                      .requests[index].shop!.shopName!,
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600),
+                      () => RefreshIndicator(
+                        onRefresh: () =>  adminController.getAppointments(),
+                        child: ListView.builder(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          itemCount: adminController.requests.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: <Widget>[
+                                ListTile(
+                                  title: Text(
+                                    adminController
+                                        .requests[index].shop!.shopName!,
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+
+                                  trailing: adminController.requests[index].shop!.status != "Requested" ? Text(adminController.requests[index].shop!.status.toString()) : Wrap(children: <Widget>[
+                                    MaterialButton(
+                                      onPressed: () {
+                                        ShopServices.rejectRequest( adminController.requests[index].docid! ,adminController.requests[index].shop!).then((value) => adminController.getAppointments());
+                                      },
+                                      color: Colors.red,
+                                      textColor: Colors.white,
+                                      child: Icon(
+                                        Icons.close,
+                                        // color: Colors.red,
+                                        size: 24,
+                                      ),
+                                      padding: EdgeInsets.all(10),
+                                      shape: CircleBorder(),
+                                    ),
+                                    MaterialButton(
+                                      onPressed: () {
+                                        ShopServices.acceptRequest( adminController.requests[index].docid! ,adminController.requests[index].shop!, ).then((value) => adminController.getAppointments());
+                                      },
+                                      color: Colors.green,
+                                      textColor: Colors.white,
+                                      child: Icon(
+                                        Icons.check,
+                                        size: 24,
+                                      ),
+                                      padding: EdgeInsets.all(10),
+                                      shape: CircleBorder(),
+                                    ),
+                                  ]),
                                 ),
-                                trailing: Wrap(children: <Widget>[
-                                  MaterialButton(
-                                    onPressed: () {},
-                                    color: Colors.red,
-                                    textColor: Colors.white,
-                                    child: Icon(
-                                      Icons.close,
-                                      // color: Colors.red,
-                                      size: 24,
-                                    ),
-                                    padding: EdgeInsets.all(10),
-                                    shape: CircleBorder(),
-                                  ),
-                                  MaterialButton(
-                                    onPressed: () {},
-                                    color: Colors.green,
-                                    textColor: Colors.white,
-                                    child: Icon(
-                                      Icons.check,
-                                      size: 24,
-                                    ),
-                                    padding: EdgeInsets.all(10),
-                                    shape: CircleBorder(),
-                                  ),
-                                ]),
-                              ),
-                              Divider(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.04,
-                                thickness: 1,
-                                indent: 10,
-                                endIndent: 10,
-                                color: kAppDividerColor,
-                              ),
-                            ],
-                          );
-                        },
+                                Divider(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.04,
+                                  thickness: 1,
+                                  indent: 10,
+                                  endIndent: 10,
+                                  color: kAppDividerColor,
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     )),
               )

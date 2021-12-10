@@ -20,6 +20,7 @@ void main() async {
   // InitializeControllers.init();
   Get.put(AuthController());
   Get.put(ServiceProvider());
+
   runApp(
     GetMaterialApp(
       title: 'Booky',
@@ -40,7 +41,7 @@ void main() async {
       // ],
       // locale: const Locale(
       //     "ar", "AE"), // OR Locale('ar', 'AE') OR Other RTL locales,
-      home:LoginPage(),
+      home: AuthDecider(),
     ),
   );
 }
