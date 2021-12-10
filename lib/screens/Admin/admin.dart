@@ -60,49 +60,56 @@ class _AdminHome extends State<AdminHome> {
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     itemCount: adminController.requests.length,
                     itemBuilder: (context, index) {
-                      return Column(
-                        children: <Widget>[
-                          ListTile(
-                            title: Text(
-                              adminController.requests[index].shop!.shopName!,
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w600),
+                      if(adminController.requests.isEmpty){
+                        return Center(
+                          child: Text("No request"),
+                        );
+                      }else{
+                        return Column(
+                          children: <Widget>[
+                            ListTile(
+                              title: Text(
+                                "${adminController.requests[index].shop?.shopName}",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600),
+                              ),
+                              trailing: Wrap(children: <Widget>[
+                                MaterialButton(
+                                  onPressed: () {},
+                                  color: Colors.red,
+                                  textColor: Colors.white,
+                                  child: Icon(
+                                    Icons.close,
+                                    // color: Colors.red,
+                                    size: 24,
+                                  ),
+                                  padding: EdgeInsets.all(10),
+                                  shape: CircleBorder(),
+                                ),
+                                MaterialButton(
+                                  onPressed: () {},
+                                  color: Colors.green,
+                                  textColor: Colors.white,
+                                  child: Icon(
+                                    Icons.check,
+                                    size: 24,
+                                  ),
+                                  padding: EdgeInsets.all(10),
+                                  shape: CircleBorder(),
+                                ),
+                              ]),
                             ),
-                            trailing: Wrap(children: <Widget>[
-                              MaterialButton(
-                                onPressed: () {},
-                                color: Colors.red,
-                                textColor: Colors.white,
-                                child: Icon(
-                                  Icons.close,
-                                  // color: Colors.red,
-                                  size: 24,
-                                ),
-                                padding: EdgeInsets.all(10),
-                                shape: CircleBorder(),
-                              ),
-                              MaterialButton(
-                                onPressed: () {},
-                                color: Colors.green,
-                                textColor: Colors.white,
-                                child: Icon(
-                                  Icons.check,
-                                  size: 24,
-                                ),
-                                padding: EdgeInsets.all(10),
-                                shape: CircleBorder(),
-                              ),
-                            ]),
-                          ),
-                          Divider(
-                            height: MediaQuery.of(context).size.height * 0.04,
-                            thickness: 1,
-                            indent: 10,
-                            endIndent: 10,
-                            color: kAppDividerColor,
-                          ),
-                        ],
-                      );
+                            Divider(
+                              height: MediaQuery.of(context).size.height * 0.04,
+                              thickness: 1,
+                              indent: 10,
+                              endIndent: 10,
+                              color: kAppDividerColor,
+                            ),
+                          ],
+                        );
+                      }
+
                     },
                   ),)
                 ),
