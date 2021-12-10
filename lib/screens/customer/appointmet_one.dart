@@ -313,7 +313,7 @@ class AppointmentOne extends StatelessWidget {
             child: MaterialButton(
               padding: const EdgeInsets.fromLTRB(120, 5, 120, 5),
               onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => AppointmentCustomerTwo())),
+                  builder: (context) => AppointmentCustomerTwo( requestModelAdmin: requestModelAdmin))),
               color: const Color(0xff28676E),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),

@@ -1,3 +1,4 @@
+import 'package:booky/model/request_model_admin.dart';
 import 'package:booky/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -5,7 +6,8 @@ import 'appointment_three.dart';
 
 class AppointmentCustomerTwo extends StatefulWidget {
   static String id = "AppointmentCustomerTwo";
-  const AppointmentCustomerTwo({Key? key}) : super(key: key);
+   final RequestModelAdmin ? requestModelAdmin;
+  const AppointmentCustomerTwo({Key? key,  this.requestModelAdmin}) : super(key: key);
 
   @override
   _AppointmentCustomerTwoState createState() => _AppointmentCustomerTwoState();
@@ -110,8 +112,8 @@ void initState() {
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: [
-                          demoDate1("${weekday}", "${dateparse.day}", true),
-                          demoDate2("Tue", "12", false),
+                         demoDate1("${weekday}", "${dateparse.day}", true),
+                          demoDate2(widget.requestModelAdmin!.shop!.availabledays![0].toString(), "12", false),
                           demoDate3("Wed", "13", false),
                           demoDate4("Thur", "14", false),
                           demoDate5("Fri", "15", false),

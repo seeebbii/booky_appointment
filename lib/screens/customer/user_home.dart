@@ -51,7 +51,7 @@ class _UserHome extends State<UserHome> {
         ),
         backgroundColor: Color(0xFFffffff),
         body: userController.isLoading.value
-            ? Container(
+            ?Obx(()=> Container(
                 child: ListView(children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -846,7 +846,7 @@ class _UserHome extends State<UserHome> {
                     ],
                   ),
                 ]),
-              )
+              ))
             : SizedBox.shrink());
   }
 
