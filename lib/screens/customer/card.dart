@@ -1,3 +1,4 @@
+import 'package:booky/model/request_model_admin.dart';
 import 'package:booky/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -29,9 +30,12 @@ const stylistData = [
 
 class CardScreen extends StatelessWidget {
   static String id = "CardScreen";
+  final List<RequestModelAdmin>? categorylist;
 
   // late String title;
   static String title = "Car Wash List";
+
+  const CardScreen({Key? key, this.categorylist}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
