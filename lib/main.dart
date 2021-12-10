@@ -23,6 +23,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controller/authentication/auth_controller.dart';
+import 'controller/service_provider/service_provider_controller.dart';
 import 'screens/Splash.dart';
 // import 'screens/customer/test.dart';
 
@@ -50,7 +51,7 @@ void main() async{
       // ],
       // locale: const Locale(
       //     "ar", "AE"), // OR Locale('ar', 'AE') OR Other RTL locales,
-      home: AuthDecider(),
+      home: testSp(),
     ),
   );
 }
