@@ -91,7 +91,7 @@ class CardScreen extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: ListView.builder(
-                      itemCount: categorylist?.length ?? 0,
+                      itemCount: categorylist?.length ,
                       itemBuilder: (context, index) {
                         return StylistCard(categorylist![index]);
                       }),
