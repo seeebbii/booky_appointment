@@ -70,21 +70,6 @@ class Availableday {
   }
 }
 
-class Slots {
-  String? startSlot;
-  String? endSlot;
 
-  Slots({
-    this.startSlot,
-    this.endSlot,
-  });
-
-  Slots.fromDocumentSnapshot(Map<String, dynamic> json) {
-    startSlot = json['startSlot'];
-    endSlot = json['endSlot'];
-  }
-
-  Map<String, dynamic> toJson() => {'startSlot':startSlot, 'endSlot':endSlot };
-}
 
 
