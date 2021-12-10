@@ -1,3 +1,4 @@
+import 'package:booky/controller/service_provider/service_provider_controller.dart';
 import 'package:booky/model/authentication/auth_model.dart';
 import 'package:booky/utils/auth_exception_handler.dart';
 import 'package:booky/utils/colors.dart';
@@ -13,9 +14,10 @@ import 'auth_database_service.dart';
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final firebaseUser = FirebaseAuth.instance.currentUser.obs;
+
   var currentUser = AuthModel().obs;
   AuthResultStatus? _status;
-
+  RxString role = "".obs;
 
   @override
   void onInit() {
@@ -39,7 +41,13 @@ class AuthController extends GetxController {
 
   //  CREATE USER WITH EMAIL AND PASSWORD
   Future<AuthResultStatus> createUser(
-      String email, String password, String username, String phone, String role) async {
+      String email,
+      String password,
+      String username,
+      String phone,
+      String role,
+      String bName,
+      int rating) async {
     try {
       UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password);
@@ -52,7 +60,12 @@ class AuthController extends GetxController {
             email: email.trim(),
             status: "online",
             userCreatedDate: Timestamp.now(),
-            role: role);
+            role: role,
+            businessName: bName,
+            rating: rating,
+            phoneNumber: phone,
+            isActiveted: false,
+            imageUrl: "");
 
         AuthDatabaseService()
             .createUserInDatabase(_user)
@@ -83,10 +96,12 @@ class AuthController extends GetxController {
           email: email.trim(),
         );
 
-        currentUser.value = _user;
-        saveUserState(_authResult.user!.uid);
         // TODO :: LOAD USER INFO FROM FIRESTORE COLLECTION
-        currentUser.value = await AuthDatabaseService().getUser(_authResult.user!.uid);
+        currentUser.value =
+            await AuthDatabaseService().getUser(_authResult.user!.uid);
+
+       // currentUser.value = _user;
+        saveUserState(_authResult.user!.uid, currentUser.value.role.toString());
       } else {
         _status = AuthResultStatus.undefined;
       }
@@ -110,13 +125,18 @@ class AuthController extends GetxController {
     }
   }
 
-  void saveUserState(String uid) async {
+  void saveUserState(String uid, String role) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    debugPrint('SAVE IN LOCAL DB : ' + uid);
+    debugPrint('SAVE IN LOCAL DB : ' + role);
     prefs.setString('uid', uid);
+    prefs.setString('role', role);
   }
 
   Future getUserId() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    role.value = prefs.getString('role').toString();
+    print(role.value);
     return prefs.getString('uid');
   }
 }

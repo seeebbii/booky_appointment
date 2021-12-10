@@ -9,7 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../theme.dart';
 
-
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -18,7 +17,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-
   bool _obscureTextPassword = true;
   bool _obscureTextConfirmPassword = false;
 
@@ -38,12 +36,7 @@ class _SignUpState extends State<SignUp> {
 
     if (isValid) {
       final status = await authController.createUser(
-        _email,
-        _password,
-        _username,
-        _phone,
-        "customer",
-      );
+          _email, _password, _username, _phone, "customer", "", 0);
       if (status == AuthResultStatus.successful) {
         CustomSnackBar.showSnackBar(
             title: "Account created Successfully",
@@ -85,9 +78,12 @@ class _SignUpState extends State<SignUp> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                                top: 20.0,
+                                bottom: 20.0,
+                                left: 25.0,
+                                right: 25.0),
                             child: TextFormField(
-                              onChanged: (str){
+                              onChanged: (str) {
                                 _username = str;
                               },
                               controller: signupNameController,
@@ -125,9 +121,12 @@ class _SignUpState extends State<SignUp> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                                top: 20.0,
+                                bottom: 20.0,
+                                left: 25.0,
+                                right: 25.0),
                             child: TextFormField(
-                              onChanged: (str){
+                              onChanged: (str) {
                                 _email = str;
                               },
                               controller: signupEmailController,
@@ -164,9 +163,12 @@ class _SignUpState extends State<SignUp> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                                top: 20.0,
+                                bottom: 20.0,
+                                left: 25.0,
+                                right: 25.0),
                             child: TextFormField(
-                              onChanged: (str){
+                              onChanged: (str) {
                                 _password = str;
                               },
                               controller: signupPasswordController,
@@ -213,9 +215,12 @@ class _SignUpState extends State<SignUp> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                                top: 20.0,
+                                bottom: 20.0,
+                                left: 25.0,
+                                right: 25.0),
                             child: TextFormField(
-                              onChanged: (str){
+                              onChanged: (str) {
                                 _phone = str;
                               },
                               controller: signupPhoneController,
