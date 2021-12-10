@@ -20,6 +20,7 @@ void main() async {
   // InitializeControllers.init();
   Get.put(AuthController());
   Get.put(ServiceProvider());
+
   runApp(
     GetMaterialApp(
       title: 'Booky',

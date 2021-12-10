@@ -97,7 +97,7 @@ class AppointmentOne extends StatelessWidget {
                       SizedBox(
                         width: 25,
                       ),
-                      Text("Abdullah Barber",
+                      Text(requestModelAdmin.user!.username.toString(),
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 20,
@@ -258,7 +258,7 @@ class AppointmentOne extends StatelessWidget {
                               color: Colors.grey,
                               fontSize: 14,
                             )),
-                        Text("Abdullah Salon",
+                        Text(requestModelAdmin.shop!.shopName.toString(),
                             style: TextStyle(
                               color: kPrimaryColor,
                               fontSize: 16,
@@ -278,7 +278,7 @@ class AppointmentOne extends StatelessWidget {
                               // fontWeight: FontWeight.w400,
                               // fontFamily: "Raleway"
                             )),
-                        Text("0506101582",
+                        Text(requestModelAdmin.user!.phoneNumber.toString(),
                             style: TextStyle(
                               color: kPrimaryColor,
                               fontSize: 16,
@@ -291,7 +291,7 @@ class AppointmentOne extends StatelessWidget {
                           endIndent: 25,
                           color: kAppDividerColor,
                         ),
-                        Text("Location",
+                        Text(requestModelAdmin.shop!.shoplocation.toString(),
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 16,
