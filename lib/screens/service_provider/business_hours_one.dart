@@ -1,3 +1,4 @@
+import 'package:booky/controller/authentication/auth_controller.dart';
 import 'package:booky/controller/service_provider/service_provider_controller.dart';
 import 'package:booky/screens/alerts.dart';
 import 'package:booky/screens/customer/home_customer.dart';
@@ -22,6 +23,7 @@ class BusinessHoursOne extends StatefulWidget {
 
 class _BusinessHoursOne extends State<BusinessHoursOne> {
   final spController = Get.find<ServiceProvider>();
+  final authController = Get.find<AuthController>();
 
   @override
   void initState() {
@@ -54,10 +56,16 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
         0);
 
     if (status == AuthResultStatus.successful) {
-      CustomSnackBar.showSnackBar(
-          title: "Account created Successfully",
-          message: '',
-          backgroundColor: snackBarSuccess);
+
+
+
+
+
+
+      // CustomSnackBar.showSnackBar(
+      //     title: "Account created Successfully",
+      //     message: '',
+      //     backgroundColor: snackBarSuccess);
     } else {
       final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
       CustomSnackBar.showSnackBar(

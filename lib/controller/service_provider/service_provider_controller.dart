@@ -13,12 +13,28 @@ class ServiceProvider extends GetxController {
   TextEditingController locationController = TextEditingController();
 
   RxInt choise = 0.obs;
-  // var optionSelected = false.obs;
-  // var productSelected = false.obs;
 
-  // void getProductList() async {
-  //   productModel.value = await ApiClient.productService.getProduct();
-  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
 
   // @override
   // void onInit() {
