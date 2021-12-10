@@ -1,11 +1,12 @@
 import 'package:booky/controller/authentication/auth_controller.dart';
-import 'package:booky/screens/customer/home_customer.dart';
+import 'package:booky/controller/service_provider/service_provider_controller.dart';
+import 'package:booky/utils/auth_exception_handler.dart';
+import 'package:booky/utils/colors.dart';
+import 'package:booky/utils/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../theme.dart';
-import 'package:booky/screens/Login/snackbar.dart';
-
 import 'location_sp.dart';
 
 class SignUpSp extends StatefulWidget {
@@ -18,14 +19,9 @@ class SignUpSp extends StatefulWidget {
 class _SignUpSp extends State<SignUpSp> {
   bool _obscureTextPassword = true;
   bool _obscureTextConfirmPassword = false;
+  var spController = Get.put(ServiceProvider());
 
-  TextEditingController signupEmailController = TextEditingController();
-  TextEditingController signupNameController = TextEditingController();
-  TextEditingController signupPasswordController = TextEditingController();
-  TextEditingController signupPhoneController = TextEditingController();
-  TextEditingController signupBusinessNameController = TextEditingController();
-
-  late String _businessName, _username, _email, _password, _phone;
+  //late String _businessName, _username, _email, _password, _phone;
   final _formKey = GlobalKey<FormState>();
   final authController = Get.find<AuthController>();
 
@@ -106,11 +102,11 @@ class _SignUpSp extends State<SignUpSp> {
                                             }
                                             return null;
                                           },
-                                          onChanged: (str) {
-                                            _businessName = str;
-                                          },
-                                          controller:
-                                              signupBusinessNameController,
+                                          // onChanged: (str) {
+                                          //   _businessName = str;
+                                          // },
+                                          controller: spController
+                                              .signupBusinessNameController,
                                           keyboardType: TextInputType.text,
                                           textCapitalization:
                                               TextCapitalization.words,
@@ -151,10 +147,11 @@ class _SignUpSp extends State<SignUpSp> {
                                             }
                                             return null;
                                           },
-                                          onChanged: (str) {
-                                            _username = str;
-                                          },
-                                          controller: signupNameController,
+                                          // onChanged: (str) {
+                                          //   _username = str;
+                                          // },
+                                          controller:
+                                              spController.signupNameController,
                                           keyboardType: TextInputType.text,
                                           textCapitalization:
                                               TextCapitalization.words,
@@ -195,10 +192,11 @@ class _SignUpSp extends State<SignUpSp> {
                                             }
                                             return null;
                                           },
-                                          onChanged: (str){
-                                            _email = str;
-                                          },
-                                          controller: signupEmailController,
+                                          // onChanged: (str) {
+                                          //   _email = str;
+                                          // },
+                                          controller: spController
+                                              .signupEmailController,
                                           keyboardType:
                                               TextInputType.emailAddress,
                                           autocorrect: false,
@@ -238,10 +236,11 @@ class _SignUpSp extends State<SignUpSp> {
                                             }
                                             return null;
                                           },
-                                          onChanged: (str){
-                                            _password = str;
-                                          },
-                                          controller: signupPasswordController,
+                                          // onChanged: (str) {
+                                          //   _password = str;
+                                          // },
+                                          controller: spController
+                                              .signupPasswordController,
                                           obscureText: _obscureTextPassword,
                                           autocorrect: false,
                                           style: const TextStyle(
@@ -284,11 +283,12 @@ class _SignUpSp extends State<SignUpSp> {
                                             left: 25.0,
                                             right: 25.0),
                                         child: TextFormField(
-                                          controller: signupPhoneController,
+                                          controller: spController
+                                              .signupPhoneController,
                                           keyboardType: TextInputType.phone,
-                                          onChanged: (str){
-                                            _phone = str;
-                                          },
+                                          // onChanged: (str) {
+                                          //   _phone = str;
+                                          // },
                                           validator: (str) {
                                             if (str == '') {
                                               return "Required*";
