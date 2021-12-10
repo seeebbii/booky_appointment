@@ -17,6 +17,7 @@ class AdminController extends GetxController {
  var requests=<RequestModelAdmin> [].obs;
   getAppointments() async {
 requests.value =await ShopServices.getAllShops();
+
 update();
   }
   // Future<AuthModel> getUser(String uid) async {
