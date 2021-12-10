@@ -169,8 +169,7 @@ class StylistCard extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      "4.0",
-                      //"requestModelAdmin.user!.rating.toString()",
+                      requestModelAdmin.user!.rating.toString(),
                       style: TextStyle(
                         color: kPrimaryColor,
                       ),
