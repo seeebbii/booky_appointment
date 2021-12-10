@@ -9,9 +9,9 @@ import 'package:get/get.dart';
 class ShopServices {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   RequestModelAdmin ? request;
-
+ 
  static  getAllShops() async {
-     List<RequestModelAdmin> ? collection;
+   List<RequestModelAdmin>  collection=[];
     CollectionReference _collectionRef =
         FirebaseFirestore.instance.collection('serviceProvider-shop');
 
@@ -24,9 +24,11 @@ class ShopServices {
      // RequestModelAdmin.fromDocumentSnapshot(allData);
     print(allData);
 allData.forEach((element) {
-  collect.add(RequestModelAdmin.fromDocumentSnapshot(element as Map<String,dynamic>));
+  collection.add(RequestModelAdmin.fromDocumentSnapshot(element as Map<String,dynamic>));
+
  
 });
+return collection;
     // try {
     //   CollectionReference <Map<String, dynamic>> doc =  _firestore.collection("serviceProvider-shop");
 
