@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import 'package:booky/controller/service_provider/service_provider_controller.dart';
+>>>>>>> dev
 import 'package:booky/screens/alerts.dart';
 import 'package:booky/screens/customer/home_customer.dart';
 import 'package:booky/screens/service_provider/conformation_sp.dart';
@@ -6,6 +10,7 @@ import 'package:booky/screens/service_provider/sign_up_sp.dart';
 import 'package:booky/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_time_range/flutter_time_range.dart';
+import 'package:get/get.dart';
 
 class BusinessHoursOne extends StatefulWidget {
   static String id = "BusinessHoursOne";
@@ -16,6 +21,9 @@ class BusinessHoursOne extends StatefulWidget {
 }
 
 class _BusinessHoursOne extends State<BusinessHoursOne> {
+
+    final spController = Get.find<ServiceProvider>();
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +43,7 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
   String msg5 = "Select";
   String msg6 = "Select";
   String msg7 = "Select";
+
   final _messangerKey = GlobalKey<ScaffoldMessengerState>();
   final _navigatorKey = GlobalKey<NavigatorState>();
 

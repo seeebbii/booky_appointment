@@ -7,14 +7,22 @@ class AuthModel {
   String? status;
   Timestamp? userCreatedDate;
   String? role;
+  String? businessName;
+  int? rating;
+  String? imageUrl;
+  bool? isActiveted;
 
   AuthModel(
       {this.uid,
-        this.username,
-        this.email,
-        this.status,
-        this.userCreatedDate,
-        this.role});
+      this.username,
+      this.email,
+      this.status,
+      this.userCreatedDate,
+      this.role,
+      this.businessName,
+      this.rating,
+      this.imageUrl,
+      this.isActiveted});
 
   AuthModel.fromDocumentSnapshot(DocumentSnapshot doc) {
     uid = doc.id;
@@ -22,6 +30,10 @@ class AuthModel {
     email = doc['email'];
     userCreatedDate = doc['userCreatedDate'];
     role = doc['role'];
-    // status = doc['status'];
+    businessName = doc['businessName'];
+    rating = doc['rating'];
+    status = doc['status'];
+    imageUrl = doc['imageUrl'];
+    isActiveted = doc['isActiveted'];
   }
 }
