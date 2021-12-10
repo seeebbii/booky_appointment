@@ -13,14 +13,14 @@ class AdminHome extends StatefulWidget {
   _AdminHome createState() => _AdminHome();
 }
 
-
 class _AdminHome extends State<AdminHome> {
-  AdminController adminController=Get.put(AdminController());
-@override
+  AdminController adminController = Get.put(AdminController());
+  @override
   void initState() {
- adminController.getAppointments();
+    adminController.getAppointments();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,67 +45,69 @@ class _AdminHome extends State<AdminHome> {
               Positioned(
                 top: MediaQuery.of(context).size.height / 6 - 10,
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30),
-                      topLeft: Radius.circular(30),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(30),
+                        topLeft: Radius.circular(30),
+                      ),
                     ),
-                  ),
-                  child: Obx(
-                    
-                    ()=>ListView.builder(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    itemCount: adminController.requests.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: <Widget>[
-                          ListTile(
-                            title: Text(
-                              adminController.requests[index].shop!.shopName!,
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w600),
-                            ),
-                            trailing: Wrap(children: <Widget>[
-                              MaterialButton(
-                                onPressed: () {},
-                                color: Colors.red,
-                                textColor: Colors.white,
-                                child: Icon(
-                                  Icons.close,
-                                  // color: Colors.red,
-                                  size: 24,
+                    child: Obx(
+                      () => ListView.builder(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        itemCount: adminController.requests.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: <Widget>[
+                              ListTile(
+                                title: Text(
+                                  adminController
+                                      .requests[index].shop!.shopName!,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600),
                                 ),
-                                padding: EdgeInsets.all(10),
-                                shape: CircleBorder(),
+                                trailing: Wrap(children: <Widget>[
+                                  MaterialButton(
+                                    onPressed: () {},
+                                    color: Colors.red,
+                                    textColor: Colors.white,
+                                    child: Icon(
+                                      Icons.close,
+                                      // color: Colors.red,
+                                      size: 24,
+                                    ),
+                                    padding: EdgeInsets.all(10),
+                                    shape: CircleBorder(),
+                                  ),
+                                  MaterialButton(
+                                    onPressed: () {},
+                                    color: Colors.green,
+                                    textColor: Colors.white,
+                                    child: Icon(
+                                      Icons.check,
+                                      size: 24,
+                                    ),
+                                    padding: EdgeInsets.all(10),
+                                    shape: CircleBorder(),
+                                  ),
+                                ]),
                               ),
-                              MaterialButton(
-                                onPressed: () {},
-                                color: Colors.green,
-                                textColor: Colors.white,
-                                child: Icon(
-                                  Icons.check,
-                                  size: 24,
-                                ),
-                                padding: EdgeInsets.all(10),
-                                shape: CircleBorder(),
+                              Divider(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.04,
+                                thickness: 1,
+                                indent: 10,
+                                endIndent: 10,
+                                color: kAppDividerColor,
                               ),
-                            ]),
-                          ),
-                          Divider(
-                            height: MediaQuery.of(context).size.height * 0.04,
-                            thickness: 1,
-                            indent: 10,
-                            endIndent: 10,
-                            color: kAppDividerColor,
-                          ),
-                        ],
-                      );
-                    },
-                  ),)
-                ),
+                            ],
+                          );
+                        },
+                      ),
+                    )),
               )
             ],
           ),
@@ -127,5 +129,3 @@ final serviceProviderList = [
   'Mohammed Women Salon',
   'Mohsen trainer',
 ];
-
-
