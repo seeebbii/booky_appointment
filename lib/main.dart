@@ -11,11 +11,16 @@ import 'package:get/get.dart';
 import 'constants/initialize_controllers.dart';
 import 'controller/authentication/auth_controller.dart';
 import 'controller/service_provider/service_provider_controller.dart';
+import 'core/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
   await Firebase.initializeApp();
+  NotificationInitilization.initilaizedPushNotifications();
   // InitializeControllers.init();
   Get.put(AuthController());
   Get.put(ServiceProvider());
@@ -39,7 +44,11 @@ void main() async {
       // ],
       // locale: const Locale(
       //     "ar", "AE"), // OR Locale('ar', 'AE') OR Other RTL locales,
+<<<<<<< HEAD
       home: AuthDecider(),
+=======
+      home: LoginPage(),
+>>>>>>> main
     ),
   );
 }

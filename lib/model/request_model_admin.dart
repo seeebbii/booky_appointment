@@ -21,13 +21,8 @@ class RequestModelAdmin {
     try {
       docid = doc['docId'];
       shop = ProviderBusinessModel.fromDocumentSnapshot(doc['shop']);
-      uid = doc['uid'];
+      user = AuthModel.fromDocumentSnapshot(doc['uid']);
       createdAt = doc['createdAt'];
-
-
-
-
-      
     } catch (e) {}
   }
 }

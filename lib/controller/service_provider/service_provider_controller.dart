@@ -36,7 +36,7 @@ class ServiceProvider extends GetxController {
           _firestore.collection('serviceProvider-shop').doc();
 
       await document.set({
-        "uid": authController.currentUser.value.uid,
+        "uid": authController.currentUser.value.toJson(),
         "shop": businessModel.toJson(),
         "createdAt": Timestamp.now(),
         "docId": document.id,
