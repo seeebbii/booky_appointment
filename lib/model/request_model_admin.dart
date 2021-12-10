@@ -6,16 +6,11 @@ import 'package:flutter/material.dart';
 class RequestModelAdmin {
   String? docid;
   ProviderBusinessModel? shop;
-  String? uid;
+
   Timestamp? createdAt;
   AuthModel? user;
 
-  RequestModelAdmin({
-    this.docid,
-    this.shop,
-    this.uid,
-    this.createdAt,
-  });
+  RequestModelAdmin({this.docid, this.shop, this.createdAt, this.user});
 
   RequestModelAdmin.fromDocumentSnapshot(Map<String, dynamic> doc) {
     try {
