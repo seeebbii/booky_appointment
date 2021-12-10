@@ -18,7 +18,6 @@ class ServiceProvider extends GetxController {
   TextEditingController locationController = TextEditingController();
 
   RxInt choise = 0.obs;
-
   late ProviderBusinessModel businessModel;
   List<Availableday> availabledays = [];
   Map<int, String> categoryChoice = {
