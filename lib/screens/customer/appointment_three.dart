@@ -15,15 +15,15 @@ import 'appointment_two.dart';
 import 'conformation_appointment.dart';
 
 class AppointmentCustomerThree extends StatefulWidget {
-  static String id = "AppointmentCustomerThree";
+  static String ? id = "AppointmentCustomerThree";
   final RequestModelAdmin? requestModelAdmin;
-  final DateTime selectedDate;
-  final String selectedTime;
+  final DateTime? selectedDate;
+  final String ?selectedTime;
   const AppointmentCustomerThree({
     Key? key,
-    required this.requestModelAdmin,
-    required this.selectedDate,
-    required this.selectedTime,
+     this.requestModelAdmin,
+     this.selectedDate,
+     this.selectedTime,
   }) : super(key: key);
 
   @override
@@ -296,7 +296,7 @@ class _AppointmentCustomerThreeState extends State<AppointmentCustomerThree> {
                                   // fontWeight: FontWeight.w400,
                                   // fontFamily: "Raleway"
                                 )),
-                            Text(dateFormatter(widget.selectedDate),
+                            Text(dateFormatter(widget.selectedDate!),
                                 style: TextStyle(
                                   color: kPrimaryColor,
                                   fontSize: 16,

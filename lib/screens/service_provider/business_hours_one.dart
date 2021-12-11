@@ -755,7 +755,7 @@ class _BusinessHoursOne extends State<BusinessHoursOne> {
                   InkWell(
                     onTap: () {
                       (isSwitchedThree)
-                          ? ChoosingHours3(context, "Tuseday")
+                          ? ChoosingHours3(context, "Tuesday")
                           : failedAlert(context);
                     },
                     child: Row(
