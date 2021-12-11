@@ -192,6 +192,7 @@ class AboutSpScreen extends StatelessWidget {
                 ),
                 MaterialButton(
                   padding: const EdgeInsets.fromLTRB(120, 8, 120, 8),
+                  onPressed: () {},
                   // onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                   //     builder: (context) => AppointmentCustomerTwo())),
                   color: const Color(0xff28676E),

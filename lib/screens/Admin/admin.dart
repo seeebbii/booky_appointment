@@ -1,5 +1,7 @@
 import 'package:booky/controller/admin/admin_controller.dart';
+import 'package:booky/controller/authentication/auth_controller.dart';
 import 'package:booky/controller/shops/shop_service.dart';
+import 'package:booky/screens/Login/login_page.dart';
 import 'package:booky/screens/customer/notification.dart';
 import 'package:booky/theme.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class _AdminHome extends State<AdminHome> {
     adminController.getAppointments();
     super.initState();
   }
-
+  final authController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +32,16 @@ class _AdminHome extends State<AdminHome> {
           height: MediaQuery.of(context).size.height,
           child: Stack(
             children: [
+              AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                actions: [
+                  IconButton(onPressed: () {
+                    authController.logOut();
+                    Get.offAll(() => LoginPage());
+                  }, icon: Icon(Icons.logout, color: Colors.white ,),)
+                ],
+              ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 70, horizontal: 10),

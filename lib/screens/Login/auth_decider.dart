@@ -1,6 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks
 
 import 'package:booky/controller/authentication/auth_controller.dart';
+import 'package:booky/controller/authentication/auth_database_service.dart';
 import 'package:booky/screens/Admin/admin.dart';
 import 'package:booky/screens/customer/home_customer.dart';
 import 'package:booky/screens/service_provider/home_sp.dart';
@@ -12,7 +13,7 @@ import 'login_page.dart';
 class AuthDecider extends StatelessWidget {
   AuthDecider({Key? key}) : super(key: key);
 
-  final authController =   Get.put(AuthController());
+  final authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,11 @@ class AuthDecider extends StatelessWidget {
         future: authController.getUserId(),
         builder: (ctx, AsyncSnapshot auth) {
           if (auth.hasData && auth.data != null) {
-            authController.getUserById(auth.data);
+            authController.getUserById(auth.data).then((value) {
+              AuthDatabaseService().updateFcmToken(
+                  authController.currentUser.value.fcmToken!,
+                  auth.data);
+            });
             debugPrint("Role Save in DB is : ${authController.role}");
             if (authController.role.value == "admin") {
               return AdminHome();

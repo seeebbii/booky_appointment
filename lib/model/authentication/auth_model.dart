@@ -28,20 +28,7 @@ class AuthModel {
       this.phoneNumber,
       this.fcmToken});
 
-  AuthModel.fromDocumentSnapshot(DocumentSnapshot doc) {
-    uid = doc.id;
-    username = doc['username'];
-    email = doc['email'];
-    userCreatedDate = doc['userCreatedDate'];
-    role = doc['role'];
-    businessName = doc['businessName'];
-    rating = doc['rating'];
-    status = doc['status'];
-    imageUrl = doc['imageUrl'];
-    isActiveted = doc['isActiveted'];
-    phoneNumber = doc['phoneNumber'];
-    fcmToken = doc['fcmToken'];
-  }
+
   AuthModel.fromMapSnapshot(Map<String, dynamic> doc) {
     uid = doc['uid'];
     username = doc['username'];
@@ -57,6 +44,20 @@ class AuthModel {
     fcmToken = doc['fcmToken'];
   }
 
+  AuthModel.fromDocumentSnapshot(DocumentSnapshot doc) {
+    uid = doc.id;
+    username = doc['username'];
+    email = doc['email'];
+    userCreatedDate = doc['userCreatedDate'];
+    role = doc['role'];
+    businessName = doc['businessName'];
+    rating = doc['rating'];
+    status = doc['status'];
+    imageUrl = doc['imageUrl'];
+    isActiveted = doc['isActiveted'];
+    phoneNumber = doc['phoneNumber'];
+    fcmToken = doc['fcmToken'];
+  }
   Map<String, dynamic> toJson() => {
         'uid': uid,
         'username': username,
