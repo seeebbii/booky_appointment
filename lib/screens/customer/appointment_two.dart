@@ -1,11 +1,18 @@
-import 'package:booky/theme.dart';
 import 'package:flutter/material.dart';
+
+import 'package:booky/model/request_model_admin.dart';
+import 'package:booky/theme.dart';
 
 import 'appointment_three.dart';
 
 class AppointmentCustomerTwo extends StatefulWidget {
   static String id = "AppointmentCustomerTwo";
-  const AppointmentCustomerTwo({Key? key}) : super(key: key);
+    final RequestModelAdmin requestModelAdmin;
+
+  const AppointmentCustomerTwo({
+    Key? key,
+    required this.requestModelAdmin,
+  }) : super(key: key);
 
   @override
   _AppointmentCustomerTwoState createState() => _AppointmentCustomerTwoState();
