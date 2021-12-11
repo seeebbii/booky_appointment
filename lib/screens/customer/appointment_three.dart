@@ -1,14 +1,53 @@
-import 'package:booky/screens/service_provider/profile_sp.dart';
-import 'package:booky/theme.dart';
+import 'dart:convert';
+
+import 'package:booky/controller/appointment/appointment_controller.dart';
+import 'package:booky/utils/colors.dart';
+import 'package:booky/utils/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:booky/model/request_model_admin.dart';
+import 'package:booky/screens/service_provider/profile_sp.dart';
+import 'package:booky/theme.dart';
+import 'package:get/get.dart';
 
 import 'appointment_two.dart';
 import 'conformation_appointment.dart';
 
-class AppointmentCustomerThree extends StatelessWidget {
+class AppointmentCustomerThree extends StatefulWidget {
   static String id = "AppointmentCustomerThree";
-  const AppointmentCustomerThree({Key? key}) : super(key: key);
+  final RequestModelAdmin? requestModelAdmin;
+  final DateTime selectedDate;
+  final String selectedTime;
+  const AppointmentCustomerThree({
+    Key? key,
+    required this.requestModelAdmin,
+    required this.selectedDate,
+    required this.selectedTime,
+  }) : super(key: key);
+
+  @override
+  State<AppointmentCustomerThree> createState() =>
+      _AppointmentCustomerThreeState();
+}
+
+class _AppointmentCustomerThreeState extends State<AppointmentCustomerThree> {
+  var appointmentController = Get.find<AppointmentController>();
+  createAppoitment() async {
+    if (await appointmentController.createAppointmentRequest(
+        requestModelAdmin: widget.requestModelAdmin,
+        selectedDate: widget.selectedDate,
+        selectedTime: widget.selectedTime)) {
+      print("APPOINTMENTCREATE");
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => ConformationAppointment()));
+    } else {
+      CustomSnackBar.showSnackBar(
+          title: "APPOINTMENTCREATE CREATING FAILED",
+          message: '',
+          backgroundColor: snackBarError);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +254,9 @@ class AppointmentCustomerThree extends StatelessWidget {
                                   color: Colors.grey,
                                   fontSize: 14,
                                 )),
-                            Text("Women Salon",
+                            Text(
+                                widget.requestModelAdmin!.shop!.businessCategory
+                                    .toString(),
                                 style: TextStyle(
                                   color: kPrimaryColor,
                                   fontSize: 16,
@@ -233,7 +274,9 @@ class AppointmentCustomerThree extends StatelessWidget {
                                   color: Colors.grey,
                                   fontSize: 14,
                                 )),
-                            Text("Abdullah Salon",
+                            Text(
+                                widget.requestModelAdmin!.shop!.shopName
+                                    .toString(),
                                 style: TextStyle(
                                   color: kPrimaryColor,
                                   fontSize: 16,
@@ -253,7 +296,7 @@ class AppointmentCustomerThree extends StatelessWidget {
                                   // fontWeight: FontWeight.w400,
                                   // fontFamily: "Raleway"
                                 )),
-                            Text("Monday, 8 Nov 2021",
+                            Text(dateFormatter(widget.selectedDate),
                                 style: TextStyle(
                                   color: kPrimaryColor,
                                   fontSize: 16,
@@ -273,6 +316,15 @@ class AppointmentCustomerThree extends StatelessWidget {
                                   // fontWeight: FontWeight.w400,
                                   // fontFamily: "Raleway"
                                 )),
+                            Text(
+                                widget.requestModelAdmin!.shop!.shoplocation
+                                    .toString(),
+                                style: TextStyle(
+                                  color: kPrimaryColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  // fontFamily: "Raleway"
+                                )),
                           ],
                         ),
                       ),
@@ -283,9 +335,9 @@ class AppointmentCustomerThree extends StatelessWidget {
                   ),
                   MaterialButton(
                     padding: const EdgeInsets.fromLTRB(120, 5, 120, 5),
-                    onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => ConformationAppointment())),
+                    onPressed: () {
+                      createAppoitment();
+                    },
                     color: const Color(0xff28676E),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -305,6 +357,21 @@ class AppointmentCustomerThree extends StatelessWidget {
   }
 }
 
+String dateFormatter(DateTime date) {
+  dynamic dayData =
+      '{ "1" : "Mon", "2" : "Tue", "3" : "Wed", "4" : "Thur", "5" : "Fri", "6" : "Sat", "7" : "Sun" }';
+
+  dynamic monthData =
+      '{ "1" : "Jan", "2" : "Feb", "3" : "Mar", "4" : "Apr", "5" : "May", "6" : "June", "7" : "Jul", "8" : "Aug", "9" : "Sep", "10" : "Oct", "11" : "Nov", "12" : "Dec" }';
+
+  return json.decode(dayData)['${date.weekday}'] +
+      ", " +
+      date.day.toString() +
+      " " +
+      json.decode(monthData)['${date.month}'] +
+      " " +
+      date.year.toString();
+}
 //     return Scaffold(
 //       body: Stack(
 //         children: [

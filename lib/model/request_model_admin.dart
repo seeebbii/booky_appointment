@@ -24,10 +24,11 @@ class RequestModelAdmin {
       createdAt = doc['createdAt'];
     } catch (e) {}
   }
-}
-//  Map<String, dynamic> toJson() => {
-//     'docid':docid,
-//       'shop': shop,
 
-//       };
-//}
+  Map<String, dynamic> toJson() => {
+        'docid': docid,
+        'shop': shop?.toJson(),
+        'user': user?.toJson(),
+        'createdAt': createdAt
+      };
+}

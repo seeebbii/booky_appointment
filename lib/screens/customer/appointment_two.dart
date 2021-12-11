@@ -1,7 +1,14 @@
+import 'dart:convert';
+
+import 'package:booky/controller/appointment/appointment_controller.dart';
+import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
 import 'package:booky/model/request_model_admin.dart';
 import 'package:booky/theme.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'appointment_three.dart';
 
 class AppointmentCustomerTwo extends StatefulWidget {
@@ -15,25 +22,25 @@ class AppointmentCustomerTwo extends StatefulWidget {
 }
 
 class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
-  List months = [
-    'Jan',
-    'Feb',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'Sepetember',
-    'October',
-    'Nov',
-    'December'
-  ];
+
+  var appointmentController=Get.put(AppointmentController());
   var dateparse;
   late String weekday;
   void initState() {
     getdatetime();
   }
+
+  List<Appointments> appointments = [
+    Appointments(time: "08:30 AM", isSelected: true),
+    Appointments(time: "08:45 AM", isSelected: false),
+    Appointments(time: "09:00 AM", isSelected: false),
+    Appointments(time: "09:30 AM", isSelected: false),
+    Appointments(time: "09:45 AM", isSelected: false),
+    Appointments(time: "10:00 AM", isSelected: false),
+  ];
+  DatePickerController _controller = DatePickerController();
+  String selectedTime = "";
+  DateTime _selectedValue = DateTime.now();
 
   int choise = 0;
   @override
@@ -95,6 +102,7 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
             //   height: MediaQuery.of(context).size.height,
             //   width: MediaQuery.of(context).size.width,
             //   margin: EdgeInsets.only(left: 20, top: 280),
+
             Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
@@ -103,6 +111,9 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: 10,
+                    ),
                     Text(
                       'Select Day',
                       style: TextStyle(
@@ -111,32 +122,56 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
                           color: kPrimaryTextColor),
                     ),
                     Text(
-                      "${months[dateparse.month - 1]},${dateparse.year}",
+                      dateFormatter(_selectedValue),
                       style: TextStyle(
                         color: Color(0xff363636),
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
+
                     Container(
-                      height: 90,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          demoDate1("${weekday}", "${dateparse.day}", true),
-                          demoDate2(
-                              widget.requestModelAdmin!.shop!.availabledays![0]
-                                  .toString(),
-                              "12",
-                              false),
-                          demoDate3("Wed", "13", false),
-                          demoDate4("Thur", "14", false),
-                          demoDate5("Fri", "15", false),
-                          demoDate6("Sat", "16", false),
-                          demoDate7("Sun", "17", false),
+                      child: DatePicker(
+                        DateTime.now(),
+                        width: 60,
+                        height: 100,
+                        controller: _controller,
+                        initialSelectedDate: DateTime.now(),
+                        selectionColor: const Color(0xff28676E),
+                        selectedTextColor: Colors.white,
+                        inactiveDates: [
+                          // DateTime.now().add(Duration(days: 3)),
+                          // DateTime.now().add(Duration(days: 4)),
+                          // DateTime.now().add(Duration(days: 7))
                         ],
+                        onDateChange: (date) {
+                          // New date selected
+                          setState(() {
+                            _selectedValue = date;
+                          });
+                        },
                       ),
                     ),
+                    // Container(
+                    //   height: 90,
+                    //   child: ListView(
+                    //     scrollDirection: Axis.horizontal,
+                    //     children: [
+                    //       demoDate1("${weekday}", "${dateparse.day}", true),
+                    //       demoDate2(
+                    //           widget.requestModelAdmin!.shop!.availabledays![0]
+                    //               .toString(),
+                    //           "12",
+                    //           false),
+                    //       demoDate3("Wed", "13", false),
+                    //       demoDate4("Thur", "14", false),
+                    //       demoDate5("Fri", "15", false),
+                    //       demoDate6("Sat", "16", false),
+                    //       demoDate7("Sun", "17", false),
+                    //     ],
+                    //   ),
+                    // ),
+
                     SizedBox(
                       height: 20,
                     ),
@@ -157,19 +192,13 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
                     ),
 
                     Container(
-                      height: 60,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          spTimingsData("08:30 AM", true),
-                          spTimingsData("08:45 AM", false),
-                          spTimingsData("09:00 AM", false),
-                          spTimingsData("09:30 AM", false),
-                          spTimingsData("09:45 AM", false),
-                          spTimingsData("10:00 AM", false),
-                        ],
-                      ),
-                    ),
+                        height: 70,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: appointments.length,
+                            itemBuilder: (context, index) {
+                              return spTimingsData(appointments[index], index);
+                            })),
                     SizedBox(
                       height: 20,
                     ),
@@ -242,10 +271,17 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
                           top: MediaQuery.of(context).size.height * .08),
                       child: MaterialButton(
                         padding: const EdgeInsets.fromLTRB(120, 5, 120, 5),
-                        onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    AppointmentCustomerThree())),
+                        onPressed: () {
+                          if (selectedTime != "") {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => AppointmentCustomerThree(
+                                      requestModelAdmin:
+                                          widget.requestModelAdmin,
+                                      selectedTime: selectedTime,
+                                      selectedDate: _selectedValue,
+                                    )));
+                          }
+                        },
                         color: const Color(0xff28676E),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -285,394 +321,431 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
     );
   }
 
-  Widget demoDate1(String day, String date, bool isSelected) {
-    return InkWell(
+  String dateFormatter(DateTime date) {
+    dynamic dayData =
+        '{ "1" : "Mon", "2" : "Tue", "3" : "Wed", "4" : "Thur", "5" : "Fri", "6" : "Sat", "7" : "Sun" }';
+
+    dynamic monthData =
+        '{ "1" : "Jan", "2" : "Feb", "3" : "Mar", "4" : "Apr", "5" : "May", "6" : "June", "7" : "Jul", "8" : "Aug", "9" : "Sep", "10" : "Oct", "11" : "Nov", "12" : "Dec" }';
+
+    return json.decode(dayData)['${date.weekday}'] +
+        ", " +
+        date.day.toString() +
+        " " +
+        json.decode(monthData)['${date.month}'] +
+        " " +
+        date.year.toString();
+  }
+  // Widget demoDate1(String day, String date, bool isSelected) {
+  //   return InkWell(
+  //     onTap: () {
+  //       setState(() {
+  //         choise = 0;
+  //       });
+  //     },
+  //     child: Container(
+  //       width: 70,
+  //       margin: EdgeInsets.only(right: 15),
+  //       decoration: BoxDecoration(
+  //         color: choise == 0 ? kAppointmentColor : kAppDividerColor,
+  //         borderRadius: BorderRadius.circular(5),
+  //       ),
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Container(
+  //             child: Text(
+  //               day,
+  //               style: TextStyle(
+  //                 color: choise == 0 ? kWhiteColor : kBlackColor,
+  //                 fontSize: 20,
+  //                 fontFamily: 'Roboto',
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //           ),
+  //           Container(
+  //             margin: EdgeInsets.only(top: 10),
+  //             padding: EdgeInsets.all(7),
+  //             child: Text(
+  //               date,
+  //               style: TextStyle(
+  //                   color: choise == 0 ? kWhiteColor : kBlackColor,
+  //                   fontSize: 15,
+  //                   fontFamily: 'Roboto',
+  //                   fontWeight: FontWeight.bold),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget demoDate2(String day, String date, bool isSelected) {
+  //   return InkWell(
+  //     onTap: () {
+  //       setState(() {
+  //         choise = 1;
+  //       });
+  //     },
+  //     child: Container(
+  //       width: 70,
+  //       margin: EdgeInsets.only(right: 15),
+  //       decoration: BoxDecoration(
+  //         color: choise == 1 ? kAppointmentColor : kAppDividerColor,
+  //         borderRadius: BorderRadius.circular(5),
+  //       ),
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Container(
+  //             child: Text(
+  //               day,
+  //               style: TextStyle(
+  //                 color: choise == 1 ? kWhiteColor : kBlackColor,
+  //                 fontSize: 20,
+  //                 fontFamily: 'Roboto',
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //           ),
+  //           Container(
+  //             margin: EdgeInsets.only(top: 10),
+  //             padding: EdgeInsets.all(7),
+  //             child: Text(
+  //               date,
+  //               style: TextStyle(
+  //                   color: choise == 1 ? kWhiteColor : kBlackColor,
+  //                   fontSize: 15,
+  //                   fontFamily: 'Roboto',
+  //                   fontWeight: FontWeight.bold),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget demoDate3(String day, String date, bool isSelected) {
+  //   return InkWell(
+  //     onTap: () {
+  //       setState(() {
+  //         choise = 2;
+  //       });
+  //     },
+  //     child: Container(
+  //       width: 70,
+  //       margin: EdgeInsets.only(right: 15),
+  //       decoration: BoxDecoration(
+  //         color: choise == 2 ? kAppointmentColor : kAppDividerColor,
+  //         borderRadius: BorderRadius.circular(5),
+  //       ),
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Container(
+  //             child: Text(
+  //               day,
+  //               style: TextStyle(
+  //                 color: choise == 2 ? kWhiteColor : kBlackColor,
+  //                 fontSize: 20,
+  //                 fontFamily: 'Roboto',
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //           ),
+  //           Container(
+  //             margin: EdgeInsets.only(top: 10),
+  //             padding: EdgeInsets.all(7),
+  //             child: Text(
+  //               date,
+  //               style: TextStyle(
+  //                   color: choise == 2 ? kWhiteColor : kBlackColor,
+  //                   fontSize: 15,
+  //                   fontFamily: 'Roboto',
+  //                   fontWeight: FontWeight.bold),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget demoDate4(String day, String date, bool isSelected) {
+  //   return InkWell(
+  //     onTap: () {
+  //       setState(() {
+  //         choise = 3;
+  //       });
+  //     },
+  //     child: Container(
+  //       width: 70,
+  //       margin: EdgeInsets.only(right: 15),
+  //       decoration: BoxDecoration(
+  //         color: choise == 3 ? kAppointmentColor : kAppDividerColor,
+  //         borderRadius: BorderRadius.circular(5),
+  //       ),
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Container(
+  //             child: Text(
+  //               day,
+  //               style: TextStyle(
+  //                 color: choise == 3 ? kWhiteColor : kBlackColor,
+  //                 fontSize: 20,
+  //                 fontFamily: 'Roboto',
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //           ),
+  //           Container(
+  //             margin: EdgeInsets.only(top: 10),
+  //             padding: EdgeInsets.all(7),
+  //             child: Text(
+  //               date,
+  //               style: TextStyle(
+  //                   color: choise == 3 ? kWhiteColor : kBlackColor,
+  //                   fontSize: 15,
+  //                   fontFamily: 'Roboto',
+  //                   fontWeight: FontWeight.bold),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget demoDate5(String day, String date, bool isSelected) {
+  //   return InkWell(
+  //     onTap: () {
+  //       setState(() {
+  //         choise = 4;
+  //       });
+  //     },
+  //     child: Container(
+  //       width: 70,
+  //       margin: EdgeInsets.only(right: 15),
+  //       decoration: BoxDecoration(
+  //         color: choise == 4 ? kAppointmentColor : kAppDividerColor,
+  //         borderRadius: BorderRadius.circular(5),
+  //       ),
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Container(
+  //             child: Text(
+  //               day,
+  //               style: TextStyle(
+  //                 color: choise == 4 ? kWhiteColor : kBlackColor,
+  //                 fontSize: 20,
+  //                 fontFamily: 'Roboto',
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //           ),
+  //           Container(
+  //             margin: EdgeInsets.only(top: 10),
+  //             padding: EdgeInsets.all(7),
+  //             child: Text(
+  //               date,
+  //               style: TextStyle(
+  //                   color: choise == 4 ? kWhiteColor : kBlackColor,
+  //                   fontSize: 15,
+  //                   fontFamily: 'Roboto',
+  //                   fontWeight: FontWeight.bold),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget demoDate6(String day, String date, bool isSelected) {
+  //   return InkWell(
+  //     onTap: () {
+  //       setState(() {
+  //         choise = 5;
+  //       });
+  //     },
+  //     child: Container(
+  //       width: 70,
+  //       margin: EdgeInsets.only(right: 15),
+  //       decoration: BoxDecoration(
+  //         color: choise == 5 ? kAppointmentColor : kAppDividerColor,
+  //         borderRadius: BorderRadius.circular(5),
+  //       ),
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Container(
+  //             child: Text(
+  //               day,
+  //               style: TextStyle(
+  //                 color: choise == 5 ? kWhiteColor : kBlackColor,
+  //                 fontSize: 20,
+  //                 fontFamily: 'Roboto',
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //           ),
+  //           Container(
+  //             margin: EdgeInsets.only(top: 10),
+  //             padding: EdgeInsets.all(7),
+  //             child: Text(
+  //               date,
+  //               style: TextStyle(
+  //                   color: choise == 5 ? kWhiteColor : kBlackColor,
+  //                   fontSize: 15,
+  //                   fontFamily: 'Roboto',
+  //                   fontWeight: FontWeight.bold),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget demoDate7(String day, String date, bool isSelected) {
+  //   return InkWell(
+  //     onTap: () {
+  //       setState(() {
+  //         choise = 6;
+  //       });
+  //     },
+  //     child: Container(
+  //       width: 70,
+  //       margin: EdgeInsets.only(right: 15),
+  //       decoration: BoxDecoration(
+  //         color: choise == 6 ? kAppointmentColor : kAppDividerColor,
+  //         borderRadius: BorderRadius.circular(5),
+  //       ),
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Container(
+  //             child: Text(
+  //               day,
+  //               style: TextStyle(
+  //                 color: choise == 6 ? kWhiteColor : kBlackColor,
+  //                 fontSize: 20,
+  //                 fontFamily: 'Roboto',
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //           ),
+  //           Container(
+  //             margin: EdgeInsets.only(top: 10),
+  //             padding: EdgeInsets.all(7),
+  //             child: Text(
+  //               date,
+  //               style: TextStyle(
+  //                   color: choise == 6 ? kWhiteColor : kBlackColor,
+  //                   fontSize: 15,
+  //                   fontFamily: 'Roboto',
+  //                   fontWeight: FontWeight.bold),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  Widget spTimingsData(Appointments selectetAppointments, int index) {
+    return GestureDetector(
       onTap: () {
         setState(() {
-          choise = 0;
+          appointments.forEach((element) {
+            element.isSelected = false;
+          });
+          selectedTime = selectetAppointments.time;
+          appointments[index].isSelected = true;
         });
       },
-      child: Container(
-        width: 70,
-        margin: EdgeInsets.only(right: 15),
-        decoration: BoxDecoration(
-          color: choise == 0 ? kAppointmentColor : kAppDividerColor,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Text(
-                day,
-                style: TextStyle(
-                  color: choise == 0 ? kWhiteColor : kBlackColor,
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          //   margin: EdgeInsets.only(top: 5),
+          decoration: BoxDecoration(
+            color: appointments[index].isSelected
+                ? kAppointmentColor
+                : Color(0xffEEEEEE),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                // margin: EdgeInsets.only(right: 2),
+                child: Icon(
+                  Icons.access_time,
+                  color: appointments[index].isSelected
+                      ? Colors.white
+                      : Colors.black,
+                  size: 18,
                 ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              padding: EdgeInsets.all(7),
-              child: Text(
-                date,
-                style: TextStyle(
-                    color: choise == 0 ? kWhiteColor : kBlackColor,
-                    fontSize: 15,
+              Container(
+                //  margin: EdgeInsets.only(left: 2),
+                child: Text(
+                  selectetAppointments.time,
+                  style: TextStyle(
+                    color: appointments[index].isSelected
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: 16,
                     fontFamily: 'Roboto',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget demoDate2(String day, String date, bool isSelected) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          choise = 1;
-        });
-      },
-      child: Container(
-        width: 70,
-        margin: EdgeInsets.only(right: 15),
-        decoration: BoxDecoration(
-          color: choise == 1 ? kAppointmentColor : kAppDividerColor,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Text(
-                day,
-                style: TextStyle(
-                  color: choise == 1 ? kWhiteColor : kBlackColor,
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              padding: EdgeInsets.all(7),
-              child: Text(
-                date,
-                style: TextStyle(
-                    color: choise == 1 ? kWhiteColor : kBlackColor,
-                    fontSize: 15,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget demoDate3(String day, String date, bool isSelected) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          choise = 2;
-        });
-      },
-      child: Container(
-        width: 70,
-        margin: EdgeInsets.only(right: 15),
-        decoration: BoxDecoration(
-          color: choise == 2 ? kAppointmentColor : kAppDividerColor,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Text(
-                day,
-                style: TextStyle(
-                  color: choise == 2 ? kWhiteColor : kBlackColor,
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              padding: EdgeInsets.all(7),
-              child: Text(
-                date,
-                style: TextStyle(
-                    color: choise == 2 ? kWhiteColor : kBlackColor,
-                    fontSize: 15,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget demoDate4(String day, String date, bool isSelected) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          choise = 3;
-        });
-      },
-      child: Container(
-        width: 70,
-        margin: EdgeInsets.only(right: 15),
-        decoration: BoxDecoration(
-          color: choise == 3 ? kAppointmentColor : kAppDividerColor,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Text(
-                day,
-                style: TextStyle(
-                  color: choise == 3 ? kWhiteColor : kBlackColor,
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              padding: EdgeInsets.all(7),
-              child: Text(
-                date,
-                style: TextStyle(
-                    color: choise == 3 ? kWhiteColor : kBlackColor,
-                    fontSize: 15,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget demoDate5(String day, String date, bool isSelected) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          choise = 4;
-        });
-      },
-      child: Container(
-        width: 70,
-        margin: EdgeInsets.only(right: 15),
-        decoration: BoxDecoration(
-          color: choise == 4 ? kAppointmentColor : kAppDividerColor,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Text(
-                day,
-                style: TextStyle(
-                  color: choise == 4 ? kWhiteColor : kBlackColor,
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              padding: EdgeInsets.all(7),
-              child: Text(
-                date,
-                style: TextStyle(
-                    color: choise == 4 ? kWhiteColor : kBlackColor,
-                    fontSize: 15,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget demoDate6(String day, String date, bool isSelected) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          choise = 5;
-        });
-      },
-      child: Container(
-        width: 70,
-        margin: EdgeInsets.only(right: 15),
-        decoration: BoxDecoration(
-          color: choise == 5 ? kAppointmentColor : kAppDividerColor,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Text(
-                day,
-                style: TextStyle(
-                  color: choise == 5 ? kWhiteColor : kBlackColor,
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              padding: EdgeInsets.all(7),
-              child: Text(
-                date,
-                style: TextStyle(
-                    color: choise == 5 ? kWhiteColor : kBlackColor,
-                    fontSize: 15,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget demoDate7(String day, String date, bool isSelected) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          choise = 6;
-        });
-      },
-      child: Container(
-        width: 70,
-        margin: EdgeInsets.only(right: 15),
-        decoration: BoxDecoration(
-          color: choise == 6 ? kAppointmentColor : kAppDividerColor,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Text(
-                day,
-                style: TextStyle(
-                  color: choise == 6 ? kWhiteColor : kBlackColor,
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              padding: EdgeInsets.all(7),
-              child: Text(
-                date,
-                style: TextStyle(
-                    color: choise == 6 ? kWhiteColor : kBlackColor,
-                    fontSize: 15,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget spTimingsData(String time, bool isSelected) {
-    return isSelected
-        ? Container(
-            margin: EdgeInsets.only(top: 5),
-            decoration: BoxDecoration(
-              color: kAppointmentColor,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(right: 2),
-                  child: Icon(
-                    Icons.access_time,
-                    color: Colors.white,
-                    size: 18,
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 2),
-                  child: Text(
-                    '08:30 AM',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontFamily: 'Roboto',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
-        : Container(
-            margin: EdgeInsets.only(left: 20, top: 5),
-            decoration: BoxDecoration(
-              color: Color(0xffEEEEEE),
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(right: 2),
-                  child: Icon(
-                    Icons.access_time,
-                    color: Colors.black,
-                    size: 18,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 2),
-                  child: Text(
-                    time,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Roboto',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    // :
+
+    //  Container(
+    //     margin: EdgeInsets.only(left: 20, top: 5),
+    //     decoration: BoxDecoration(
+    //       color: Color(0xffEEEEEE),
+    //       borderRadius: BorderRadius.circular(5),
+    //     ),
+    //     child: Row(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       crossAxisAlignment: CrossAxisAlignment.center,
+    //       children: [
+    //         Container(
+    //           margin: EdgeInsets.only(right: 2),
+    //           child: Icon(
+    //             Icons.access_time,
+    //             color: Colors.black,
+    //             size: 18,
+    //           ),
+    //         ),
+    //         Container(
+    //           margin: EdgeInsets.only(left: 2),
+    //           child: Text(
+    //             time,
+    //             style: TextStyle(
+    //               color: Colors.black,
+    //               fontSize: 16,
+    //               fontFamily: 'Roboto',
+    //             ),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   );
   }
 
   void getdatetime() {
@@ -682,4 +755,13 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
     dateparse = DateTime.parse(date);
     weekday = DateFormat('EEEE').format(now);
   }
+}
+
+class Appointments {
+  String time;
+  bool isSelected;
+  Appointments({
+    required this.time,
+    required this.isSelected,
+  });
 }

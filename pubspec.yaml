@@ -80,6 +80,7 @@ dependencies:
   places_service: ^0.1.0
   flutter_time_range: ^0.0.3
   simple_time_range_picker: ^0.0.4
+  date_picker_timeline: ^1.2.3
 
 dev_dependencies:
   flutter_test:
