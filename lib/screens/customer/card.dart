@@ -93,7 +93,9 @@ class CardScreen extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: categorylist?.length ?? 0,
                       itemBuilder: (context, index) {
-                        return StylistCard(categorylist![index]);
+                        return categorylist![index].user!.isActiveted == true
+                            ? StylistCard(categorylist![index])
+                            : SizedBox.shrink();
                       }),
                   // child: Column(
                   //   crossAxisAlignment: CrossAxisAlignment.start,
