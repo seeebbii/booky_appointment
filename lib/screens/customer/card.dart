@@ -33,9 +33,9 @@ class CardScreen extends StatelessWidget {
   final List<RequestModelAdmin>? categorylist;
 
   // late String title;
-  static String title = "Car Wash List";
+  final String title ;
 
-  const CardScreen({Key? key, this.categorylist}) : super(key: key);
+  const CardScreen({Key? key, this.categorylist,required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

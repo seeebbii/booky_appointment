@@ -129,7 +129,8 @@ class _UserHome extends State<UserHome> {
                                             builder: (context) =>
                                                 CardScreen(
                                                   categorylist:
-                                                  carwashlist,
+                                                  carwashlist, title: 'Car Wash List',
+                                                  
                                                 )));
                                   });
                                 },
@@ -194,13 +195,14 @@ class _UserHome extends State<UserHome> {
                                         .shop!.businessCategory
                                         .toString()
                                         .toLowerCase() ==
-                                        "women's salons")
+                                        "womens saloon")
                                       womensSalons.add(element);
                                   });
                                   Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               CardScreen(
+                                                title: "Women's Saloon List",
                                                 categorylist:
                                                 womensSalons,
                                               )));
@@ -269,13 +271,14 @@ class _UserHome extends State<UserHome> {
                                         .shop!.businessCategory
                                         .toString()
                                         .toLowerCase() ==
-                                        'barber shop')
+                                        'barbershop')
                                       barbershoplist.add(element);
                                   });
                                   Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               CardScreen(
+                                                 title: "Barber Shops List",
                                                   categorylist:
                                                   barbershoplist)));
                                   setState(() {
@@ -351,6 +354,7 @@ class _UserHome extends State<UserHome> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               CardScreen(
+                                                 title: "Trainers List",
                                                 categorylist:
                                                 trainerlist,
                                               )));
@@ -428,6 +432,7 @@ class _UserHome extends State<UserHome> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               CardScreen(
+                                                 title: "Others List",
                                                 categorylist:
                                                 otherlist,
                                               )));
