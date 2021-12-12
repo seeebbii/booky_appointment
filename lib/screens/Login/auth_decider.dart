@@ -23,14 +23,24 @@ class AuthDecider extends StatelessWidget {
           if (auth.hasData && auth.data != null) {
             authController.getUserById(auth.data).then((value) {
               AuthDatabaseService().updateFcmToken(
-                  authController.currentUser.value.fcmToken!,
-                  auth.data);
+                  authController.currentUser.value.fcmToken!, auth.data);
             });
             debugPrint("Role Save in DB is : ${authController.role}");
             if (authController.role.value == "admin") {
               return AdminHome();
             } else if (authController.role.value == "serviceProvider") {
-              return HomeServiceProvider();
+              if (authController.currentUser.value.isActiveted == true) {
+                return HomeServiceProvider();
+              } else {
+                return Scaffold(
+                  appBar: AppBar(
+                    title: const Text('Un Verify Account'),
+                  ),
+                  body: const Center(
+                    child: Text('ERROR 404: Please Contact with admin.'),
+                  ),
+                );
+              }
             } else if (authController.role.value == "customer") {
               return HomeCustomer();
             } else {
