@@ -7,7 +7,6 @@ import 'package:booky/screens/customer/home_customer.dart';
 import 'package:booky/screens/service_provider/home_sp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'login_page.dart';
 
 class AuthDecider extends StatelessWidget {
@@ -29,34 +28,49 @@ class AuthDecider extends StatelessWidget {
             if (authController.role.value == "admin") {
               return AdminHome();
             } else if (authController.role.value == "serviceProvider") {
-              if (authController.currentUser.value.isActiveted == true) {
+              if (authController.isActivated.value == true) {
                 return HomeServiceProvider();
               } else {
-                return Scaffold(
-                  appBar: AppBar(
-                    title: const Text('Un Verify Account'),
-                  ),
-                  body: const Center(
-                    child: Text('ERROR 404: Please Contact with admin.'),
-                  ),
-                );
+                authController.logOut();
+                return unVerifyAccount('ERROR 404',
+                    'ERROR 404: Your Application is still under process.');
               }
             } else if (authController.role.value == "customer") {
               return HomeCustomer();
             } else {
-              print("else");
-              return Scaffold(
-                appBar: AppBar(
-                  title: const Text('404'),
-                ),
-                body: const Center(
-                  child: Text('ERROR 404: Not Found'),
-                ),
-              );
+              debugPrint("else");
+              authController.logOut();
+              return unVerifyAccount('404', 'ERROR 404: Not Found.');
             }
           } else {
             return LoginPage();
           }
         });
+  }
+
+  Scaffold unVerifyAccount(String title, String message) {
+    return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Center(
+            child: Text(
+              title,
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          )),
+      body: Container(
+        color: Colors.white,
+        child: Center(
+          child: Text(
+            message,
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

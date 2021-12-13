@@ -1,14 +1,19 @@
 import 'package:booky/constant.dart';
+import 'package:booky/model/appointments_model.dart';
 import 'package:flutter/material.dart';
 import 'package:booky/theme.dart';
+import 'package:get/state_manager.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PreviousAppointments extends StatelessWidget {
+  final List<AppointmentsModel> previous;
   static const String id = "PreviousAppointments";
   final title = 'Notification';
 
+  const PreviousAppointments({Key? key, required this.previous}) : super(key: key);
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,14 +26,17 @@ class PreviousAppointments extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    child: ListView.separated(
+                    child: Obx(()=>
+                    previous.length!=0?
+                    ListView.separated(
+                      
                       padding: EdgeInsets.only(top: 20),
-                      itemBuilder: (ctx, index) => FAQListitem(),
+                      itemBuilder: (ctx, index) => FAQListitem(previous[index]),
                       separatorBuilder: (ctx, index) => Divider(
                         thickness: 1,
                       ),
-                      itemCount: 6,
-                    ),
+                      itemCount: previous.length,
+                    ):SizedBox.shrink()),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50),
@@ -48,6 +56,9 @@ class PreviousAppointments extends StatelessWidget {
 }
 
 class FAQListitem extends StatelessWidget {
+  final AppointmentsModel previous;
+  FAQListitem(this.previous);
+
   void showQASheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -112,7 +123,7 @@ class FAQListitem extends StatelessWidget {
                             color: Colors.grey,
                             fontSize: 14,
                           )),
-                      Text("Abdullah Salon",
+                      Text(previous.user!.businessName.toString(),
                           style: TextStyle(
                             color: kPrimaryColor,
                             fontSize: 16,
@@ -135,7 +146,7 @@ class FAQListitem extends StatelessWidget {
                       Row(
                         //    mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text("Monday, 8 Nov 2021",
+                          Text(previous.appointmentdate!.toString(),
                               style: TextStyle(
                                 color: kPrimaryColor,
                                 fontSize: 16,
@@ -145,7 +156,7 @@ class FAQListitem extends StatelessWidget {
                           SizedBox(
                             width: 50,
                           ),
-                          Text("10:45 pm",
+                          Text(previous.appointmenttime!.toString(),
                               style: TextStyle(
                                 color: kPrimaryColor,
                                 fontSize: 16,
@@ -167,7 +178,7 @@ class FAQListitem extends StatelessWidget {
                             // fontWeight: FontWeight.w400,
                             // fontFamily: "Raleway"
                           )),
-                      Text("0506101582",
+                      Text(previous.user!.phoneNumber.toString(),
                           style: TextStyle(
                             color: kPrimaryColor,
                             fontSize: 16,
@@ -200,7 +211,7 @@ class FAQListitem extends StatelessWidget {
           ),
         ),
       ),
-      title: Text("Abdullah car wash"),
+      title: Text(previous.user!.businessName.toString()),
       subtitle: InkWell(
           onTap: () {
             showQASheet(context);
