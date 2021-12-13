@@ -10,6 +10,7 @@ class AppointmentsModel {
   Timestamp? createdAt;
   RequestModelAdmin? appointmentsDetails;
   AuthModel? user;
+  String? status;
 
   AppointmentsModel({
     this.appointmentdate,
@@ -18,6 +19,7 @@ class AppointmentsModel {
     this.appointmentsDetails,
     this.user,
     this.createdAt,
+    this.status,
   });
 
   AppointmentsModel.fromDocumentSnapshot(Map<String, dynamic> doc) {
@@ -29,6 +31,7 @@ class AppointmentsModel {
       appointmentsDetails =
           RequestModelAdmin.fromDocumentSnapshot(doc['appointment-details']);
       user = AuthModel.fromMapSnapshot(doc['uid']);
+      status = doc['status'] ?? "";
     } catch (e) {
       print(e.toString());
     }
@@ -40,6 +43,7 @@ class AppointmentsModel {
         'docId': docId,
         'appointment-details': appointmentsDetails?.toJson(),
         'user': user?.toJson(),
-        'createdAt': createdAt
+        'createdAt': createdAt,
+        'status': status
       };
 }

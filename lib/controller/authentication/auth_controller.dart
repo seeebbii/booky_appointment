@@ -21,6 +21,7 @@ class AuthController extends GetxController {
   AuthResultStatus? _status;
   RxString role = "".obs;
   RxBool isActivated = false.obs;
+  RxString userid = "".obs;
 
   @override
   void onInit() {
@@ -163,6 +164,7 @@ class AuthController extends GetxController {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     role.value = prefs.getString('role').toString();
     isActivated.value = prefs.getBool('isActivated')!;
+    userid.value = prefs.getString('uid')!;
     print(role.value);
     return prefs.getString('uid');
   }
