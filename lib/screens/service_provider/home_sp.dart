@@ -86,7 +86,7 @@ class _HomeServiceProvider extends State<HomeServiceProvider> {
             (index) => DropdownMenuItem<String>(
                   child: Text(list[index]),
                   value: list[index],
-                )),
+                )), onChanged: (String? value) {  },
         //onChanged: onSelected),
       ),
     );
