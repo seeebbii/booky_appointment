@@ -32,7 +32,7 @@ class UpcomingAppointments extends StatelessWidget {
               children: <Widget>[
                 ListTile(
                   title: Text(
-                    upcoming[index].user!.businessName!.toString(),
+                   upcoming[index].appointmentsDetails!.shop!.shopName!.toString(),
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
                   ),
                 ),
@@ -64,7 +64,7 @@ class UpcomingAppointments extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Text(days[index],
+                        Text(upcoming[index].appointmentdate!.substring(0,10),
                             textAlign: TextAlign.end,
                             style: TextStyle(fontSize: 14)),
                       ],
@@ -97,7 +97,7 @@ class UpcomingAppointments extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Text(time[index],
+                        Text(upcoming[index].appointmenttime.toString(),
                             textAlign: TextAlign.end,
                             style: TextStyle(fontSize: 14)),
                       ],
@@ -112,21 +112,27 @@ class UpcomingAppointments extends StatelessWidget {
                             color: Colors.white,
                             shape: BoxShape.circle,
                             boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 5,
-                                blurRadius: 10,
-                                offset:
-                                    Offset(0, 0), // changes position of shadow
-                              ),
+                              // BoxShadow(
+                              //   color: Colors.grey.withOpacity(0.1),
+                              //   spreadRadius: 5,
+                              //   blurRadius: 10,
+                              //   offset:
+                              //       Offset(0, 0), // changes position of shadow
+                              // ),
                             ],
                           ),
                           child: Padding(
                             padding: EdgeInsets.all(5),
-                            child: Icon(
-                              Icons.location_pin,
-                              size: 18,
-                              color: kPrimaryColor,
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.location_pin,
+                                  size: 18,
+                                  color: kPrimaryColor,
+                                ),
+                                Text(upcoming[index].appointmentsDetails!.shop!.shoplocation!.toString(),
+                                overflow: TextOverflow.ellipsis,)
+                              ],
                             ),
                           ),
                         ),

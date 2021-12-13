@@ -14,7 +14,7 @@ class ShopServices {
     String docId,
     ProviderBusinessModel shop,
   ) async {
-    shop.status = "Accepted";
+    shop.status = "upcoming";
     await _firestore.collection('serviceProvider-shop').doc(docId).update({
       'shop': shop.toJson(),
     });

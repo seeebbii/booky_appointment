@@ -64,6 +64,8 @@ class AppointmentController extends GetxController {
   }
 
   void setforCustomer(List<AppointmentsModel> value) {
+    upcomingAppointments.clear();
+    previousAppointments.clear();
     value.forEach((element) {
       if(element.user!.uid!.toString()==authController.currentUser.value.uid.toString())
     { // if(element.status.toString()=='accepted')
