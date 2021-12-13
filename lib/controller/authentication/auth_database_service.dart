@@ -1,6 +1,5 @@
-
-
 import 'package:booky/model/authentication/auth_model.dart';
+import 'package:booky/model/authentication/notification.dart';
 import 'package:booky/utils/colors.dart';
 import 'package:booky/utils/custom_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,11 +12,9 @@ class AuthDatabaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final authController = Get.find<AuthController>();
 
-  void updateFcmToken(String token, String uid)async{
+  void updateFcmToken(String token, String uid) async {
     print(token);
-    await _firestore.collection("auth").doc(uid).update({
-      "fcmToken": token
-    });
+    await _firestore.collection("auth").doc(uid).update({"fcmToken": token});
   }
 
   Future<bool> createUserInDatabase(AuthModel user) async {
@@ -31,10 +28,10 @@ class AuthDatabaseService {
         'businessName': user.businessName,
         'status': user.status,
         'rating': user.rating,
-         'phoneNumber': user.phoneNumber,
-         'isActiveted':   user.isActiveted,
-         'imageUrl': user.imageUrl,
-        'fcmToken' : user.fcmToken
+        'phoneNumber': user.phoneNumber,
+        'isActiveted': user.isActiveted,
+        'imageUrl': user.imageUrl,
+        'fcmToken': user.fcmToken
       });
       return true;
     } catch (e) {
@@ -43,10 +40,6 @@ class AuthDatabaseService {
     }
   }
 
-           
-         
-           
-         
   // Future<bool> createAppoitmentInDatabase(Schedule schedule) async {
   //   try {
   //     Timestamp currentTime = Timestamp.now();
@@ -92,19 +85,57 @@ class AuthDatabaseService {
 
   Future<AuthModel> getUser(String uid) async {
     try {
-      DocumentSnapshot doc =
-      await _firestore.collection("auth").doc(uid).get();
+      DocumentSnapshot doc = await _firestore.collection("auth").doc(uid).get();
       if (!doc.exists) {
         CustomSnackBar.showSnackBar(
             title: "Not Authorized",
             message: '',
             backgroundColor: snackBarError);
       }
-      
+
       return AuthModel.fromDocumentSnapshot(doc);
     } catch (e) {
       debugPrint(e.toString());
       rethrow;
     }
+  }
+
+//   Stream<List<NotificationModel>> getNotification(String uid) async {
+//     try {
+//       CollectionReference _collectionRef = FirebaseFirestore.instance
+//           .collection("auth")
+//           .doc(uid)
+//           .collection("notifications").snapshots().map((event) => )
+
+//       //   return NotificationModel.fromDocumentSnapshot(doc);
+
+//       // Get docs from collection reference
+//       QuerySnapshot querySnapshot = await _collectionRef.get();
+//       // Get data from docs and convert map to List
+//       final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+//       allData.forEach((element) {
+//         notification.add(
+//             NotificationModel.fromMapSnapshot(element as Map<String, dynamic>));
+//       });
+//       return notification;
+//     } catch (e) {
+//       debugPrint(e.toString());
+//       rethrow;
+//     }
+//   }
+// }
+  Stream<List<NotificationModel>> getNotification(String uid) {
+    return _firestore
+        .collection("auth")
+        .doc(uid)
+        .collection("notifications")
+        .snapshots()
+        .map((snapshot) {
+      List<NotificationModel> notification = [];
+      snapshot.docs.forEach((element) {
+        notification.add(NotificationModel.fromDocumentSnapshot(element));
+      });
+      return notification;
+    });
   }
 }

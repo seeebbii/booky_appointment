@@ -1,5 +1,6 @@
 import 'package:booky/model/appointments_model.dart';
 import 'package:booky/controller/authentication/auth_controller.dart';
+import 'package:booky/model/authentication/notification.dart';
 import 'package:booky/model/request_model_admin.dart';
 import 'package:booky/utils/colors.dart';
 import 'package:booky/utils/custom_snackbar.dart';
@@ -12,6 +13,9 @@ class AppointmentController extends GetxController {
   final authController = Get.find<AuthController>();
   var bookedAppointments = <AppointmentsModel>[].obs;
   RxBool isLoading = false.obs;
+  
+
+
 
   Future<void> getBookedAppointments() async {
     List<AppointmentsModel> appointments = [];

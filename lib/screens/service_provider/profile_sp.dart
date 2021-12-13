@@ -1,6 +1,8 @@
+import 'package:booky/controller/authentication/auth_controller.dart';
 import 'package:booky/screens/customer/notification.dart';
 import 'package:booky/screens/customer/setting.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../theme.dart';
 
@@ -13,6 +15,7 @@ class ProfileServiceProvider extends StatefulWidget {
 }
 
 class _ProfileServiceProvider extends State<ProfileServiceProvider> {
+  final _ = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +75,7 @@ class _ProfileServiceProvider extends State<ProfileServiceProvider> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text("Welcome Fahad",
+                  Text("Welcome ${_.currentUser.value.username}",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -83,54 +86,53 @@ class _ProfileServiceProvider extends State<ProfileServiceProvider> {
             ),
             Column(
               children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 250.0),
-                    itemCount: spLabels.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.white70, width: 1),
-                            borderRadius: BorderRadius.circular(10)),
-                        elevation: 0.4,
-                        shadowColor: kWhiteColor,
-                        child: ListTile(
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 22.0,
-                            color: kBlackColor,
-                          ),
-                          leading: Icon(
-                            icons[index],
-                            size: 25,
-                            color: kPrimaryColor,
-                          ),
-                          title: Text(spLabels[index]),
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) {
-                              switch (spLabels[index]) {
-                                case 'Notifications':
-                                  return NotificationCustomer();
-                                  break;
-
-                                case 'Setting Account':
-                                  return SettingCustomer();
-                                  break;
-                                // case 'Call Center':
-                                //   return CallCenter();
-                                // case 'About Application':
-                                //   return About();
-                                //   break;
-                                default:
-                                  return ProfileServiceProvider();
-                              }
-                            }),
-                          ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.only(top: 250.0),
+                  itemCount: spLabels.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.white70, width: 1),
+                          borderRadius: BorderRadius.circular(10)),
+                      elevation: 0.4,
+                      shadowColor: kWhiteColor,
+                      child: ListTile(
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 22.0,
+                          color: kBlackColor,
                         ),
-                      );
-                    },
-                  ),
-                
+                        leading: Icon(
+                          icons[index],
+                          size: 25,
+                          color: kPrimaryColor,
+                        ),
+                        title: Text(spLabels[index]),
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) {
+                            switch (spLabels[index]) {
+                              case 'Notifications':
+                                return NotificationCustomer();
+                                break;
+
+                              case 'Setting Account':
+                                return SettingCustomer();
+                                break;
+                              // case 'Call Center':
+                              //   return CallCenter();
+                              // case 'About Application':
+                              //   return About();
+                              //   break;
+                              default:
+                                return ProfileServiceProvider();
+                            }
+                          }),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
 
