@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:booky/controller/appointment/appointment_controller.dart';
+import 'package:booky/model/provider_business_model.dart';
+import 'package:booky/utils/colors.dart';
+import 'package:booky/utils/custom_snackbar.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,27 +28,31 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
 
   var appointmentController=Get.put(AppointmentController());
   var dateparse;
+   List<Availableday> availabledays=[];
+  // List<String> availabletime=[];
   late String weekday;
-  void initState() {
+  bool isProvideravailable=true;
+    bool isSelectionValid=false;
+    List<String> showavailable=[];
+  void initState()  {
     getdatetime();
+    super.initState();
   }
 
   List<Appointments> appointments = [
-    Appointments(time: "08:30 AM", isSelected: true),
-    Appointments(time: "08:45 AM", isSelected: false),
-    Appointments(time: "09:00 AM", isSelected: false),
-    Appointments(time: "09:30 AM", isSelected: false),
-    Appointments(time: "09:45 AM", isSelected: false),
-    Appointments(time: "10:00 AM", isSelected: false),
+    
   ];
   DatePickerController _controller = DatePickerController();
   String selectedTime = "";
   DateTime _selectedValue = DateTime.now();
+  late Appointments _availableslot= new Appointments(time: '', isSelected: false);
+
 
   int choise = 0;
   @override
   Widget build(BuildContext context) {
-    getdatetime();
+  
+  //  getdatetime();
     return Scaffold(
       body: Stack(children: [
         SizedBox(
@@ -131,24 +138,64 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
                     ),
 
                     Container(
-                      child: DatePicker(
+                      child:
+                       DatePicker(
+
                         DateTime.now(),
                         width: 60,
-                        height: 100,
+                        height: 120,
                         controller: _controller,
-                        initialSelectedDate: DateTime.now(),
-                        selectionColor: const Color(0xff28676E),
-                        selectedTextColor: Colors.white,
+                      
+                    
+                        selectionColor: isSelectionValid? Color(0xff28676E):Colors.transparent,
+                        selectedTextColor:isSelectionValid? Colors.white:Colors.black,
+                        // activeDates: [
+                        
+                        // ],
                         inactiveDates: [
-                          // DateTime.now().add(Duration(days: 3)),
-                          // DateTime.now().add(Duration(days: 4)),
-                          // DateTime.now().add(Duration(days: 7))
+                       
+                        
+                          
                         ],
                         onDateChange: (date) {
-                          // New date selected
-                          setState(() {
+                     
+                         print(DateFormat('EEEE').format(date));
+                         isProvideravailable= checkavailibility(date);
+if(isProvideravailable==true){
+  
+ setState(() {
+                     availabledays.forEach((element) {
+                       if(element.dayName!.toLowerCase()==DateFormat('EEEE').format(date).toLowerCase())
+                        _availableslot=new Appointments(time: '${element.fromTime}-${element.toTIme}', isSelected: false);
+                     })    ; 
+                    
                             _selectedValue = date;
+                        
+                            isSelectionValid=true;
+                   
                           });
+
+}
+                         
+
+                          else
+                          {
+                             setState(() {
+                          
+                     
+                           // ignore: unnecessary_statements
+                           _availableslot.time='';
+                            isSelectionValid=false;
+                          });
+                         
+                         availabledays.forEach((element) {showavailable.add(element.dayName.toString());});
+   CustomSnackBar.showSnackBar(
+          title: "Please select from weekdays service provider will be available:",
+            message: showavailable.toString(),
+          backgroundColor: Colors.redAccent);
+          showavailable.clear();
+                          }
+                        showavailable.clear();
                         },
                       ),
                     ),
@@ -193,12 +240,17 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
 
                     Container(
                         height: 70,
-                        child: ListView.builder(
+                        child:
+                         _availableslot.time==''?
+
+                         ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: appointments.length,
                             itemBuilder: (context, index) {
                               return spTimingsData(appointments[index], index);
-                            })),
+                            }):
+                            spTimingsData(_availableslot, 0)
+                            ),
                     SizedBox(
                       height: 20,
                     ),
@@ -272,7 +324,8 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
                       child: MaterialButton(
                         padding: const EdgeInsets.fromLTRB(120, 5, 120, 5),
                         onPressed: () {
-                          if (selectedTime != "") {
+                          if (selectedTime != ""&&isSelectionValid==true) {
+
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => AppointmentCustomerThree(
                                       requestModelAdmin:
@@ -281,6 +334,16 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
                                       selectedDate: _selectedValue,
                                     )));
                           }
+                          else
+                          {
+                             availabledays.forEach((element) {showavailable.add(element.dayName.toString());});
+                             CustomSnackBar.showSnackBar(
+          title: "Please select Valid date:",
+          message: showavailable.toString(),
+          backgroundColor: Colors.redAccent);
+          showavailable.clear();
+                          }
+                          
                         },
                         color: const Color(0xff28676E),
                         shape: RoundedRectangleBorder(
@@ -319,6 +382,21 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
         ),
       ]),
     );
+  }
+
+  bool checkavailibility(DateTime date) {
+  bool isavailable=false;
+      availabledays.forEach((element){
+                             if(element.dayName!.toLowerCase()==DateFormat('EEEE').format(date).toLowerCase())
+                           isavailable=true;
+                        
+print(DateFormat('EEEE').format(date).toLowerCase());
+
+
+
+    
+    });
+    return isavailable;
   }
 
   String dateFormatter(DateTime date) {
@@ -672,7 +750,7 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          //   margin: EdgeInsets.only(top: 5),
+           margin: EdgeInsets.only(right: 2,left: 2),
           decoration: BoxDecoration(
             color: appointments[index].isSelected
                 ? kAppointmentColor
@@ -684,7 +762,7 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                // margin: EdgeInsets.only(right: 2),
+                margin: EdgeInsets.only(left: 2),
                 child: Icon(
                   Icons.access_time,
                   color: appointments[index].isSelected
@@ -694,14 +772,14 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
                 ),
               ),
               Container(
-                //  margin: EdgeInsets.only(left: 2),
+                 margin: EdgeInsets.only(right: 5),
                 child: Text(
                   selectetAppointments.time,
                   style: TextStyle(
                     color: appointments[index].isSelected
                         ? Colors.white
                         : Colors.black,
-                    fontSize: 16,
+                    fontSize: 14,
                     fontFamily: 'Roboto',
                   ),
                 ),
@@ -747,10 +825,59 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
     //     ),
     //   );
   }
+  Future<void> _selectDate(BuildContext context) async {
+    var selectedDate;
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        selectableDayPredicate: _predicate,
+        firstDate: DateTime(2019),
+        lastDate: DateTime(2021),
+        builder: (context, child) {
+          return Theme(
+            data: ThemeData(
+                primaryColor: Colors.orangeAccent,
+                disabledColor: Colors.brown,
+                textTheme:
+                    TextTheme(bodyText1: TextStyle(color: Colors.blueAccent)), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.yellow)),
+            child: Text('fdf'),
+          );
+        });
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
+  bool _predicate(DateTime day) {
+    if ((day.isAfter(DateTime(2020, 1, 5)) &&
+        day.isBefore(DateTime(2020, 1, 9)))) {
+      return true;
+    }
+
+    if ((day.isAfter(DateTime(2020, 1, 10)) &&
+        day.isBefore(DateTime(2020, 1, 15)))) {
+      return true;
+    }
+    if ((day.isAfter(DateTime(2020, 2, 5)) &&
+        day.isBefore(DateTime(2020, 2, 17)))) {
+      return true;
+    }
+
+    return false;
+  }
 
   void getdatetime() {
+    appointments.clear();
+    availabledays.clear();
+
     DateTime now = DateTime.now();
     var date = now.toString();
+widget.requestModelAdmin!.shop!.availabledays!.forEach((element) {
+availabledays.add(element);
+appointments.add(Appointments(time: '${element.fromTime}-${element.toTIme}', isSelected: false));
+ 
+
+ });
 
     dateparse = DateTime.parse(date);
     weekday = DateFormat('EEEE').format(now);

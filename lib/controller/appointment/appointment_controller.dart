@@ -44,6 +44,7 @@ class AppointmentController extends GetxController {
         "appointment-date": selectedDate?.toIso8601String(),
         "appointment-details": requestModelAdmin?.toJson(),
         "createdAt": Timestamp.now(),
+        "status":'booked',
         "docId": document.id,
       });
       print(document.id);
