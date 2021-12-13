@@ -66,21 +66,21 @@ class ShopServices {
     await _firestore
         .collection('serviceProvider-shop')
         .doc(docId)
-        .update({'shop': shop.toJson(), 'uid': user.toJson()});
+        .update({'shop': shop.toJson(), 'uid': fetchedUser.toJson()});
 
     await _firestore.collection('auth').doc(fetchedUser.uid).update({
-      'uid': user.uid,
-      'username': user.username,
-      'email': user.email,
-      'userCreatedDate': user.userCreatedDate,
-      'role': user.role,
-      'businessName': user.businessName,
-      'status': user.status,
-      'rating': user.rating,
-      'phoneNumber': user.phoneNumber,
-      'isActiveted': user.isActiveted,
-      'imageUrl': user.imageUrl,
-      'fcmToken': user.fcmToken
+      'uid': fetchedUser.uid,
+      'username': fetchedUser.username,
+      'email': fetchedUser.email,
+      'userCreatedDate': fetchedUser.userCreatedDate,
+      'role': fetchedUser.role,
+      'businessName': fetchedUser.businessName,
+      'status': fetchedUser.status,
+      'rating': fetchedUser.rating,
+      'phoneNumber': fetchedUser.phoneNumber,
+      'isActiveted': fetchedUser.isActiveted,
+      'imageUrl': fetchedUser.imageUrl,
+      'fcmToken': fetchedUser.fcmToken
     });
     sendNotification(fetchedUser.fcmToken!, 'Accepted');
   }
@@ -105,21 +105,21 @@ class ShopServices {
     await _firestore
         .collection('serviceProvider-shop')
         .doc(docId)
-        .update({'shop': shop.toJson(), 'uid': user.toJson()});
+        .update({'shop': shop.toJson(), 'uid': fetchedUser.toJson()});
 
     await _firestore.collection('auth').doc(fetchedUser.uid).update({
-      'uid': user.uid,
-      'username': user.username,
-      'email': user.email,
-      'userCreatedDate': user.userCreatedDate,
-      'role': user.role,
-      'businessName': user.businessName,
-      'status': user.status,
-      'rating': user.rating,
-      'phoneNumber': user.phoneNumber,
-      'isActiveted': user.isActiveted,
-      'imageUrl': user.imageUrl,
-      'fcmToken': user.fcmToken
+      'uid': fetchedUser.uid,
+      'username': fetchedUser.username,
+      'email': fetchedUser.email,
+      'userCreatedDate': fetchedUser.userCreatedDate,
+      'role': fetchedUser.role,
+      'businessName': fetchedUser.businessName,
+      'status': fetchedUser.status,
+      'rating': fetchedUser.rating,
+      'phoneNumber': fetchedUser.phoneNumber,
+      'isActiveted': fetchedUser.isActiveted,
+      'imageUrl': fetchedUser.imageUrl,
+      'fcmToken': fetchedUser.fcmToken
     });
     sendNotification(fetchedUser.fcmToken!, 'Rejected');
   }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:booky/controller/authentication/auth_database_service.dart';
 import 'package:booky/model/authentication/auth_model.dart';
 import 'package:booky/model/provider_business_model.dart';
@@ -8,7 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:http/http.dart' as http;
 class ServiceProvider extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
@@ -32,6 +34,35 @@ class ServiceProvider extends GetxController {
     3: 'Trainer',
     4: 'Other',
   };
+
+  static void sendNotification(String token, String shopName) async {
+    var url = Uri.parse('https://fcm.googleapis.com/fcm/send');
+    try {
+      var header = {
+        "Content-Type": "application/json",
+        "Authorization":
+        "key=AAAAUt6GPa8:APA91bGyk7vovJIb14bu_Ys-Z0KnSl-p_Rs9Mq6FnfzdCLfzfFwp_ARfEqgyX3MTtWwMkjnXUzix4U9yqbgJJiBF6f9cNPJFF-D-vWwxrbewlHOhbSe342tbGtkHYxyY7vx28HLhyE3m",
+      };
+      var request = {
+        'notification': {
+          'title': "A new service request",
+          'body': "A new service request have been received, Business Name: $shopName"
+        },
+        'data': {
+          'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+          'type': 'COMMENT'
+        },
+        'to': '$token'
+      };
+
+      http.Response response =
+      await http.post(url, headers: header, body: jsonEncode(request));
+      print(response.body);
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+  }
 
   Future<bool> createBusnessShopInDatabase() async {
     try {
@@ -58,12 +89,7 @@ class ServiceProvider extends GetxController {
 
       collection.forEach((element) {
         if(element.role == 'admin'){
-          _firebaseMessaging.sendMessage(
-            to: element.fcmToken,
-            data: {
-              'message' : "A new service request have been received, Business Name: ${businessModel.shopName}"
-            }
-          );
+          sendNotification(element.fcmToken!, businessModel.shopName!);
         }
       });
 
