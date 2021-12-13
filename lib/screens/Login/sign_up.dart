@@ -39,7 +39,7 @@ class _SignUpState extends State<SignUp> {
           _email, _password, _username, _phone, "customer", "", 0);
       if (status == AuthResultStatus.successful) {
         CustomSnackBar.showSnackBar(
-            title: "Account created Successfully",
+            title: "Account created Successfully You can now login",
             message: '',
             backgroundColor: snackBarSuccess);
       } else {

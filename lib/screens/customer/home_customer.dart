@@ -103,7 +103,7 @@ class _HomeCustomer extends State<HomeCustomer> {
             (index) => DropdownMenuItem<String>(
                   child: Text(list[index]),
                   value: list[index],
-                )),
+                )), onChanged: (String? value) {  },
         //onChanged: onSelected),
       ),
     );

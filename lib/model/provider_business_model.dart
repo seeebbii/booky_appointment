@@ -15,7 +15,7 @@ class ProviderBusinessModel {
     this.businessCategory,
     this.shoplocation,
     this.status,
-    this.businesscreateddate,
+    this.businesscreateddate, 
     this.dummytemp,
     this.availabledays,
   });
