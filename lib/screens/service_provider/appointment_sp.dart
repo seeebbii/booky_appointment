@@ -21,6 +21,7 @@ class _AppointmentServiceProvider extends State<AppointmentServiceProvider> {
 
   @override
   void initState() {
+    
     _.getBookedAppointments();
     print(_.authController.userid);
     super.initState();

@@ -1,136 +1,80 @@
-import 'package:booky/constant.dart';
+import 'package:booky/controller/authentication/auth_controller.dart';
+import 'package:booky/controller/authentication/auth_database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:booky/theme.dart';
-import 'package:nb_utils/nb_utils.dart';
+import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
-class NotificationCustomer extends StatelessWidget {
+class NotificationCustomer extends StatefulWidget {
   static const String id = "NotificationCustomer";
+
+  @override
+  State<NotificationCustomer> createState() => _NotificationCustomerState();
+}
+
+class _NotificationCustomerState extends State<NotificationCustomer> {
   final title = 'Notification';
-
-  void _showDialog(String mesg, BuildContext cxt, Function func) {
-    // flutter defined function
-    showDialog(
-        context: cxt,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            child: Container(
-              decoration: BoxDecoration(
-                color: kAppointmentColor,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              height: 195,
-              width: 310,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Column(
-                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-                  children: [
-                    Center(
-                      child: Image(
-                        image: AssetImage(
-                          "assets/error.png",
-                        ),
-                        width: 36,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Text(
-                        "اوقات العمل",
-                        style: TextStyle(
-                          color: kAppDividerColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        right: 20,
-                      ),
-                      child: RichText(
-                        text: TextSpan(
-                          text: "من الاحد الى الخميس",
-                          style: TextStyle(
-                            color: kAppointmentColor,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: RichText(
-                        text: TextSpan(
-                          text: "8:00" + "AM" + "-" + "2:00" + "PM",
-                          style: TextStyle(
-                            color: kAppDividerColor,
-                            fontSize: 18,
-                            //fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
+  final _ = Get.find<AuthController>();
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return MainContainer(
-      title: title,
-      child: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) => Container(
-          padding: EdgeInsets.all(15),
-          height: MediaQuery.of(context).size.height * 0.20,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 25.0, // soften the shadow
-                spreadRadius: 2.0, //extend the shadow
-              ),
-            ],
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.white,
-            ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 20,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "This is a new Notification!",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                Text(
-                    "kswledcmkwedmedmw  dwidjfiejeioqnf de2hn23idnh32 dihediwen dwenq dwednikw ")
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+        title: title,
+        child: StreamBuilder(
+            stream: AuthDatabaseService().getNotification(_.userid.value),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return Expanded(
+                    child: ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            padding: EdgeInsets.all(15),
+                            height: MediaQuery.of(context).size.height * 0.20,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 25.0, // soften the shadow
+                                  spreadRadius: 2.0, //extend the shadow
+                                ),
+                              ],
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.white,
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 20,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    snapshot.data[index].acceptedTime
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  Text(snapshot.data[index].message.toString())
+                                ],
+                              ),
+                            ),
+                          );
+                        }));
+              }
+              return Container(
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }));
   }
 }
 
