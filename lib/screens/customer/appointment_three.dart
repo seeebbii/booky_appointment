@@ -19,11 +19,14 @@ class AppointmentCustomerThree extends StatefulWidget {
   final RequestModelAdmin? requestModelAdmin;
   final DateTime? selectedDate;
   final String ?selectedTime;
+  final bool? isReschedule;
+  final String? rescheduleDocId;
   const AppointmentCustomerThree({
     Key? key,
      this.requestModelAdmin,
      this.selectedDate,
      this.selectedTime,
+    this.isReschedule = false, this.rescheduleDocId =''
   }) : super(key: key);
 
   @override
@@ -40,6 +43,23 @@ class _AppointmentCustomerThreeState extends State<AppointmentCustomerThree> {
         selectedTime: 
         widget.selectedTime)) {
       print("APPOINTMENTCREATE");
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => ConformationAppointment()));
+    } else {
+      CustomSnackBar.showSnackBar(
+          title: "APPOINTMENTCREATE CREATING FAILED",
+          message: '',
+          backgroundColor: snackBarError);
+    }
+  }
+
+  updateAppointment() async {
+    if (await appointmentController.updateAppointmentRequest(
+        requestModelAdmin: widget.requestModelAdmin,
+        selectedDate: widget.selectedDate,
+        selectedTime:
+        widget.selectedTime, rescheduleDocId: widget.rescheduleDocId!)) {
+      print("APOINTMENT UPDATED");
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => ConformationAppointment()));
     } else {
@@ -337,7 +357,13 @@ class _AppointmentCustomerThreeState extends State<AppointmentCustomerThree> {
                   MaterialButton(
                     padding: const EdgeInsets.fromLTRB(120, 5, 120, 5),
                     onPressed: () {
-                      createAppoitment();
+                      if(widget.isReschedule!){
+                        updateAppointment();
+                        print(widget.isReschedule!);
+                      }else{
+                        createAppoitment();
+                      }
+
                     },
                     color: const Color(0xff28676E),
                     shape: RoundedRectangleBorder(
