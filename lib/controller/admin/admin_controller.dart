@@ -14,12 +14,12 @@ class AdminController extends GetxController {
   final authController = Get.find<AuthController>();
   late ProviderBusinessModel businessModel;
 
- var requests=<RequestModelAdmin> [].obs;
-    getAppointments() async {
-requests.value =await ShopServices.getAllShops();
+//  var requests=<RequestModelAdmin> [].obs;
+//     getAppointments() async {
+// requests.value =await ShopServices.getAllShops();
 
-update();
-  }
+// update();
+//   }
   // Future<AuthModel> getUser(String uid) async {
   //   try {
   //     DocumentSnapshot doc = await firestore.collection("auth").doc(uid).get();

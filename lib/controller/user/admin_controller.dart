@@ -20,6 +20,11 @@ class UserController extends GetxController {
     isLoading.value = true;
     update();
   }
+
+
+
+
+  
   // Future<AuthModel> getUser(String uid) async {
   //   try {
   //     DocumentSnapshot doc = await firestore.collection("auth").doc(uid).get();

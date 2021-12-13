@@ -159,9 +159,9 @@ class AuthController extends GetxController {
 
   void saveUserState(String uid, String role, bool? isActivated) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    debugPrint('SAVE IN LOCAL DB : ' + uid);
-    debugPrint('SAVE IN LOCAL DB : ' + role);
-    debugPrint('SAVE IN LOCAL Activated : ' + role);
+    // debugPrint('SAVE IN LOCAL DB : ' + uid);
+    // debugPrint('SAVE IN LOCAL DB : ' + role);
+    // debugPrint('SAVE IN LOCAL Activated : ' + role);
     prefs.setString('uid', uid);
     prefs.setString('role', role);
     prefs.setBool('isActivated', isActivated!);

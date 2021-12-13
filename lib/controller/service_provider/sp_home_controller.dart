@@ -14,21 +14,7 @@ class SPHomeController extends GetxController {
 
   getAppointments() {}
 
-  // Future<AuthModel> getUser(String uid) async {
-  //   try {
-  //     DocumentSnapshot doc = await firestore.collection("auth").doc(uid).get();
-  //     if (!doc.exists) {
-  //       CustomSnackBar.showSnackBar(
-  //           title: "Not Authorized",
-  //           message: '',
-  //           backgroundColor: snackBarError);
-  //     }
-  //     return AuthModel.fromDocumentSnapshot(doc);
-  //   } catch (e) {
-  //     debugPrint(e.toString());
-  //     rethrow;
-  //   }
-  // }
+
 
   @override
   void onInit() {

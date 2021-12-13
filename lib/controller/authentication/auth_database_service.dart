@@ -103,30 +103,7 @@ class AuthDatabaseService {
       }
     }
 
-//   Stream<List<NotificationModel>> getNotification(String uid) async {
-//     try {
-//       CollectionReference _collectionRef = FirebaseFirestore.instance
-//           .collection("auth")
-//           .doc(uid)
-//           .collection("notifications").snapshots().map((event) => )
 
-//       //   return NotificationModel.fromDocumentSnapshot(doc);
-
-//       // Get docs from collection reference
-//       QuerySnapshot querySnapshot = await _collectionRef.get();
-//       // Get data from docs and convert map to List
-//       final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-//       allData.forEach((element) {
-//         notification.add(
-//             NotificationModel.fromMapSnapshot(element as Map<String, dynamic>));
-//       });
-//       return notification;
-//     } catch (e) {
-//       debugPrint(e.toString());
-//       rethrow;
-//     }
-//   }
-// }
     Stream<List<NotificationModel>> getNotification(String uid) {
       return _firestore
           .collection("auth")

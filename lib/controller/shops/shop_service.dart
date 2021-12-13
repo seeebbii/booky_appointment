@@ -139,21 +139,7 @@ class ShopServices {
           element as Map<String, dynamic>));
     });
     return collection;
-    // try {
-    //   CollectionReference <Map<String, dynamic>> doc =  _firestore.collection("serviceProvider-shop");
-
-    //   if (!doc.isEmpty) {
-    //     CustomSnackBar.showSnackBar(
-    //         title: "Not Authorized",
-    //         message: '',
-    //         backgroundColor: snackBarError);
-    //   }
-    //   return AuthModel.fromDocumentSnapshot(doc);
-    // } catch (e) {
-    //   debugPrint(e.toString());
-    //   rethrow;
-    // }
-  }
+     }
 
 
 

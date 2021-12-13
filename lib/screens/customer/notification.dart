@@ -21,7 +21,10 @@ class _NotificationCustomerState extends State<NotificationCustomer> {
   Widget build(BuildContext context) {
     return MainContainer(
         title: title,
-        child: StreamBuilder(
+        child: 
+        
+        
+        StreamBuilder(
             stream: AuthDatabaseService().getNotification(_.userid.value),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
@@ -72,6 +75,9 @@ class _NotificationCustomerState extends State<NotificationCustomer> {
                 child: Center(child: CircularProgressIndicator()),
               );
             }));
+  
+  
+  
   }
 }
 

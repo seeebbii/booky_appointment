@@ -160,6 +160,7 @@ class _SettingCustomer extends State<SettingCustomer> {
               ),
               child: InkWell(
                 onTap: () {
+                  
                   logoutAlert(context);
                 },
                 child: Container(

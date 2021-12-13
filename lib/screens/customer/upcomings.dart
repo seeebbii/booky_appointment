@@ -15,188 +15,192 @@ import 'card.dart';
 import 'notification.dart';
 
 class UpcomingAppointments extends StatelessWidget {
-    final List<AppointmentsModel> upcoming;
+  final List<AppointmentsModel> upcoming;
 
-  const UpcomingAppointments({Key? key,required this.upcoming}) : super(key: key);
+  const UpcomingAppointments({Key? key, required this.upcoming})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
       children: [
-      
-       Obx(()=>  upcoming.length!=0? ListView.builder(
-          padding: EdgeInsets.only(bottom: 10.0),
-          itemCount: upcoming.length,
-          itemBuilder: (context, index) {
-            return Column(
-              children: <Widget>[
-                ListTile(
-                  title: Text(
-                    upcoming[index].user!.businessName!.toString(),
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 5,
-                                blurRadius: 10,
-                                offset:
-                                    Offset(0, 0), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Icon(
-                              FontAwesomeIcons.calendarAlt,
-                              size: 18,
-                              color: kPrimaryColor,
-                            ),
-                          ),
+        Obx(() => upcoming.length != 0
+            ? ListView.builder(
+                padding: EdgeInsets.only(bottom: 10.0),
+                itemCount: upcoming.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: <Widget>[
+                      ListTile(
+                        title: Text(
+                          upcoming[index].user!.businessName!.toString(),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w800),
                         ),
-                        Text(days[index],
-                            textAlign: TextAlign.end,
-                            style: TextStyle(fontSize: 14)),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 5,
-                                blurRadius: 10,
-                                offset:
-                                    Offset(0, 0), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Icon(
-                              FontAwesomeIcons.clock,
-                              size: 18,
-                              color: kPrimaryColor,
-                            ),
-                          ),
-                        ),
-                        Text(time[index],
-                            textAlign: TextAlign.end,
-                            style: TextStyle(fontSize: 14)),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 5,
-                                blurRadius: 10,
-                                offset:
-                                    Offset(0, 0), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Icon(
-                              Icons.location_pin,
-                              size: 18,
-                              color: kPrimaryColor,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        color: Color(0xff6A6A6A),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 5.0),
-                          child: Text(
-                            'Cancel',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              // fontFamily: 'WorkSansBold'
-                            ),
-                          ),
-                        ),
-                        onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => BusinessHoursOne())),
                       ),
-                    ),
-                    Container(
-                      child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        color: kPrimaryColor,
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 10.0),
-                          child: Text(
-                            'Reschedule',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              // fontFamily: 'WorkSansBold'
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      spreadRadius: 5,
+                                      blurRadius: 10,
+                                      offset: Offset(
+                                          0, 0), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: Icon(
+                                    FontAwesomeIcons.calendarAlt,
+                                    size: 18,
+                                    color: kPrimaryColor,
+                                  ),
+                                ),
+                              ),
+                              Text(days[index],
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(fontSize: 14)),
+                            ],
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      spreadRadius: 5,
+                                      blurRadius: 10,
+                                      offset: Offset(
+                                          0, 0), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: Icon(
+                                    FontAwesomeIcons.clock,
+                                    size: 18,
+                                    color: kPrimaryColor,
+                                  ),
+                                ),
+                              ),
+                              Text(time[index],
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(fontSize: 14)),
+                            ],
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      spreadRadius: 5,
+                                      blurRadius: 10,
+                                      offset: Offset(
+                                          0, 0), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: Icon(
+                                    Icons.location_pin,
+                                    size: 18,
+                                    color: kPrimaryColor,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            child: MaterialButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              color: Color(0xff6A6A6A),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 5.0),
+                                child: Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0,
+                                    // fontFamily: 'WorkSansBold'
+                                  ),
+                                ),
+                              ),
+                              onPressed: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          BusinessHoursOne())),
                             ),
                           ),
-                        ),
-                        onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => BusinessHoursOne())),
+                          Container(
+                            child: MaterialButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              color: kPrimaryColor,
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 10.0),
+                                child: Text(
+                                  'Reschedule',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0,
+                                    // fontFamily: 'WorkSansBold'
+                                  ),
+                                ),
+                              ),
+                              onPressed: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          BusinessHoursOne())),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                Divider(
-                  thickness: .1,
-                  height: 30,
-                  endIndent: 10,
-                  color: Colors.black,
-                ),
-              ],
-            );
-          },
-        ):SizedBox.shrink()
-        ),
+                      Divider(
+                        thickness: .1,
+                        height: 30,
+                        endIndent: 10,
+                        color: Colors.black,
+                      ),
+                    ],
+                  );
+                },
+              )
+            : SizedBox.shrink()),
 
         // Divider(
         //   height: 100,

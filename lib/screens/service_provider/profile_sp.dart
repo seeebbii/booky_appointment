@@ -1,4 +1,5 @@
 import 'package:booky/controller/authentication/auth_controller.dart';
+import 'package:booky/screens/Login/login_page.dart';
 import 'package:booky/screens/customer/notification.dart';
 import 'package:booky/screens/customer/setting.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class _ProfileServiceProvider extends State<ProfileServiceProvider> {
                     child: Padding(
                       padding: EdgeInsets.all(20),
                       child: Image(
-                        image: AssetImage("assets/images/fahad.jpg"),
+                        image: AssetImage("assets/images/non-active-user.png"),
                         fit: BoxFit.fill,
                         width: MediaQuery.of(context).size.width * 0.15,
                       ),
@@ -149,7 +150,10 @@ class _ProfileServiceProvider extends State<ProfileServiceProvider> {
                 right: MediaQuery.of(context).size.width * 0.048,
               ),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  _.logOut();
+                  Get.offAll(LoginPage());
+                },
                 child: Container(
                   height: MediaQuery.of(context).size.height * 0.065,
                   decoration: BoxDecoration(
