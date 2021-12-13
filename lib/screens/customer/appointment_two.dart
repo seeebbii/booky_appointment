@@ -17,7 +17,9 @@ import 'appointment_three.dart';
 class AppointmentCustomerTwo extends StatefulWidget {
   static String id = "AppointmentCustomerTwo";
   final RequestModelAdmin? requestModelAdmin;
-  const AppointmentCustomerTwo({Key? key, this.requestModelAdmin})
+  final bool? isReschedule;
+  final String? rescheduleDocId;
+  const AppointmentCustomerTwo({Key? key, this.requestModelAdmin, this.isReschedule = false, this.rescheduleDocId = ''})
       : super(key: key);
 
   @override
@@ -25,34 +27,33 @@ class AppointmentCustomerTwo extends StatefulWidget {
 }
 
 class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
-
-  var appointmentController=Get.put(AppointmentController());
+  var appointmentController = Get.put(AppointmentController());
   var dateparse;
-   List<Availableday> availabledays=[];
+  List<Availableday> availabledays = [];
+
   // List<String> availabletime=[];
   late String weekday;
-  bool isProvideravailable=true;
-    bool isSelectionValid=false;
-    List<String> showavailable=[];
-  void initState()  {
+  bool isProvideravailable = true;
+  bool isSelectionValid = false;
+  List<String> showavailable = [];
+
+  void initState() {
     getdatetime();
     super.initState();
   }
 
-  List<Appointments> appointments = [
-    
-  ];
+  List<Appointments> appointments = [];
   DatePickerController _controller = DatePickerController();
   String selectedTime = "";
   DateTime _selectedValue = DateTime.now();
-  late Appointments _availableslot= new Appointments(time: '', isSelected: false);
-
+  late Appointments _availableslot =
+      new Appointments(time: '', isSelected: false);
 
   int choise = 0;
+
   @override
   Widget build(BuildContext context) {
-  
-  //  getdatetime();
+    //  getdatetime();
     return Scaffold(
       body: Stack(children: [
         SizedBox(
@@ -138,64 +139,60 @@ class _AppointmentCustomerTwoState extends State<AppointmentCustomerTwo> {
                     ),
 
                     Container(
-                      child:
-                       DatePicker(
-
+                      child: DatePicker(
                         DateTime.now(),
                         width: 60,
                         height: 120,
                         controller: _controller,
-                      
-                    
-                        selectionColor: isSelectionValid? Color(0xff28676E):Colors.transparent,
-                        selectedTextColor:isSelectionValid? Colors.white:Colors.black,
+
+                        selectionColor: isSelectionValid
+                            ? Color(0xff28676E)
+                            : Colors.transparent,
+                        selectedTextColor:
+                            isSelectionValid ? Colors.white : Colors.black,
                         // activeDates: [
-                        
+
                         // ],
-                        inactiveDates: [
-                       
-                        
-                          
-                        ],
+                        inactiveDates: [],
                         onDateChange: (date) {
-                     
-                         print(DateFormat('EEEE').format(date));
-                         isProvideravailable= checkavailibility(date);
-if(isProvideravailable==true){
-  
- setState(() {
-                     availabledays.forEach((element) {
-                       if(element.dayName!.toLowerCase()==DateFormat('EEEE').format(date).toLowerCase())
-                        _availableslot=new Appointments(time: '${element.fromTime}-${element.toTIme}', isSelected: false);
-                     })    ; 
-                    
-                            _selectedValue = date;
-                        
-                            isSelectionValid=true;
-                   
-                          });
+                          print(DateFormat('EEEE').format(date));
+                          isProvideravailable = checkavailibility(date);
+                          if (isProvideravailable == true) {
+                            setState(() {
+                              availabledays.forEach((element) {
+                                if (element.dayName!.toLowerCase() ==
+                                    DateFormat(
+                                            'EEEE')
+                                        .format(date)
+                                        .toLowerCase())
+                                  _availableslot = new Appointments(
+                                      time:
+                                          '${element.fromTime}-${element.toTIme}',
+                                      isSelected: false);
+                              });
 
-}
-                         
+                              _selectedValue = date;
 
-                          else
-                          {
-                             setState(() {
-                          
-                     
-                           // ignore: unnecessary_statements
-                           _availableslot.time='';
-                            isSelectionValid=false;
-                          });
-                         
-                         availabledays.forEach((element) {showavailable.add(element.dayName.toString());});
-   CustomSnackBar.showSnackBar(
-          title: "Please select from weekdays service provider will be available:",
-            message: showavailable.toString(),
-          backgroundColor: Colors.redAccent);
-          showavailable.clear();
+                              isSelectionValid = true;
+                            });
+                          } else {
+                            setState(() {
+                              // ignore: unnecessary_statements
+                              _availableslot.time = '';
+                              isSelectionValid = false;
+                            });
+
+                            availabledays.forEach((element) {
+                              showavailable.add(element.dayName.toString());
+                            });
+                            CustomSnackBar.showSnackBar(
+                                title:
+                                    "Please select from weekdays service provider will be available:",
+                                message: showavailable.toString(),
+                                backgroundColor: Colors.redAccent);
+                            showavailable.clear();
                           }
-                        showavailable.clear();
+                          showavailable.clear();
                         },
                       ),
                     ),
@@ -240,17 +237,15 @@ if(isProvideravailable==true){
 
                     Container(
                         height: 70,
-                        child:
-                         _availableslot.time==''?
-
-                         ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: appointments.length,
-                            itemBuilder: (context, index) {
-                              return spTimingsData(appointments[index], index);
-                            }):
-                            spTimingsData(_availableslot, 0)
-                            ),
+                        child: _availableslot.time == ''
+                            ? ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: appointments.length,
+                                itemBuilder: (context, index) {
+                                  return spTimingsData(
+                                      appointments[index], index);
+                                })
+                            : spTimingsData(_availableslot, 0)),
                     SizedBox(
                       height: 20,
                     ),
@@ -324,26 +319,26 @@ if(isProvideravailable==true){
                       child: MaterialButton(
                         padding: const EdgeInsets.fromLTRB(120, 5, 120, 5),
                         onPressed: () {
-                          if (selectedTime != ""&&isSelectionValid==true) {
-
+                          if (selectedTime != "" && isSelectionValid == true) {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => AppointmentCustomerThree(
-                                      requestModelAdmin:
-                                          widget.requestModelAdmin,
-                                      selectedTime: selectedTime,
-                                      selectedDate: _selectedValue,
-                                    )));
+                                  requestModelAdmin:
+                                  widget.requestModelAdmin,
+                                  selectedTime: selectedTime,
+                                  selectedDate: _selectedValue,
+                                  isReschedule: widget.isReschedule,
+                                    rescheduleDocId: widget.rescheduleDocId,
+                                )));
+                          } else {
+                            availabledays.forEach((element) {
+                              showavailable.add(element.dayName.toString());
+                            });
+                            CustomSnackBar.showSnackBar(
+                                title: "Please select Valid date:",
+                                message: showavailable.toString(),
+                                backgroundColor: Colors.redAccent);
+                            showavailable.clear();
                           }
-                          else
-                          {
-                             availabledays.forEach((element) {showavailable.add(element.dayName.toString());});
-                             CustomSnackBar.showSnackBar(
-          title: "Please select Valid date:",
-          message: showavailable.toString(),
-          backgroundColor: Colors.redAccent);
-          showavailable.clear();
-                          }
-                          
                         },
                         color: const Color(0xff28676E),
                         shape: RoundedRectangleBorder(
@@ -385,16 +380,12 @@ if(isProvideravailable==true){
   }
 
   bool checkavailibility(DateTime date) {
-  bool isavailable=false;
-      availabledays.forEach((element){
-                             if(element.dayName!.toLowerCase()==DateFormat('EEEE').format(date).toLowerCase())
-                           isavailable=true;
-                        
-print(DateFormat('EEEE').format(date).toLowerCase());
+    bool isavailable = false;
+    availabledays.forEach((element) {
+      if (element.dayName!.toLowerCase() ==
+          DateFormat('EEEE').format(date).toLowerCase()) isavailable = true;
 
-
-
-    
+      print(DateFormat('EEEE').format(date).toLowerCase());
     });
     return isavailable;
   }
@@ -414,6 +405,7 @@ print(DateFormat('EEEE').format(date).toLowerCase());
         " " +
         date.year.toString();
   }
+
   // Widget demoDate1(String day, String date, bool isSelected) {
   //   return InkWell(
   //     onTap: () {
@@ -750,7 +742,7 @@ print(DateFormat('EEEE').format(date).toLowerCase());
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-           margin: EdgeInsets.only(right: 2,left: 2),
+          margin: EdgeInsets.only(right: 2, left: 2),
           decoration: BoxDecoration(
             color: appointments[index].isSelected
                 ? kAppointmentColor
@@ -772,7 +764,7 @@ print(DateFormat('EEEE').format(date).toLowerCase());
                 ),
               ),
               Container(
-                 margin: EdgeInsets.only(right: 5),
+                margin: EdgeInsets.only(right: 5),
                 child: Text(
                   selectetAppointments.time,
                   style: TextStyle(
@@ -825,6 +817,7 @@ print(DateFormat('EEEE').format(date).toLowerCase());
     //     ),
     //   );
   }
+
   Future<void> _selectDate(BuildContext context) async {
     var selectedDate;
     final DateTime? picked = await showDatePicker(
@@ -839,7 +832,9 @@ print(DateFormat('EEEE').format(date).toLowerCase());
                 primaryColor: Colors.orangeAccent,
                 disabledColor: Colors.brown,
                 textTheme:
-                    TextTheme(bodyText1: TextStyle(color: Colors.blueAccent)), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.yellow)),
+                    TextTheme(bodyText1: TextStyle(color: Colors.blueAccent)),
+                colorScheme: ColorScheme.fromSwatch()
+                    .copyWith(secondary: Colors.yellow)),
             child: Text('fdf'),
           );
         });
@@ -848,6 +843,7 @@ print(DateFormat('EEEE').format(date).toLowerCase());
         selectedDate = picked;
       });
   }
+
   bool _predicate(DateTime day) {
     if ((day.isAfter(DateTime(2020, 1, 5)) &&
         day.isBefore(DateTime(2020, 1, 9)))) {
@@ -872,12 +868,11 @@ print(DateFormat('EEEE').format(date).toLowerCase());
 
     DateTime now = DateTime.now();
     var date = now.toString();
-widget.requestModelAdmin!.shop!.availabledays!.forEach((element) {
-availabledays.add(element);
-appointments.add(Appointments(time: '${element.fromTime}-${element.toTIme}', isSelected: false));
- 
-
- });
+    widget.requestModelAdmin!.shop!.availabledays!.forEach((element) {
+      availabledays.add(element);
+      appointments.add(Appointments(
+          time: '${element.fromTime}-${element.toTIme}', isSelected: false));
+    });
 
     dateparse = DateTime.parse(date);
     weekday = DateFormat('EEEE').format(now);
@@ -887,6 +882,7 @@ appointments.add(Appointments(time: '${element.fromTime}-${element.toTIme}', isS
 class Appointments {
   String time;
   bool isSelected;
+
   Appointments({
     required this.time,
     required this.isSelected,

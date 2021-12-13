@@ -1,5 +1,6 @@
 import 'package:booky/controller/service_provider/service_provider_controller.dart';
 import 'package:booky/model/authentication/auth_model.dart';
+import 'package:booky/model/authentication/notification.dart';
 import 'package:booky/utils/auth_exception_handler.dart';
 import 'package:booky/utils/colors.dart';
 import 'package:booky/utils/custom_snackbar.dart';
@@ -15,13 +16,13 @@ import 'auth_database_service.dart';
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final firebaseUser = FirebaseAuth.instance.currentUser.obs;
-  // final spController =Get.put(ServiceProvider());
 
   var currentUser = AuthModel().obs;
   AuthResultStatus? _status;
   RxString role = "".obs;
   RxBool isActivated = false.obs;
   RxString userid = "".obs;
+  RxBool isLoadingNotify = false.obs;
 
   @override
   void onInit() {
@@ -42,6 +43,12 @@ class AuthController extends GetxController {
   Future getUserById(String uid) async {
     currentUser.value = await AuthDatabaseService().getUser(uid);
   }
+
+  // Future getNotificationByid(String uid) async {
+  //   notification.value = await AuthDatabaseService().getNotification(uid);
+  //   isLoadingNotify.value = true;
+  //   update();
+  // }
 
   Future<String> firebaseToken() async {
     FirebaseMessaging fcm = FirebaseMessaging.instance;

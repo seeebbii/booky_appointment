@@ -1,5 +1,6 @@
 import 'package:booky/model/appointments_model.dart';
 import 'package:booky/controller/authentication/auth_controller.dart';
+import 'package:booky/model/authentication/notification.dart';
 import 'package:booky/model/request_model_admin.dart';
 import 'package:booky/screens/alerts.dart';
 import 'package:booky/utils/colors.dart';
@@ -15,6 +16,9 @@ class AppointmentController extends GetxController {
   var upcomingAppointments=<AppointmentsModel>[].obs;
   var previousAppointments=<AppointmentsModel>[].obs;
   RxBool isLoading = false.obs;
+  
+
+
 
   Future<void> getBookedAppointments() async {
     List<AppointmentsModel> appointments = [];
@@ -43,6 +47,34 @@ class AppointmentController extends GetxController {
     try {
       DocumentReference document = _firestore.collection('appointments').doc();
       await document.set({
+        "uid": authController.currentUser.value.toJson(),
+        "appointment-time": selectedTime,
+        "appointment-date": selectedDate?.toIso8601String(),
+        "appointment-details": requestModelAdmin?.toJson(),
+        "createdAt": Timestamp.now(),
+        "status":'booked',
+        "docId": document.id,
+      });
+      print(document.id);
+      CustomSnackBar.showSnackBar(
+          title: "Appointment submitted successfully",
+          message: '',
+          backgroundColor: snackBarSuccess);
+      return true;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> updateAppointmentRequest({
+    required RequestModelAdmin? requestModelAdmin,
+    required DateTime? selectedDate,
+    required String? selectedTime, required final String rescheduleDocId
+  }) async {
+    try {
+      DocumentReference document = _firestore.collection('appointments').doc(rescheduleDocId);
+      await document.update({
         "uid": authController.currentUser.value.toJson(),
         "appointment-time": selectedTime,
         "appointment-date": selectedDate?.toIso8601String(),

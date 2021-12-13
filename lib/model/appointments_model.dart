@@ -28,7 +28,7 @@ class AppointmentsModel {
     try {
       appointmentdate = doc['appointment-date'];
       appointmenttime = doc['appointment-time'];
-      docId = doc['appointment-date'];
+      docId = doc['docId'];
       createdAt = doc['createdAt'];
       appointmentsDetails =
           RequestModelAdmin.fromDocumentSnapshot(doc['appointment-details']);
