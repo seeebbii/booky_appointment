@@ -61,7 +61,7 @@ class ShopServices {
       'acceptedTime': Timestamp.now()
     });
 
-    shop.status = "Accepted";
+    shop.status = "upcomming";
 
     await _firestore
         .collection('serviceProvider-shop')
@@ -139,12 +139,5 @@ class ShopServices {
           element as Map<String, dynamic>));
     });
     return collection;
-     }
-
-
-
-
-
-
-
+  }
 }
