@@ -1,4 +1,5 @@
 import 'package:booky/model/appointments_model.dart';
+import 'package:booky/screens/customer/appointment_two.dart';
 import 'package:booky/screens/customer/card.dart';
 import 'package:booky/screens/service_provider/business_hours_one.dart';
 import 'package:booky/screens/service_provider/profile_sp.dart';
@@ -9,7 +10,7 @@ import 'package:booky/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/state_manager.dart';
-
+import 'package:get/get.dart';
 import '../../constant.dart';
 import 'card.dart';
 import 'notification.dart';

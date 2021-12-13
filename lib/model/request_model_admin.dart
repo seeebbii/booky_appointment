@@ -16,10 +16,12 @@ class RequestModelAdmin {
   });
 
   RequestModelAdmin.fromDocumentSnapshot(Map<String, dynamic> doc) {
-    docid = doc['docId'];
-    shop = ProviderBusinessModel.fromDocumentSnapshot(doc['shop']);
-    user = AuthModel.fromMapSnapshot(doc['uid']);
-    createdAt = doc['createdAt'];
+    try {
+      docid = doc['docId'];
+      shop = ProviderBusinessModel.fromDocumentSnapshot(doc['shop']);
+      user = AuthModel.fromMapSnapshot(doc['user']);
+      createdAt = doc['createdAt'];
+    } catch (e) {}
   }
 
   Map<String, dynamic> toJson() => {

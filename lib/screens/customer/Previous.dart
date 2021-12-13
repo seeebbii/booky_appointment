@@ -123,7 +123,7 @@ class FAQListitem extends StatelessWidget {
                             color: Colors.grey,
                             fontSize: 14,
                           )),
-                      Text(previous.user!.businessName.toString(),
+                      Text(previous.appointmentsDetails!.shop!.shopName!.toString(),
                           style: TextStyle(
                             color: kPrimaryColor,
                             fontSize: 16,
@@ -146,7 +146,7 @@ class FAQListitem extends StatelessWidget {
                       Row(
                         //    mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(previous.appointmentdate!.toString(),
+                          Text(previous.appointmentdate!.toString().substring(0,10),
                               style: TextStyle(
                                 color: kPrimaryColor,
                                 fontSize: 16,
@@ -178,7 +178,7 @@ class FAQListitem extends StatelessWidget {
                             // fontWeight: FontWeight.w400,
                             // fontFamily: "Raleway"
                           )),
-                      Text(previous.user!.phoneNumber.toString(),
+                      Text(previous.appointmentsDetails!.user!.phoneNumber!,
                           style: TextStyle(
                             color: kPrimaryColor,
                             fontSize: 16,
@@ -211,7 +211,7 @@ class FAQListitem extends StatelessWidget {
           ),
         ),
       ),
-      title: Text(previous.user!.businessName.toString()),
+      title: Text(previous.appointmentsDetails!.shop!.shopName!.toString()),
       subtitle: InkWell(
           onTap: () {
             showQASheet(context);

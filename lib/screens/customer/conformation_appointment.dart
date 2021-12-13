@@ -1,6 +1,7 @@
 import 'package:booky/screens/customer/home_customer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import '../../theme.dart';
 
@@ -43,8 +44,7 @@ class ConformationAppointment extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 30.0),
                 child: MaterialButton(
                   padding: const EdgeInsets.fromLTRB(120, 8, 120, 8),
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => HomeCustomer())),
+                  onPressed: () => Get.offAll(HomeCustomer()),
                   color: const Color(0xff28676E),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

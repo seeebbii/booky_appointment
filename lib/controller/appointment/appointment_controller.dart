@@ -67,7 +67,37 @@ class AppointmentController extends GetxController {
     }
   }
 
+  Future<bool> updateAppointmentRequest({
+    required RequestModelAdmin? requestModelAdmin,
+    required DateTime? selectedDate,
+    required String? selectedTime, required final String rescheduleDocId
+  }) async {
+    try {
+      DocumentReference document = _firestore.collection('appointments').doc(rescheduleDocId);
+      await document.update({
+        "uid": authController.currentUser.value.toJson(),
+        "appointment-time": selectedTime,
+        "appointment-date": selectedDate?.toIso8601String(),
+        "appointment-details": requestModelAdmin?.toJson(),
+        "createdAt": Timestamp.now(),
+        "status":'booked',
+        "docId": document.id,
+      });
+      print(document.id);
+      CustomSnackBar.showSnackBar(
+          title: "Appointment submitted successfully",
+          message: '',
+          backgroundColor: snackBarSuccess);
+      return true;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
+  }
+
   void setforCustomer(List<AppointmentsModel> value) {
+    upcomingAppointments.clear();
+    previousAppointments.clear();
     value.forEach((element) {
       if(element.user!.uid!.toString()==authController.currentUser.value.uid.toString())
     { // if(element.status.toString()=='accepted')
