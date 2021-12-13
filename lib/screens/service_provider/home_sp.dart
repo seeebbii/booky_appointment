@@ -74,6 +74,7 @@ class _HomeServiceProvider extends State<HomeServiceProvider> {
     return Container(color: Colors.white, child: Pages[index]);
   }
 
+<<<<<<< HEAD
   _getMenuButton(List<String> list, String selectedValue,
       ValueChanged<String> onSelected) {
     return Theme(
@@ -91,4 +92,23 @@ class _HomeServiceProvider extends State<HomeServiceProvider> {
       ),
     );
   }
+=======
+  // _getMenuButton(List<String> list, String selectedValue,
+  //     ValueChanged<String> onSelected) {
+  //   return Theme(
+  //     data: ThemeData.dark(),
+  //     child: DropdownButton(
+  //       underline: SizedBox(),
+  //       value: selectedValue,
+  //       items: List.generate(
+  //           list.length,
+  //           (index) => DropdownMenuItem<String>(
+  //                 child: Text(list[index]),
+  //                 value: list[index],
+  //               )),
+  //       //onChanged: onSelected),
+  //     ),
+  //   );
+  // }
+>>>>>>> dev
 }

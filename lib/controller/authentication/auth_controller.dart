@@ -20,6 +20,7 @@ class AuthController extends GetxController {
   var currentUser = AuthModel().obs;
   AuthResultStatus? _status;
   RxString role = "".obs;
+  RxBool isActivated = false.obs;
 
   @override
   void onInit() {
@@ -61,7 +62,6 @@ class AuthController extends GetxController {
       String bName,
       int rating) async {
     try {
-
       String fcmToken = await firebaseToken();
 
       UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
@@ -121,8 +121,9 @@ class AuthController extends GetxController {
         currentUser.value =
             await AuthDatabaseService().getUser(_authResult.user!.uid);
 
-       // currentUser.value = _user;
-        saveUserState(_authResult.user!.uid, currentUser.value.role.toString());
+        // currentUser.value = _user;
+        saveUserState(_authResult.user!.uid, currentUser.value.role.toString(),
+            currentUser.value.isActiveted);
       } else {
         _status = AuthResultStatus.undefined;
       }
@@ -139,6 +140,8 @@ class AuthController extends GetxController {
       await _auth.signOut();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.remove('uid');
+      prefs.remove('role');
+      prefs.remove('isActivated');
       // Get.offAll(() => Login());
     } catch (e) {
       CustomSnackBar.showSnackBar(
@@ -146,17 +149,20 @@ class AuthController extends GetxController {
     }
   }
 
-  void saveUserState(String uid, String role) async {
+  void saveUserState(String uid, String role, bool? isActivated) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     debugPrint('SAVE IN LOCAL DB : ' + uid);
     debugPrint('SAVE IN LOCAL DB : ' + role);
+    debugPrint('SAVE IN LOCAL Activated : ' + role);
     prefs.setString('uid', uid);
     prefs.setString('role', role);
+    prefs.setBool('isActivated', isActivated!);
   }
 
   Future getUserId() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     role.value = prefs.getString('role').toString();
+    isActivated.value = prefs.getBool('isActivated')!;
     print(role.value);
     return prefs.getString('uid');
   }

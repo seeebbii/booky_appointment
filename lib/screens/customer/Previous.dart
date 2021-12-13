@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class PreviousAppointments extends StatelessWidget {
   static const String id = "PreviousAppointments";
   final title = 'Notification';
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(

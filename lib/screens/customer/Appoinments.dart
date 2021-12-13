@@ -1,8 +1,10 @@
+import 'package:booky/controller/appointment/appointment_controller.dart';
 import 'package:booky/screens/customer/Previous.dart';
 import 'package:booky/screens/customer/setting.dart';
 import 'package:booky/screens/customer/upcomings.dart';
 import 'package:booky/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../constant.dart';
 import 'card.dart';
@@ -17,6 +19,14 @@ class Appoinments extends StatefulWidget {
 }
 
 class _Appoinments extends State<Appoinments> {
+  final _ = Get.find<AppointmentController>();
+
+  @override
+  void initState() {
+    _.getBookedAppointments();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,15 +131,18 @@ class _Appoinments extends State<Appoinments> {
                             SizedBox(
                               height: 20.0,
                             ),
-                            Container(
-                              height: MediaQuery.of(context).size.height / 1.5,
-                              child: TabBarView(
-                                children: [
-                                  PreviousAppointments(),
-                                  UpcomingAppointments(),
-                                ],
-                              ),
-                            ),
+                            Obx(() => _.isLoading.value
+                                ? Container(
+                                    height: MediaQuery.of(context).size.height /
+                                        1.5,
+                                    child: TabBarView(
+                                      children: [
+                                        PreviousAppointments(),
+                                        UpcomingAppointments(),
+                                      ],
+                                    ),
+                                  )
+                                : SizedBox.shrink()),
                           ],
                         ),
                       ),
