@@ -21,7 +21,6 @@ class _AppointmentServiceProvider extends State<AppointmentServiceProvider> {
 
   @override
   void initState() {
-    
     _.getBookedAppointments();
     print(_.authController.userid);
     super.initState();
@@ -40,9 +39,8 @@ class _AppointmentServiceProvider extends State<AppointmentServiceProvider> {
                     itemCount: _.bookedAppointments.length,
                     itemBuilder: (context, index) {
                       return _.bookedAppointments[index].user!.uid ==
-                              "S9HyFORUZVYZ9ioaGpHL4Iu9abU2"
-                          //   _.authController.userid.value
-
+                              //   "S9HyFORUZVYZ9ioaGpHL4Iu9abU2"
+                              _.authController.userid.value
                           ? Column(
                               children: <Widget>[
                                 ListTile(

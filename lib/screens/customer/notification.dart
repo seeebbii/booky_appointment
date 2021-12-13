@@ -15,10 +15,7 @@ class NotificationCustomer extends StatefulWidget {
 class _NotificationCustomerState extends State<NotificationCustomer> {
   final title = 'Notification';
   final _ = Get.find<AuthController>();
-  @override
-  void initState() {
-    super.initState();
-  }
+
 
   @override
   Widget build(BuildContext context) {
