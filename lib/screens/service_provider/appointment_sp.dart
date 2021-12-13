@@ -1,5 +1,6 @@
 import 'package:booky/controller/appointment/appointment_controller.dart';
 import 'package:booky/model/appointments_model.dart';
+import 'package:booky/screens/alerts.dart';
 import 'package:booky/screens/customer/notification.dart';
 import 'package:booky/theme.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class _AppointmentServiceProvider extends State<AppointmentServiceProvider> {
   @override
   void initState() {
     _.getBookedAppointments();
+    print(_.authController.userid);
     super.initState();
   }
 
@@ -36,35 +38,42 @@ class _AppointmentServiceProvider extends State<AppointmentServiceProvider> {
                     padding: EdgeInsets.only(top: 60.0),
                     itemCount: _.bookedAppointments.length,
                     itemBuilder: (context, index) {
-                      return Column(
-                        children: <Widget>[
-                          ListTile(
-                            title: Text(
-                              _.bookedAppointments[index].appointmenttime
-                                  .toString(),
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                          // SizedBox(
-                          //   height: 70,
-                          // ),
-                          Image(
-                            height: 100,
-                            width: 100,
-                            image: AssetImage(
-                                "assets/images/Calendar_Flatline.png"),
-                          ),
-                          Text("No Opcoming Appointments"),
-                          Divider(
-                            thickness: .1,
-                            height: 20,
-                            indent: 10,
-                            endIndent: 10,
-                            color: Colors.black,
-                          ),
-                        ],
-                      );
+                      return _.bookedAppointments[index].user!.uid ==
+                              "S9HyFORUZVYZ9ioaGpHL4Iu9abU2"
+                          //   _.authController.userid.value
+
+                          ? Column(
+                              children: <Widget>[
+                                ListTile(
+                                  title: Text(
+                                    _.bookedAppointments[index].appointmentdate
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                                // SizedBox(
+                                //   height: 70,
+                                // ),
+                                Image(
+                                  height: 100,
+                                  width: 100,
+                                  image: AssetImage(
+                                      "assets/images/Calendar_Flatline.png"),
+                                ),
+                                Text(
+                                    "${_.bookedAppointments[index].appointmentsDetails!.shop!.status} Appointments"),
+                                Divider(
+                                  thickness: .1,
+                                  height: 20,
+                                  indent: 10,
+                                  endIndent: 10,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            )
+                          : SizedBox.shrink();
                     },
                   ),
 

@@ -137,8 +137,8 @@ class _Appoinments extends State<Appoinments> {
                                         1.5,
                                     child: TabBarView(
                                       children: [
-                                        PreviousAppointments(),
-                                        UpcomingAppointments(),
+                                        PreviousAppointments(previous: _.previousAppointments,),
+                                        UpcomingAppointments(upcoming:_.upcomingAppointments),
                                       ],
                                     ),
                                   )
