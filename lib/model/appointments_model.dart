@@ -12,6 +12,8 @@ class AppointmentsModel {
   AuthModel? user;
   String? status;
 
+
+
   AppointmentsModel({
     this.appointmentdate,
     this.appointmenttime,

@@ -2,6 +2,7 @@ import 'package:booky/model/appointments_model.dart';
 import 'package:booky/controller/authentication/auth_controller.dart';
 import 'package:booky/model/authentication/notification.dart';
 import 'package:booky/model/request_model_admin.dart';
+import 'package:booky/screens/alerts.dart';
 import 'package:booky/utils/colors.dart';
 import 'package:booky/utils/custom_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,8 +11,10 @@ import 'package:get/get.dart';
 
 class AppointmentController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final authController = Get.find<AuthController>();
+  final AuthController authController = Get.find<AuthController>();
   var bookedAppointments = <AppointmentsModel>[].obs;
+  var upcomingAppointments=<AppointmentsModel>[].obs;
+  var previousAppointments=<AppointmentsModel>[].obs;
   RxBool isLoading = false.obs;
   
 
@@ -30,6 +33,7 @@ class AppointmentController extends GetxController {
           element as Map<String, dynamic>));
     });
     bookedAppointments.value = appointments;
+    setforCustomer(bookedAppointments.value);
     print(bookedAppointments.length);
     isLoading.value = true;
     update();
@@ -61,5 +65,19 @@ class AppointmentController extends GetxController {
       debugPrint(e.toString());
       return false;
     }
+  }
+
+  void setforCustomer(List<AppointmentsModel> value) {
+    value.forEach((element) {
+      if(element.user!.uid!.toString()==authController.currentUser.value.uid.toString())
+    { // if(element.status.toString()=='accepted')
+      upcomingAppointments.add(element);
+      // else if(element.status.toString()=='completed')
+      previousAppointments.add(element);
+    } 
+    });
+  
+
+
   }
 }

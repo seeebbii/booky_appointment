@@ -1,3 +1,4 @@
+import 'package:booky/model/appointments_model.dart';
 import 'package:booky/screens/customer/card.dart';
 import 'package:booky/screens/service_provider/business_hours_one.dart';
 import 'package:booky/screens/service_provider/profile_sp.dart';
@@ -7,26 +8,31 @@ import 'package:booky/screens/customer/setting.dart';
 import 'package:booky/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/state_manager.dart';
 
 import '../../constant.dart';
 import 'card.dart';
 import 'notification.dart';
 
 class UpcomingAppointments extends StatelessWidget {
+    final List<AppointmentsModel> upcoming;
+
+  const UpcomingAppointments({Key? key,required this.upcoming}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
       children: [
-        ListView.builder(
+      
+       Obx(()=>  upcoming.length!=0? ListView.builder(
           padding: EdgeInsets.only(bottom: 10.0),
-          itemCount: BusinessNames.length,
+          itemCount: upcoming.length,
           itemBuilder: (context, index) {
             return Column(
               children: <Widget>[
                 ListTile(
                   title: Text(
-                    BusinessNames[index],
+                    upcoming[index].user!.businessName!.toString(),
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
                   ),
                 ),
@@ -189,6 +195,7 @@ class UpcomingAppointments extends StatelessWidget {
               ],
             );
           },
+        ):SizedBox.shrink()
         ),
 
         // Divider(
