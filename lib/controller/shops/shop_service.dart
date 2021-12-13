@@ -46,14 +46,6 @@ class ShopServices {
   }
 
   static Future acceptRequest(
-<<<<<<< HEAD
-    String docId,
-    ProviderBusinessModel shop,
-  ) async {
-    shop.status = "upcoming";
-    await _firestore.collection('serviceProvider-shop').doc(docId).update({
-      'shop': shop.toJson(),
-=======
       String docId, ProviderBusinessModel shop, AuthModel user) async {
     AuthModel fetchedUser = await AuthDatabaseService().getUser(user.uid!);
 
@@ -89,7 +81,6 @@ class ShopServices {
       'isActiveted': fetchedUser.isActiveted,
       'imageUrl': fetchedUser.imageUrl,
       'fcmToken': fetchedUser.fcmToken
->>>>>>> main
     });
     sendNotification(fetchedUser.fcmToken!, 'Accepted');
   }
