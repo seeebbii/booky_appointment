@@ -11,6 +11,8 @@ class AppointmentsModel {
   RequestModelAdmin? appointmentsDetails;
   AuthModel? user;
 
+
+
   AppointmentsModel({
     this.appointmentdate,
     this.appointmenttime,
