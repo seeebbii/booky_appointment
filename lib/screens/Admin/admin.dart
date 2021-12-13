@@ -87,7 +87,7 @@ class _AdminHome extends State<AdminHome> {
                                   trailing: adminController.requests[index].shop!.status != "Requested" ? Text(adminController.requests[index].shop!.status.toString()) : Wrap(children: <Widget>[
                                     MaterialButton(
                                       onPressed: () {
-                                        ShopServices.rejectRequest( adminController.requests[index].docid! ,adminController.requests[index].shop!).then((value) => adminController.getAppointments());
+                                        ShopServices.rejectRequest( adminController.requests[index].docid! ,adminController.requests[index].shop!, adminController.requests[index].user!).then((value) => adminController.getAppointments());
                                       },
                                       color: Colors.red,
                                       textColor: Colors.white,
@@ -101,7 +101,7 @@ class _AdminHome extends State<AdminHome> {
                                     ),
                                     MaterialButton(
                                       onPressed: () {
-                                        ShopServices.acceptRequest( adminController.requests[index].docid! ,adminController.requests[index].shop!, ).then((value) => adminController.getAppointments());
+                                        ShopServices.acceptRequest( adminController.requests[index].docid! ,adminController.requests[index].shop!, adminController.requests[index].user!).then((value) => adminController.getAppointments());
                                       },
                                       color: Colors.green,
                                       textColor: Colors.white,

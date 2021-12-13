@@ -14,7 +14,6 @@ class AuthDatabaseService {
   final authController = Get.find<AuthController>();
 
   void updateFcmToken(String token, String uid)async{
-    print(token);
     await _firestore.collection("auth").doc(uid).update({
       "fcmToken": token
     });

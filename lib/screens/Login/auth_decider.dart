@@ -25,7 +25,7 @@ class AuthDecider extends StatelessWidget {
               AuthDatabaseService().updateFcmToken(
                   authController.currentUser.value.fcmToken!, auth.data);
             });
-            debugPrint("Role Save in DB is : ${authController.role}");
+
             if (authController.role.value == "admin") {
               return AdminHome();
             } else if (authController.role.value == "serviceProvider") {
