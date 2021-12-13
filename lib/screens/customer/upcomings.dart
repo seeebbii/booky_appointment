@@ -172,13 +172,14 @@ class UpcomingAppointments extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 10.0),
                           child: Text(
-                            'Reschedule',
+                            'Reschedule here here',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
                               // fontFamily: 'WorkSansBold'
                             ),
                           ),
+                          //from main from main hello 123
                         ),
                         onPressed: () => Get.to(AppointmentCustomerTwo(requestModelAdmin: upcoming[index].appointmentsDetails , isReschedule:  true, rescheduleDocId: upcoming[index].docId)),
                       ),
